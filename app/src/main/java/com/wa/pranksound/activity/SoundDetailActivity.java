@@ -26,15 +26,12 @@ import android.os.Vibrator;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -48,7 +45,6 @@ import com.wa.pranksound.Room.InsertPrankSound;
 import com.wa.pranksound.Room.QueryClass;
 import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.utils.BaseActivity;
-import com.wa.pranksound.utils.RemoteConfig;
 import com.wa.pranksound.utils.Utils;
 
 import java.io.IOException;
@@ -139,25 +135,12 @@ public class SoundDetailActivity extends BaseActivity {
         Log.d("check_file", "image_sound_from_fav: " + string_img_sound);
         Log.d("check_file", "music name: " + musicName);
 
-        RelativeLayout rl_banner = findViewById(R.id.rl_banner);
-        TextView txtAds = findViewById(R.id.txtAds);
-
-        //  bannerLoadAndShow(this, txtAds, rl_banner);
-
         InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
         if (insertPrankSound1 != null) {
             imgHeart.setImageResource(R.drawable.ic_favorite_check);
         } else {
             imgHeart.setImageResource(R.drawable.ic_heart);
         }
-
-        //test favotites
-//        InsertPrankSound insertPrankSound1 = queryClass.getFavSound1(strCateName, strMusicName, string_img_sound);
-//        if (insertPrankSound1 != null) {
-//            imgHeart.setImageResource(R.drawable.ic_favorite_check);
-//        } else {
-//            imgHeart.setImageResource(R.drawable.ic_heart);
-//        }
 
         if (strMusicName != null) {
             txtTitle.setText(musicName);
@@ -218,33 +201,27 @@ public class SoundDetailActivity extends BaseActivity {
                 endTime.setText(durationText);
                 seekBar.setMax(length);
 
-                runnable = new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mediaPlayer != null) {
-                            seekBar.setProgress(mediaPlayer.getCurrentPosition());
-                            handler.postDelayed(runnable, 5);
-                        }
-
+                runnable = () -> {
+                    if (mediaPlayer != null) {
+                        seekBar.setProgress(mediaPlayer.getCurrentPosition());
+                        handler.postDelayed(runnable, 5);
                     }
+
                 };
 
-                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        if (!isLoop) {
-                            if (mediaPlayer != null) {
-                                seekBar.setProgress(mediaPlayer.getDuration());
-                            }
-                            isPlaying = false;
-                            imgPlayPause.setImageResource(R.drawable.play);
-                            //set anim
-                            imgAnimation.setVisibility(View.INVISIBLE);
-                        } else {
-                            seekBar.setProgress(0);
-                            mediaPlayer.start();
-                            startVibrate();
+                mediaPlayer.setOnCompletionListener(mp -> {
+                    if (!isLoop) {
+                        if (mediaPlayer != null) {
+                            seekBar.setProgress(mediaPlayer.getDuration());
                         }
+                        isPlaying = false;
+                        imgPlayPause.setImageResource(R.drawable.play);
+                        //set anim
+                        imgAnimation.setVisibility(View.INVISIBLE);
+                    } else {
+                        seekBar.setProgress(0);
+                        mediaPlayer.start();
+                        startVibrate();
                     }
                 });
 
@@ -253,182 +230,156 @@ public class SoundDetailActivity extends BaseActivity {
                 e.printStackTrace();
             }
 
-            swLoop.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    isLoop = isChecked;
-                }
-            });
+            swLoop.setOnCheckedChangeListener((buttonView, isChecked) -> isLoop = isChecked);
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void clickEvent() {
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        imgBack.setOnClickListener(v -> {
+            INSTANCE.loadAndShowInterstitialAd(SoundDetailActivity.this, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
+                @Override
+                public void onAdClose() {
+                    Log.d("check_show_ads", "show in back sound list");
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
 
-                //  getOnBackPressedDispatcher().onBackPressed();
+                @Override
+                public void onAdFailed() {
+                    Log.d("check_show_ads", "not show in back sound list");
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            });
 
-                INSTANCE.loadAndShowInterstitialAd(SoundDetailActivity.this, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                    @Override
-                    public void onAdClose() {
-                        Log.d("check_show_ads", "show in back sound list");
-                        getOnBackPressedDispatcher().onBackPressed();
-                    }
-
-                    @Override
-                    public void onAdFailed() {
-                        Log.d("check_show_ads", "not show in back sound list");
-                        getOnBackPressedDispatcher().onBackPressed();
-                    }
-                });
-
-            }
         });
-        llBtnOff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(new ContextThemeWrapper(SoundDetailActivity.this, R.style.myPopupMenu), v);
-                popupMenu.getMenuInflater().inflate(R.menu.set_time, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.five) {
-                            startCountDownTimer(5000, txtCountTime);
-                            tvOff.setText(R.string._5s);
-                            return true;
-                        } else if (item.getItemId() == R.id.fiveMinute) {
-                            startCountDownTimer(300000, txtCountTime);
-                            tvOff.setText(R.string._5m);
-                            return true;
-                        } else if (item.getItemId() == R.id.off) {
-                            if (countDownTimer != null) {
-                                countDownTimer.cancel();
-                            }
-                            imgPlayPause.setEnabled(true);
-                            txtCountTime.setText("");
-                            tvOff.setText(R.string._off);
-                            return true;
-                        } else if (item.getItemId() == R.id.oneMinute) {
-                            startCountDownTimer(60000, txtCountTime);
-                            tvOff.setText(R.string._1m);
-                            return true;
-                        } else if (item.getItemId() == R.id.ten) {
-                            startCountDownTimer(10000, txtCountTime);
-                            tvOff.setText(R.string._10s);
-                            return true;
-                        } else if (item.getItemId() == R.id.thirty) {
-                            startCountDownTimer(30000, txtCountTime);
-                            tvOff.setText(R.string._30s);
-                            return true;
-                        } else {
-                            return false;
-                        }
+        llBtnOff.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(new ContextThemeWrapper(SoundDetailActivity.this, R.style.myPopupMenu), v);
+            popupMenu.getMenuInflater().inflate(R.menu.set_time, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.five) {
+                    startCountDownTimer(5000, txtCountTime);
+                    tvOff.setText(R.string._5s);
+                    return true;
+                } else if (item.getItemId() == R.id.fiveMinute) {
+                    startCountDownTimer(300000, txtCountTime);
+                    tvOff.setText(R.string._5m);
+                    return true;
+                } else if (item.getItemId() == R.id.off) {
+                    if (countDownTimer != null) {
+                        countDownTimer.cancel();
                     }
-                });
-                popupMenu.show();
-            }
+                    imgPlayPause.setEnabled(true);
+                    txtCountTime.setText("");
+                    tvOff.setText(R.string._off);
+                    return true;
+                } else if (item.getItemId() == R.id.oneMinute) {
+                    startCountDownTimer(60000, txtCountTime);
+                    tvOff.setText(R.string._1m);
+                    return true;
+                } else if (item.getItemId() == R.id.ten) {
+                    startCountDownTimer(10000, txtCountTime);
+                    tvOff.setText(R.string._10s);
+                    return true;
+                } else if (item.getItemId() == R.id.thirty) {
+                    startCountDownTimer(30000, txtCountTime);
+                    tvOff.setText(R.string._30s);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            popupMenu.show();
         });
 
         //set playing when click item
-        imgItem.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        if (mediaPlayer != null) {
-                            if (!mediaPlayer.isPlaying()) {
-                                imgAnimation.setVisibility(View.VISIBLE);
-                                imgAnimation.playAnimation();
-                                mediaPlayer.seekTo(0);
-                                mediaPlayer.setLooping(true);
-                                mediaPlayer.start();
-                                startVibrate();
-                            } else {
-                                if (isLoop) {
-                                    mediaPlayer.pause();
-                                    stopVibrate();
-                                    imgAnimation.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                        }
-                        return true;
-                    case MotionEvent.ACTION_UP:
-                        if (!isLoop) {
-                            if (mediaPlayer != null) {
-                                if (mediaPlayer.isPlaying()) {
-                                    mediaPlayer.pause();
-                                    stopVibrate();
-                                    imgAnimation.setVisibility(View.INVISIBLE);
-                                }
-                            }
-                        }
-                        return false;
-                }
-                return false;
-            }
-        });
-
-        imgPlayPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isPlaying) {
-                    isPlaying = false;
-                    imgPlayPause.setImageResource(R.drawable.play);
-                    if (mediaPlayer != null) {
-                        if (mediaPlayer.isPlaying()) {
-                            mediaPlayer.pause();
-                            stopVibrate();
-                        }
-                    }
-                } else {
-                    isPlaying = true;
-                    imgPlayPause.setImageResource(R.drawable.pause);
+        imgItem.setOnTouchListener((v, event) -> {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
                     if (mediaPlayer != null) {
                         if (!mediaPlayer.isPlaying()) {
+                            imgAnimation.setVisibility(View.VISIBLE);
+                            imgAnimation.playAnimation();
+                            mediaPlayer.seekTo(0);
+                            mediaPlayer.setLooping(true);
                             mediaPlayer.start();
                             startVibrate();
-                            handler.postDelayed(runnable, 5);
+                        } else {
+                            if (isLoop) {
+                                mediaPlayer.pause();
+                                stopVibrate();
+                                imgAnimation.setVisibility(View.INVISIBLE);
+                            }
                         }
+                    }
+                    return true;
+                case MotionEvent.ACTION_UP:
+                    if (!isLoop) {
+                        if (mediaPlayer != null) {
+                            if (mediaPlayer.isPlaying()) {
+                                mediaPlayer.pause();
+                                stopVibrate();
+                                imgAnimation.setVisibility(View.INVISIBLE);
+                            }
+                        }
+                    }
+                    return false;
+            }
+            return false;
+        });
 
+        imgPlayPause.setOnClickListener(v -> {
+            if (isPlaying) {
+                isPlaying = false;
+                imgPlayPause.setImageResource(R.drawable.play);
+                if (mediaPlayer != null) {
+                    if (mediaPlayer.isPlaying()) {
+                        mediaPlayer.pause();
+                        stopVibrate();
+                    }
+                }
+            } else {
+                isPlaying = true;
+                imgPlayPause.setImageResource(R.drawable.pause);
+                if (mediaPlayer != null) {
+                    if (!mediaPlayer.isPlaying()) {
+                        mediaPlayer.start();
+                        startVibrate();
+                        handler.postDelayed(runnable, 5);
                     }
 
                 }
 
             }
+
         });
 
 
         //test favories
-        imgHeart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
-                if (insertPrankSound1 != null) {
-                    queryClass.getUnFavSound(strCateName, strMusicName);
-                    imgHeart.setImageResource(R.drawable.ic_heart);
-                } else {
-                    InsertPrankSound insertPrankSound = new InsertPrankSound();
-                    insertPrankSound.folder_name = strCateName;
-                    insertPrankSound.sound_name = strMusicName;
+        imgHeart.setOnClickListener(v -> {
+            InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
+            if (insertPrankSound1 != null) {
+                queryClass.getUnFavSound(strCateName, strMusicName);
+                imgHeart.setImageResource(R.drawable.ic_heart);
+            } else {
+                InsertPrankSound insertPrankSound = new InsertPrankSound();
+                insertPrankSound.folder_name = strCateName;
+                insertPrankSound.sound_name = strMusicName;
 
-                    if (int_img_sound != 0) {
-                        insertPrankSound.image_path = int_img_sound.toString();
-                        insertPrankSound.sound_path = soundPath;
-                    } else {
-                        insertPrankSound.image_path = string_img_sound;
-                    }
-                    Log.d("Img_path", insertPrankSound.image_path);
-                    queryClass.insertPrankSound(insertPrankSound);
-                    imgHeart.setImageResource(R.drawable.ic_favorite_check);
+                if (int_img_sound != 0) {
+                    insertPrankSound.image_path = int_img_sound.toString();
+                    insertPrankSound.sound_path = soundPath;
+                } else {
+                    insertPrankSound.image_path = string_img_sound;
                 }
-                if (isFav) {
-                    arrFavPrankSound = queryClass.getAllFavSound();
-                    if (horizontalSoundAdapter != null) {
-                        Collections.reverse(arrFavPrankSound);
-                        horizontalSoundAdapter.notifyDataSetChangedAd(arrFavPrankSound);
-                    }
+                Log.d("Img_path", insertPrankSound.image_path);
+                queryClass.insertPrankSound(insertPrankSound);
+                imgHeart.setImageResource(R.drawable.ic_favorite_check);
+            }
+            if (isFav) {
+                arrFavPrankSound = queryClass.getAllFavSound();
+                if (horizontalSoundAdapter != null) {
+                    Collections.reverse(arrFavPrankSound);
+                    horizontalSoundAdapter.notifyDataSetChangedAd(arrFavPrankSound);
                 }
             }
         });
@@ -470,22 +421,6 @@ public class SoundDetailActivity extends BaseActivity {
         }.start();
 
     }
-
-
-   /* @Override
-    protected void onPause() {
-        super.onPause();
-        if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer = null;
-            }
-        }
-        handler.removeCallbacksAndMessages(null);
-        handler.removeCallbacks(runnable);
-    }
-*/
 
     @Override
     protected void onDestroy() {
@@ -544,6 +479,7 @@ public class SoundDetailActivity extends BaseActivity {
             }
         }
     }
+
     public final void stopVibrate() {
         if (systemService != null) {
             systemService.cancel();
@@ -552,7 +488,6 @@ public class SoundDetailActivity extends BaseActivity {
     }
 
     private void LoadAndShowAds() {
-        RemoteConfig remoteConfig = new RemoteConfig();
         AdsUtils.INSTANCE.RemoteBanner(this, AdsUtils.INSTANCE.getADS_BANNER().toString(), true, fl_banner, view_line);
         AdsUtils.INSTANCE.loadInterstitialAd(this, AdsUtils.INSTANCE.getInterAdHolder());
 

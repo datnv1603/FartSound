@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -48,30 +47,7 @@ public class HorizontalFavoriteSoundAdapter extends Adapter<HorizontalFavoriteSo
     }
 
 
-    @RequiresApi(api = 16)
     public void onBindViewHolder(MyViewHolder myViewHolder, @SuppressLint("RecyclerView") int i) {
-
-        String strCateName = arrFavPrankSound.get(i).folder_name;
-
-//        if (strCateName.equals(air_horn_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.air_horn);
-//        } else if (strCateName.equals(hair_clipper_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.hair_clipper);
-//        } else if (strCateName.equals(fart_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.fart);
-//        } else if (strCateName.equals(burp_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.burp);
-//        } else if (strCateName.equals(toilet_flushing_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.toilet_flushing);
-//        } else if (strCateName.equals(gun_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.gun);
-//        } else if (strCateName.equals(breaking_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.breaking);
-//        } else if (strCateName.equals(car_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.car);
-//        } else if (strCateName.equals(meme_sounds)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.meme);
-//        }
         if (i % 8 == 0) {
             myViewHolder.cvBG.setCardBackgroundColor(context.getColor(R.color.meme));
         } else if (i % 8 == 1) {

@@ -58,33 +58,9 @@ public class VerticalSoundAdapterTest extends RecyclerView.Adapter<VerticalSound
        Glide.with(context).load("file:///android_asset/" + sound.getImage()).into(myViewHolder.imgCate);
        Log.d("list_image_get_image",sound.getImage());
 
-       // myViewHolder.imgCate.setBackgroundResource(sound.getImage());
-
         if(sound.isShowAds()){
             myViewHolder.imgAds.setVisibility(View.VISIBLE);
         }
-
-
-        //   myViewHolder.txtSoundName.setText(context.getString(R.string.sound) +" " + number);
-
-//        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fullAdsLoadAndShow(context, new AdsClass.MyCallback() {
-//                    @Override
-//                    public void callbackCall() {
-//
-//                        Intent intent  = new Intent(context, SoundDetailActivity.class);
-//                        intent.putExtra(is_fav, false);
-//                        intent.putExtra(music_name,soundName(String.valueOf(sound.getName())));
-//                        intent.putExtra(cate_name, sound.getTypeSound());
-//                        intent.putExtra(image_sound,sound.getImage());
-//
-//                        context.startActivity(intent);
-//                    }
-//                });
-//            }
-//        });
 
        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override

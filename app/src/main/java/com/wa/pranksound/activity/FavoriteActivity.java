@@ -9,7 +9,6 @@ import androidx.room.Room;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wa.pranksound.R;
@@ -46,27 +45,17 @@ public class FavoriteActivity extends AppCompatActivity {
         imgBack = findViewById(R.id.imgBack);
         rvSound = findViewById(R.id.rvSound);
         txtNoFound = findViewById(R.id.txtNoFound);
-
-        RelativeLayout rl_banner = findViewById(R.id.rl_banner);
-        TextView txtAds = findViewById(R.id.txtAds);
-
-        //  bannerLoadAndShow(this,txtAds, rl_banner);
     }
 
     private void clickEvent() {
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        imgBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         arrFavPrankSound = queryClass.getAllFavSound();
-        if (arrFavPrankSound.size() > 0) {
+        if (!arrFavPrankSound.isEmpty()) {
             Collections.reverse(arrFavPrankSound);
             txtNoFound.setVisibility(View.GONE);
             rvSound.setVisibility(View.VISIBLE);

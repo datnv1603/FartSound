@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         }
         Log.d("Categories", cate!!.size.toString())
         for (i in cate!!.indices) {
-            Log.d("Categories", cate!!.get(i))
+            Log.d("Categories", cate!![i])
         }
 
 

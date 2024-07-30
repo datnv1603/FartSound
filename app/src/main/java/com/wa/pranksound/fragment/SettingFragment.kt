@@ -17,11 +17,6 @@ import com.wa.pranksound.utils.Utils
 class SettingFragment : Fragment() {
     private lateinit var binding: FragmentSettingBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,7 +88,7 @@ class SettingFragment : Fragment() {
         rateDialog.setContent("We need your review to improve the application")
         rateDialog.setTextButtonRate("Rate")
         rateDialog.setTextButtonMaybeLater("Maybe Later!")
-        rateDialog.setPackageName("com.airhorn.prank.funny.sounds")
+        rateDialog.setPackageName("com.wa.pranksound")
         rateDialog.showDialog()
     }
 

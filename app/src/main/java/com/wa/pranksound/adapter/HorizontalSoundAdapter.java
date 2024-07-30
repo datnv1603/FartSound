@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -46,29 +45,9 @@ public class HorizontalSoundAdapter extends Adapter<HorizontalSoundAdapter.MyVie
     }
 
 
-    @RequiresApi(api = 16)
     public void onBindViewHolder(MyViewHolder myViewHolder, @SuppressLint("RecyclerView") int i) {
 
         int number = i + 1;
-
-//        if (strCateName.equals(air_horn)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.air_horn);
-//        } else if (strCateName.equals(hair_clipper)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.hair_clipper);
-//        } else if (strCateName.equals(fart)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.fart);
-//        } else if (strCateName.equals(count_down)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.burp);
-//        } else if (strCateName.equals(ghost)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.toilet_flushing);
-//        } else if (strCateName.equals(halloween)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.gun);
-//        } else if (strCateName.equals(snore)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.breaking);
-//        } else if (strCateName.equals(gun)) {
-//            myViewHolder.imgItem.setImageResource(R.drawable.car);
-//        }
-
         if (i % 8 == 0) {
             myViewHolder.cvBG.setCardBackgroundColor(context.getColor(R.color.meme));
         } else if (i % 8 == 1) {

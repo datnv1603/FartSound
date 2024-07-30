@@ -1,17 +1,17 @@
 package com.wa.pranksound.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.wa.pranksound.databinding.ActivitySplashBinding
 import com.wa.pranksound.utils.BaseActivity
 
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
     private lateinit var binding: ActivitySplashBinding
     private val SPLASH_TIME_OUT: Long = 4000 // milliseconds
     private val handler = Handler()
-
-    private var key: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

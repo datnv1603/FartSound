@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
@@ -56,11 +55,11 @@ class EditRecordActivity : AppCompatActivity() {
     private var audioFileList: MutableList<Record> = mutableListOf()
 
     private var runnable: Runnable? = null
-    var handler = Handler(Looper.getMainLooper())
-    private var isPlaying = true;
+    private var handler = Handler(Looper.getMainLooper())
+    private var isPlaying = true
 
-    private var record_name: String = "Original"
-    private var record_image: Int = R.drawable.ic_original
+    private var recordName: String = "Original"
+    private var recordImage: Int = R.drawable.ic_original
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,53 +100,50 @@ class EditRecordActivity : AppCompatActivity() {
         }
         handler.postDelayed(runnable!!, 5)
 
-        player!!.setOnCompletionListener(OnCompletionListener {
+        player!!.setOnCompletionListener {
             if (player != null) {
                 binding.seekBar.progress = player!!.duration
             }
             player!!.start()
             Log.d("Check_sound_replay", "sound in main:")
-
-            //  binding.imgPause.setImageResource(R.drawable.img_edit_record_play)
-            //set anim
-        })
+        }
 
 
         binding.ivChipmunk.setOnClickListener {
             playChipmunk(fileName, fileNameNew)
 
-            record_name = getString(R.string.helium)
-            record_image = R.drawable.ic_helium
+            recordName = getString(R.string.helium)
+            recordImage = R.drawable.ic_helium
         }
 
         binding.ivRobot.setOnClickListener {
             playRobot(fileName, fileNameNew)
-            record_name = getString(R.string.robot)
-            record_image = R.drawable.ic_robot
+            recordName = getString(R.string.robot)
+            recordImage = R.drawable.ic_robot
         }
 
         binding.ivCave.setOnClickListener {
             playCave(fileName, fileNameNew)
-            record_name = getString(R.string.indoor)
-            record_image = R.drawable.ic_indoor
+            recordName = getString(R.string.indoor)
+            recordImage = R.drawable.ic_indoor
         }
 
         binding.ivRadio.setOnClickListener {
             playRadio(fileName, fileNameNew)
-            record_name = getString(R.string.radio)
-            record_image = R.drawable.ic_radio
+            recordName = getString(R.string.radio)
+            recordImage = R.drawable.ic_radio
         }
         binding.original.setOnClickListener {
             //  startRecord()
             playOriginal(fileName, fileNameNew)
-            record_name = getString(R.string.original)
-            record_image = R.drawable.ic_original
+            recordName = getString(R.string.original)
+            recordImage = R.drawable.ic_original
         }
 
         binding.backward.setOnClickListener {
             playBackward(fileName, fileNameNew)
-            record_name = getString(R.string.backward)
-            record_image = R.drawable.ic_backward
+            recordName = getString(R.string.backward)
+            recordImage = R.drawable.ic_backward
         }
 
         binding.save.setOnClickListener {
@@ -237,8 +233,8 @@ class EditRecordActivity : AppCompatActivity() {
         val textInputLayoutFileName =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayoutFileName)
         val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
-        record_name = "$record_name-$timestamp"
-        editTextFileName.setText(record_name)
+        recordName = "$recordName-$timestamp"
+        editTextFileName.setText(recordName)
 
         // Set up the buttons
         dialog.findViewById<TextView>(R.id.btnSave)?.setOnClickListener {
@@ -427,7 +423,7 @@ class EditRecordActivity : AppCompatActivity() {
 
         val record = Record(
             fileName,
-            record_image,
+            recordImage,
             strDateTime,
             newFile.path
         )
@@ -438,7 +434,7 @@ class EditRecordActivity : AppCompatActivity() {
 
         val list = Utils.getAudioList(this)
         Log.d("List_record", "size sau khi get: " + list.size.toString())
-        Log.d("List_record", "input_Stream: " + fileName)
+        Log.d("List_record", "input_Stream: $fileName")
         Log.d("List_record", "output_stream: $newFile")
         Log.d("List_record", "file_path: ${record.filePath}")
 
@@ -527,15 +523,15 @@ class EditRecordActivity : AppCompatActivity() {
                     override fun onAdClose() {
                         val timestamp =
                             SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
-                        record_name = "$record_name-$timestamp"
-                        saveAudio(fileNameNew, record_name)
+                        recordName = "$recordName-$timestamp"
+                        saveAudio(fileNameNew, recordName)
                     }
 
                     override fun onAdFailed() {
                         val timestamp =
                             SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
-                        record_name = "$record_name-$timestamp"
-                        saveAudio(fileNameNew, record_name)
+                        recordName = "$recordName-$timestamp"
+                        saveAudio(fileNameNew, recordName)
                     }
 
                 })

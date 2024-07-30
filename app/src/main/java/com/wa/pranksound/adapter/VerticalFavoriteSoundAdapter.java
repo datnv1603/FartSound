@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
@@ -54,7 +53,6 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
     }
 
 
-    @RequiresApi(api = 16)
     public void onBindViewHolder(MyViewHolder myViewHolder, @SuppressLint("RecyclerView") int i) {
 
 
@@ -70,93 +68,35 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
             Glide.with(context).load("file:///android_asset/" + imagePath).into( myViewHolder.imgCate);
             Log.d("Img Path", "asset");
         }
-     //   Glide.with(context).load("file:///android_asset/" + imagePath).into( myViewHolder.imgCate);
-
-
-
 
         myViewHolder.cvBG.setBackgroundResource(R.drawable.bg_sound);
 
         myViewHolder.txtSoundName.setText(arrFavPrankSound.get(i).sound_name.replace("Sound",context.getString(R.string.sound)));
-
-//        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fullAdsLoadAndShow(context, new AdsClass.MyCallback() {
-//                    @Override
-//                    public void callbackCall() {
-//                        Intent intent = new Intent(context, SoundDetailActivity.class);
-//                        intent.putExtra(is_fav, true);
-//                        intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
-//                        intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-//                        intent.putExtra(image_sound,arrFavPrankSound.get(i).image_path);
-//                        intent.putExtra(sound_path,arrFavPrankSound.get(i).sound_path);
-//                        context.startActivity(intent);
-//                    }
-//                });
-//
-//            }
-//        });
-
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.itemView.setOnClickListener(v -> AdsUtils.INSTANCE.loadAndShowInterstitialAd(context, AdsUtils.INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
             @Override
-            public void onClick(View v) {
-//                AdmobManager.showInterstitialAd(context, INSTANCE.getInterAdHolder(), new AdmobManager.ShowAdCallBack() {
-//                    @Override
-//                    public void onAdShowed() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAdFailed(@NonNull String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAdClosed() {
-//                        Intent intent = new Intent(context, SoundDetailActivity.class);
-//                        intent.putExtra(is_fav, true);
-//                        intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
-//                        intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-//                        intent.putExtra(image_sound,arrFavPrankSound.get(i).image_path);
-//                        intent.putExtra(sound_path,arrFavPrankSound.get(i).sound_path);
-//                        context.startActivity(intent);
-//                    }
-//
-//                    @Override
-//                    public void onAdPaid(@NonNull AdValue adValue, @NonNull String s) {
-//
-//                    }
-//                });
-
-                AdsUtils.INSTANCE.loadAndShowInterstitialAd(context, AdsUtils.INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                    @Override
-                    public void onAdClose() {
-                        Log.d("check_show_ads","show in verticalFav");
-                        Intent intent = new Intent(context, SoundDetailActivity.class);
-                        intent.putExtra(is_fav, true);
-                        intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
-                        intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-                        intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
-                        intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
-                        context.startActivity(intent);
-                    }
-
-                    @Override
-                    public void onAdFailed() {
-                        Log.d("check_show_ads","not show in verticalFav");
-                        Intent intent = new Intent(context, SoundDetailActivity.class);
-                        intent.putExtra(is_fav, true);
-                        intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
-                        intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-                        intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
-                        intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
-                        context.startActivity(intent);
-                    }
-                });
-
+            public void onAdClose() {
+                Log.d("check_show_ads","show in verticalFav");
+                Intent intent = new Intent(context, SoundDetailActivity.class);
+                intent.putExtra(is_fav, true);
+                intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
+                intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
+                intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
+                intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
+                context.startActivity(intent);
             }
-        });
+
+            @Override
+            public void onAdFailed() {
+                Log.d("check_show_ads","not show in verticalFav");
+                Intent intent = new Intent(context, SoundDetailActivity.class);
+                intent.putExtra(is_fav, true);
+                intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
+                intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
+                intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
+                intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
+                context.startActivity(intent);
+            }
+        }));
 
     }
 

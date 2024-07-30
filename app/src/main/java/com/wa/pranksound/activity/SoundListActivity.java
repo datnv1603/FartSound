@@ -22,7 +22,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wa.pranksound.R;
@@ -31,7 +30,6 @@ import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.ImageLoader;
-import com.wa.pranksound.utils.RemoteConfig;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,10 +61,6 @@ public class SoundListActivity extends BaseActivity {
 
         fl_banner = findViewById(R.id.ads_banner);
         view_line = findViewById(R.id.line);
-
-        RelativeLayout rl_banner = findViewById(R.id.rl_banner);
-        TextView txtAds = findViewById(R.id.txtAds);
-
         LoadAndShowAds();
 
         String strCateName = getIntent().getStringExtra(cate_name);
@@ -124,31 +118,22 @@ public class SoundListActivity extends BaseActivity {
             throw new RuntimeException(e);
         }
 
-        imgBack.setOnClickListener(new View.OnClickListener() {
+        imgBack.setOnClickListener(v -> INSTANCE.loadAndShowInterstitialAd(SoundListActivity.this, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
             @Override
-            public void onClick(View v) {
-
-
-                INSTANCE.loadAndShowInterstitialAd(SoundListActivity.this, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                    @Override
-                    public void onAdClose() {
-                        Log.d("check_show_ads", "show in back sound list");
-                        startActivity(new Intent(SoundListActivity.this, MainActivity.class));
-                    }
-
-                    @Override
-                    public void onAdFailed() {
-                        Log.d("check_show_ads", "not show in back sound list");
-                        startActivity(new Intent(SoundListActivity.this, MainActivity.class));
-                    }
-                });
-
+            public void onAdClose() {
+                Log.d("check_show_ads", "show in back sound list");
+                startActivity(new Intent(SoundListActivity.this, MainActivity.class));
             }
-        });
+
+            @Override
+            public void onAdFailed() {
+                Log.d("check_show_ads", "not show in back sound list");
+                startActivity(new Intent(SoundListActivity.this, MainActivity.class));
+            }
+        }));
     }
 
     private void LoadAndShowAds() {
-        RemoteConfig remoteConfig = new RemoteConfig();
         AdsUtils.INSTANCE.RemoteBanner(this,AdsUtils.INSTANCE.getADS_BANNER().toString(),true,fl_banner,view_line);
         AdsUtils.INSTANCE.loadInterstitialAd(this, AdsUtils.INSTANCE.getInterAdHolder());
 

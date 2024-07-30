@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.wa.pranksound.activity.RecordActivity
 import com.wa.pranksound.adapter.RecordAdapter
 import com.wa.pranksound.databinding.FragmentCreateBinding
@@ -18,19 +17,13 @@ import com.wa.pranksound.utils.Utils
 class CreateFragment : Fragment() {
     private lateinit var binding: FragmentCreateBinding
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var recordAdapter: RecordAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentCreateBinding.inflate(layoutInflater)
         return binding.root
     }

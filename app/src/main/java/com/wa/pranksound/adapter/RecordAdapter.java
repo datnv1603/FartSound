@@ -44,72 +44,17 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Record record = recordList.get(position);
         holder.textViewName.setText(record.getName());
         holder.textViewTime.setText(record.getTime());
-       // holder.imageView.setImageResource(record.getImage());
 
         Glide.with(context).load(record.getImage()).into( holder.imageView);
-
-
-
-
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fullAdsLoadAndShow(context, new AdsClass.MyCallback() {
-//                    @Override
-//                    public void callbackCall() {
-//                        Log.d("List_record","sound_path_in_adapter: " + record.getFilePath());
-//                        Intent intent  = new Intent(context, SoundDetailActivity.class);
-//                        intent.putExtra(is_fav, false);
-//                        intent.putExtra(music_name,record.getName());
-//                        intent.putExtra(image_sound,record.getImage());
-//                        intent.putExtra(cate_name,"Record");
-//                        intent.putExtra(sound_path, record.getFilePath());
-//
-//                        context.startActivity(intent);
-//                    }
-//                });
-//            }
-//        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AdmobManager.showInterstitialAd(context, INSTANCE.getInterAdHolder(), new AdmobManager.ShowAdCallBack() {
-//                    @Override
-//                    public void onAdShowed() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAdFailed(@NonNull String s) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAdClosed() {
-//                        Log.d("List_record","sound_path_in_adapter: " + record.getFilePath());
-//                        Intent intent  = new Intent(context, SoundDetailActivity.class);
-//                        intent.putExtra(is_fav, false);
-//                        intent.putExtra(music_name,record.getName());
-//                        intent.putExtra(image_sound,record.getImage());
-//                        intent.putExtra(cate_name,"Record");
-//                        intent.putExtra(sound_path, record.getFilePath());
-//
-//                        context.startActivity(intent);
-//                    }
-//
-//                    @Override
-//                    public void onAdPaid(@NonNull AdValue adValue, @NonNull String s) {
-//
-//                    }
-//                });
-
                 AdsUtils.INSTANCE.loadAndShowInterstitialAd(context, AdsUtils.INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
                     @Override
                     public void onAdClose() {
