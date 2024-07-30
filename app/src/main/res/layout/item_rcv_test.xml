@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="#00000000"
+    android:gravity="center">
+
+
+
+    <RelativeLayout
+        android:id="@+id/cvBG"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_sound"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgCate"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:src="@drawable/air_horn_test"
+         />
+
+        <TextView
+            android:id="@+id/txtSoundName"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:fontFamily="@font/inter_extrabold"
+            android:text="Hair Clipperaaaaaaaa"
+            android:textColor="@color/text_color"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="15dp" />
+    </RelativeLayout>
+    <ImageView
+        android:layout_alignEnd="@+id/cvBG"
+        android:id="@+id/img_ads"
+        android:visibility="invisible"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:src="@drawable/ic_ads"/>
+
+
+</RelativeLayout>

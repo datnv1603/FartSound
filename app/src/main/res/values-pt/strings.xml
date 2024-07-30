@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="_off">Desligado</string>
+
+    <string name="sound">Som</string>
+    <string name="favorite">Favorito</string>
+    <string name="language">Linguagem</string>
+    <string name="air_horn">Buzina de ar</string>
+    <string name="hair_clipper">Máquina de cortar cabelo</string>
+    <string name="fant">Fantástico</string>
+    <string name="burp">Arrotar</string>
+    <string name="toilet_flushing">Descarga do vaso sanitário</string>
+    <string name="gun">Pistola</string>
+    <string name="breaking">Quebra</string>
+    <string name="car">Carro</string>
+    <string name="meme">Memes</string>
+    <string name="advertisement">Anúncio</string>
+    <string name="settings">Configurações</string>
+    <string name="share_app">Compartilhe o aplicativo</string>
+    <string name="rate_app">Avaliar aplicativo</string>
+    <string name="privacy_policy">política de Privacidade</string>
+    <string name="loop">Laço</string>
+    <string name="time">Tempo</string>
+    <string name="exit">Saída</string>
+    <string name="do_you_want_to_exit">Você quer sair?</string>
+    <string name="no">Não</string>
+    <string name="yes">Sim</string>
+</resources>

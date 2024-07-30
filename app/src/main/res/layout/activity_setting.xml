@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.SettingActivity">
+    <RelativeLayout
+        android:id="@+id/rlLet"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/action_color">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/action_color"
+            android:fontFamily="@font/quicksand_bold"
+            android:gravity="center"
+            android:text="@string/settings"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="12dp"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/rlLet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/llLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="14dp"
+                app:srcCompat="@drawable/icon_language" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/language"
+                android:textSize="18dp"
+                android:textColor="#3f3f3f" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llShare"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="14dp"
+                app:srcCompat="@drawable/icon_share" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/share_app"
+                android:textSize="18dp"
+                android:textColor="#3f3f3f" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llRate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="13dp"
+                app:srcCompat="@drawable/icon_rate" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/rate_app"
+                android:textSize="18dp"
+                android:textColor="#3f3f3f" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llPrivacyPolicy"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:padding="13dp"
+                app:srcCompat="@drawable/icon_policy" />
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/privacy_policy"
+                android:textSize="18dp"
+                android:textColor="#3f3f3f" />
+        </LinearLayout>
+        <include
+            android:id="@+id/in_view"
+            layout="@layout/common_native_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="visible" />
+    </LinearLayout>
+</RelativeLayout>

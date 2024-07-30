@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="_off">बंद</string>
+
+
+    <string name="sound">आवाज़</string>
+    <string name="favorite">पसंदीदा</string>
+    <string name="language">भाषा</string>
+    <string name="air_horn">हवाई भोंपू</string>
+    <string name="hair_clipper">बालो का क्लिप</string>
+    <string name="fant">शानदार</string>
+    <string name="burp">बर्प</string>
+    <string name="toilet_flushing">टॉयलेट फ्लशिंग</string>
+    <string name="gun">बंदूक</string>
+    <string name="breaking">टूटने के</string>
+    <string name="car">कार</string>
+    <string name="meme">Meme</string>
+    <string name="advertisement">विज्ञापन</string>
+    <string name="settings">समायोजन</string>
+    <string name="share_app">ऐप शेयर करें</string>
+    <string name="rate_app">एप्प का मूल्यांकन</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="loop">कुंडली</string>
+    <string name="time">समय</string>
+    <string name="exit">बाहर निकलना</string>
+    <string name="do_you_want_to_exit">क्या आपको बाहर निकलना है?</string>
+    <string name="no">नहीं</string>
+    <string name="yes">हाँ</string>
+</resources>

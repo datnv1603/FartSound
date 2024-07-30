@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="_off">Apagado</string>
+
+
+    <string name="sound">Sonido</string>
+    <string name="favorite">Favorito</string>
+    <string name="language">Idioma</string>
+    <string name="air_horn">Corneta de aire</string>
+    <string name="hair_clipper">Broche del pelo</string>
+    <string name="fant">Fantástico</string>
+    <string name="burp">Eructar</string>
+    <string name="toilet_flushing">Descarga del inodoro</string>
+    <string name="gun">Pistola</string>
+    <string name="breaking">Rotura</string>
+    <string name="car">Auto</string>
+    <string name="meme">Meme</string>
+    <string name="advertisement">Anuncio</string>
+    <string name="settings">Ajustes</string>
+    <string name="share_app">Compartir aplicación</string>
+    <string name="rate_app">Calificar aplicacion</string>
+    <string name="privacy_policy">política de privacidad</string>
+    <string name="loop">Bucle</string>
+    <string name="time">Tiempo</string>
+    <string name="exit">Salida</string>
+    <string name="do_you_want_to_exit">¿Quieres salir?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+</resources>

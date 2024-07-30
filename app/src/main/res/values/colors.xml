@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="air_horn">#673ab3</color>
+    <color name="hair_clipper">#3f51b2</color>
+    <color name="fart">#009689</color>
+    <color name="burp">#4aaf57</color>
+    <color name="toilet_flushing">#ffc02d</color>
+    <color name="gun">#ff981f</color>
+    <color name="breaking">#f54336</color>
+    <color name="car">#00a9f1</color>
+    <color name="meme">#ea1e61</color>
+    <color name="action_color">#f5f5f5</color>
+    <color name="colorSeek">#dadf32</color>
+    <color name="colorTextTime">#007ab7</color>
+
+
+    <color name="colorPrimary">#3f3f3f</color>
+    <color name="langColor">#e6e6e6e6</color>
+    <color name="buttonColor">#3f3f3f</color>
+
+    <color name="title_color">#2A6ACA</color>
+    <color name="bottom_nav_text_color">#B9B9B9</color>
+    <color name="bottom_nav_text_color_selected">#00A3FF</color>
+
+    <color name="count_play_color">#818181</color>
+
+    <color name="text_color">#383E7A</color>
+
+    <color name="text_color_save">#1EA0EE</color>
+
+
+
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

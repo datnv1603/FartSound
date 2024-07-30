@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="_off">Aus</string>
+
+
+    <string name="sound">Klang</string>
+    <string name="favorite">Favorit</string>
+    <string name="language">Sprache</string>
+    <string name="air_horn">Lufthorn</string>
+    <string name="hair_clipper">Haarspange</string>
+    <string name="fant">Fant</string>
+    <string name="burp">Rülpsen</string>
+    <string name="toilet_flushing">Toilettenspülung</string>
+    <string name="gun">Pistole</string>
+    <string name="breaking">Brechen</string>
+    <string name="car">Auto</string>
+    <string name="meme">Meme</string>
+    <string name="advertisement">Werbung</string>
+    <string name="settings">Einstellungen</string>
+    <string name="share_app">App teilen</string>
+    <string name="rate_app">Bewertungs App</string>
+    <string name="privacy_policy">Datenschutzrichtlinie</string>
+    <string name="loop">Schleife</string>
+    <string name="time">Zeit</string>
+    <string name="exit">Ausfahrt</string>
+    <string name="do_you_want_to_exit">Möchtest du aussteigen?</string>
+    <string name="no">NEIN</string>
+    <string name="yes">Ja</string>
+</resources>

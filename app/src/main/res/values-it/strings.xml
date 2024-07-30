@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="_off">Spento</string>
+
+
+    <string name="sound">Suono</string>
+    <string name="favorite">Preferito</string>
+    <string name="language">Lingua</string>
+    <string name="air_horn">Tromba d\'aria</string>
+    <string name="hair_clipper">Forcina per capelli</string>
+    <string name="fant">Fantasma</string>
+    <string name="burp">Rutto</string>
+    <string name="toilet_flushing">Sciacquone del WC</string>
+    <string name="gun">Pistola</string>
+    <string name="breaking">Rottura</string>
+    <string name="car">Auto</string>
+    <string name="meme">Meme</string>
+    <string name="advertisement">Annuncio</string>
+    <string name="settings">Impostazioni</string>
+    <string name="share_app">Condividi app</string>
+    <string name="rate_app">Valuta l\'app</string>
+    <string name="privacy_policy">politica sulla riservatezza</string>
+    <string name="loop">Ciclo continuo</string>
+    <string name="time">Tempo</string>
+    <string name="exit">Uscita</string>
+    <string name="do_you_want_to_exit">Vuoi uscire?</string>
+    <string name="no">NO</string>
+    <string name="yes">SÌ</string>
+</resources>

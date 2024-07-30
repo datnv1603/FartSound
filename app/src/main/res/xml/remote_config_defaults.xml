@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>inter_frequency</key>
+        <value>10000</value>
+    </entry>
+
+    <entry>
+        <key>active_collapsible</key>
+        <value>false</value>
+    </entry>
+
+    <entry>
+        <key>active_app_open</key>
+        <value>false</value>
+    </entry>
+
+</defaultsMap>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+    <item android:id="@+id/off" android:title="@string/_off"/>
+    <item android:id="@+id/five" android:title="@string/_5s"/>
+    <item android:id="@+id/ten" android:title="@string/_10s"/>
+    <item android:id="@+id/thirty" android:title="@string/_30s"/>
+    <item android:id="@+id/oneMinute" android:title="@string/_1m"/>
+    <item android:id="@+id/fiveMinute" android:title="@string/_5m"/>
+</menu>
