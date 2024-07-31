@@ -25,6 +25,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PrankSound"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.NATIVE_AD_DEBUGGER_ENABLED"
+            android:value="false" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+            android:value="true"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+            android:value="true"/>
+
         <activity
             android:name=".activity.FeedbackActivity"
             android:exported="false" />
@@ -72,10 +88,6 @@
             android:name=".activity.FirstTimeLanguageActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_id" />
 
         <service
             android:name=".utils.MessageService"

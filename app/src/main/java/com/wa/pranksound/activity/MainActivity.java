@@ -1,7 +1,6 @@
 package com.wa.pranksound.activity;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,25 +20,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.ads.AdSettings;
 import com.wa.pranksound.R;
 import com.wa.pranksound.fragment.CreateFragment;
 import com.wa.pranksound.fragment.FavoritesFragment;
 import com.wa.pranksound.fragment.HomeFragment;
 import com.wa.pranksound.fragment.LeaderBoardFragment;
 import com.wa.pranksound.fragment.SettingFragment;
-import com.wa.pranksound.Room.QueryClass;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Gdpr;
 
-import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
-    CardView cvAirHorn, cvHairClipper, cvFant, cvBurp, cvToiletFlushing, cvGun, cvBreaking, cvCar, cvMeme;
     ImageView imgFav, imgGift, imgHome, imgCreate, imgFavorites, imgLeaderboard, imgSetting;
     RecyclerView rcv_cate;
-    List<String> cate;
     FragmentManager fragmentManager;
 
     LinearLayout ll_home, ll_create, ll_favorites, ll_leaderboard, ll_setting;
@@ -49,14 +43,10 @@ public class MainActivity extends BaseActivity {
     FrameLayout fl_banner;
     View view_line;
 
-    QueryClass queryClass;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        AdSettings.setDebugBuild(Boolean.parseBoolean(getString(R.string.facebook_ads_debug)));
 
         findView();
         clickEvent();
@@ -244,9 +234,6 @@ public class MainActivity extends BaseActivity {
         tv_favorites = findViewById(R.id.tv_favorites);
         tv_leaderboard = findViewById(R.id.tv_leaderboard);
         tv_setting = findViewById(R.id.tv_setting);
-
-        fl_banner = findViewById(R.id.ads_banner);
-        view_line = findViewById(R.id.line);
 
         new Gdpr().make(this);
 

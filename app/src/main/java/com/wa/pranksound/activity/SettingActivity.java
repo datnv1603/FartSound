@@ -66,12 +66,12 @@ public class SettingActivity extends BaseActivity {
             }
         });
         llPrivacyPolicy.setOnClickListener(v -> {
-            try {
+            /*try {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.privacy_policy_link)));
                 startActivity(browserIntent);
             } catch (ActivityNotFoundException unused) {
                 unused.printStackTrace();
-            }
+            }*/
         });
     }
 

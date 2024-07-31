@@ -110,7 +110,6 @@ public class SoundDetailActivity extends BaseActivity {
 
         imgAnimation = findViewById(R.id.animation);
 
-        fl_banner = findViewById(R.id.ads_banner);
         view_line = findViewById(R.id.line);
 
         systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);

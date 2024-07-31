@@ -57,7 +57,6 @@ public class SoundListActivity extends BaseActivity {
         rvSound = findViewById(R.id.rvSound);
         txtTitle = findViewById(R.id.txtTitle);
 
-        fl_banner = findViewById(R.id.ads_banner);
         view_line = findViewById(R.id.line);
 
         String strCateName = getIntent().getStringExtra(cate_name);
@@ -81,7 +80,7 @@ public class SoundListActivity extends BaseActivity {
                 } else if (strCateName.equals(snore)) {
                     txtTitle.setText(getString(R.string.snore));
                 } else if (strCateName.equals(test_sound)) {
-                    txtTitle.setText("Test Sound");
+                    txtTitle.setText(R.string.test_sound);
                 }
 
                 // lấy hình ảnh từ file asset
