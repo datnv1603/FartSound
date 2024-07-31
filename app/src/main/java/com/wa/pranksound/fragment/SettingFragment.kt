@@ -1,6 +1,5 @@
 package com.wa.pranksound.fragment
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dungvnhh98.percas.studio.admoblib.rate.RateDialog
 import com.wa.pranksound.activity.FeedbackActivity
 import com.wa.pranksound.databinding.FragmentSettingBinding
 import com.wa.pranksound.utils.Utils
@@ -45,7 +43,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.llRate.setOnClickListener {
-            showRate(requireActivity())
+
         }
 
         binding.llFeedback.setOnClickListener {
@@ -63,34 +61,4 @@ class SettingFragment : Fragment() {
         }
         startActivity(Intent.createChooser(sendIntent, null))
     }
-
-    private fun showRate(activity: Activity){
-        val rateDialog = RateDialog(activity, object : RateDialog.RateDialogCallback{
-            override fun onShowRateDialog() {
-
-            }
-
-            override fun onDismissRateDialog() {
-            }
-
-            override fun onRateButtonClicked(numberStart: Int) {
-            }
-
-            override fun onMaybeLaterClicked() {
-            }
-
-            override fun onError(error: String) {
-
-            }
-
-        })
-        rateDialog.setTitle("Rate App")
-        rateDialog.setContent("We need your review to improve the application")
-        rateDialog.setTextButtonRate("Rate")
-        rateDialog.setTextButtonMaybeLater("Maybe Later!")
-        rateDialog.setPackageName("com.wa.pranksound")
-        rateDialog.showDialog()
-    }
-
-
 }

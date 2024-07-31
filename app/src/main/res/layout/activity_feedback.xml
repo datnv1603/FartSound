@@ -11,20 +11,19 @@
     <RelativeLayout
         android:id="@+id/rlLet"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_height="wrap_content">
-
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
             android:fontFamily="@font/inter_black"
-            android:textColor="@color/title_color"
             android:gravity="center"
             android:text="@string/feed_back"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/_20ssp" />
 
         <ImageView
@@ -34,26 +33,27 @@
             android:padding="10dp"
             android:src="@drawable/ic_back" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/cv_feedback"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
-       app:layout_constraintTop_toBottomOf="@+id/rlLet"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="@dimen/_15sdp"
-      android:background="@drawable/bg_feeback"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/bg_feeback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlLet">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ed_feedback"
             android:layout_width="match_parent"
-            android:textColor="@color/text_color"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_regular"
             android:background="#00000000"
+            android:fontFamily="@font/inter_regular"
+            android:hint="@string/type_your_message"
             android:padding="@dimen/_15sdp"
-            android:hint="Type your message"
-            />
+            android:textColor="@color/text_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,18 +62,18 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_30sdp"
-     app:layout_constraintTop_toBottomOf="@+id/cv_feedback"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/bh_btn_create_sound"
-        android:gravity="center">
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_feedback">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_3sdp"
             android:fontFamily="@font/inter_extrabold"
-            android:text="Send"
+            android:text="@string/send"
             android:textColor="@color/white"
             android:textSize="@dimen/_16ssp" />
     </LinearLayout>

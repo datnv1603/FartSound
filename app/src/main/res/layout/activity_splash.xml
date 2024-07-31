@@ -6,27 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SplashActivity">
+
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/img_splash_1x"/>
+        android:src="@drawable/img_splash_1x"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_80sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginHorizontal="@dimen/_20sdp"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/js_loading"
-        android:layout_marginBottom="@dimen/_80sdp"
-         />
+        app:lottie_rawRes="@raw/js_loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

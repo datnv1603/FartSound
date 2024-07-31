@@ -3,7 +3,6 @@ package com.wa.pranksound.activity
 import android.os.Bundle
 import android.widget.Toast
 import com.wa.pranksound.databinding.ActivityFeedbackBinding
-import com.wa.pranksound.utils.AdsUtils
 import com.wa.pranksound.utils.BaseActivity
 
 class FeedbackActivity : BaseActivity() {
@@ -14,20 +13,7 @@ class FeedbackActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.imgBack.setOnClickListener {
-            AdsUtils.loadAndShowInterstitialAd(
-                this,
-                AdsUtils.interAdHolder,
-                object : AdsUtils.loadAndShow {
-                    override fun onAdClose() {
-                        finish()
-                    }
-
-                    override fun onAdFailed() {
-                        finish()
-                    }
-
-                })
-
+            finish()
         }
 
 

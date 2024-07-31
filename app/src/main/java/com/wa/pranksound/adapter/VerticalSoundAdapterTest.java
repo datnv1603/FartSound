@@ -1,7 +1,5 @@
 package com.wa.pranksound.adapter;
 
-
-import static com.wa.pranksound.utils.AdsUtils.INSTANCE;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.image_sound;
 import static com.wa.pranksound.utils.KeyClass.is_fav;
@@ -23,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.activity.SoundDetailActivity;
 import com.wa.pranksound.model.Sound;
-import com.wa.pranksound.utils.AdsUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -62,41 +59,13 @@ public class VerticalSoundAdapterTest extends RecyclerView.Adapter<VerticalSound
             myViewHolder.imgAds.setVisibility(View.VISIBLE);
         }
 
-       myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-               INSTANCE.loadAndShowInterstitialAd(context, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                   @Override
-                   public void onAdClose() {
-                       Log.d("check_show_ads","show in list sound");
-                       Intent intent = new Intent(context, SoundDetailActivity.class);
-                       //is_fav có phải là sound yêu thích ko
-                       intent.putExtra(is_fav, false);
-                       //tên của âm thanh
-                       intent.putExtra(music_name, soundName(String.valueOf(sound.getName())));
-                       //tên của loại âm thanh
-                       intent.putExtra(cate_name, sound.getTypeSound());
-                       // hình ảnh của âm thanh
-                       intent.putExtra(image_sound, sound.getImage());
-                       context.startActivity(intent);
-                   }
-
-                   @Override
-                   public void onAdFailed() {
-                       Log.d("check_show_ads","not show in list sound");
-                       Intent intent = new Intent(context, SoundDetailActivity.class);
-                       intent.putExtra(is_fav, false);
-                       intent.putExtra(music_name, soundName(String.valueOf(sound.getName())));
-                       intent.putExtra(cate_name, sound.getTypeSound());
-                       intent.putExtra(image_sound, sound.getImage());
-
-                       context.startActivity(intent);
-
-                   }
-               });
-
-           }
+       myViewHolder.itemView.setOnClickListener(v -> {
+           Intent intent = new Intent(context, SoundDetailActivity.class);
+           intent.putExtra(is_fav, false);
+           intent.putExtra(music_name, soundName(sound.getName()));
+           intent.putExtra(cate_name, sound.getTypeSound());
+           intent.putExtra(image_sound, sound.getImage());
+           context.startActivity(intent);
        });
 
     }

@@ -11,10 +11,10 @@
     <RelativeLayout
         android:id="@+id/rlLet"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
@@ -22,9 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
             android:fontFamily="@font/inter_black"
-            android:textColor="@color/title_color"
             android:gravity="center"
             android:text="@string/record"
+            android:textColor="@color/title_color"
             android:textSize="@dimen/_20ssp" />
 
         <ImageView
@@ -37,54 +37,54 @@
 
     <TextView
         android:id="@+id/txtCountTime"
-        android:text="@string/time_record"
-        android:layout_marginTop="@dimen/_24sdp"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_extrabold"
-        android:textSize="@dimen/_18ssp"
-        android:textColor="@color/text_color"
+
         android:layout_centerHorizontal="true"
-        app:layout_constraintTop_toBottomOf="@+id/rlLet"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="@string/time_record"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/_18ssp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/rlLet" />
 
     <ImageView
         android:id="@+id/img_record"
         android:layout_width="@dimen/_180sdp"
         android:layout_height="@dimen/_180sdp"
-        app:layout_constraintTop_toBottomOf="@+id/txtCountTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/img_record"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_record"/>
+        app:layout_constraintBottom_toTopOf="@+id/bottom_record"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCountTime" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/img_recording"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_180sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_record"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCountTime"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/txtCountTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:lottie_rawRes="@raw/js_recording"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_record"/>
+        app:lottie_rawRes="@raw/js_recording" />
 
 
     <LinearLayout
         android:id="@+id/bottom_record"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_140sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_bottom_record"
         android:gravity="center"
         android:orientation="vertical"
-        android:background="@drawable/bg_bottom_record"
-       >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
         <LinearLayout
             android:id="@+id/ll_record_here"
             android:layout_width="wrap_content"
@@ -92,19 +92,21 @@
             android:gravity="center_horizontal"
 
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:textColor="#2EB0FB"
-                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/inter_extrabold"
-                android:text="@string/record_here"/>
+                android:text="@string/record_here"
+                android:textColor="#2EB0FB"
+                android:textSize="@dimen/_12ssp" />
+
             <ImageView
                 android:id="@+id/img_micro"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:src="@drawable/img_micro"/>
+                android:src="@drawable/img_micro" />
 
         </LinearLayout>
 
@@ -112,44 +114,38 @@
             android:id="@+id/ll_start_record"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/img_reload"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:src="@drawable/img_reload"/>
+                android:src="@drawable/img_reload" />
 
             <ImageView
                 android:id="@+id/img_start_record"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
-                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:src="@drawable/img_start_record"/>
+                android:src="@drawable/img_start_record"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/img_pause_record"
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:src="@drawable/img_pause_record"/>
+                android:src="@drawable/img_pause_record" />
 
             <ImageView
                 android:id="@+id/img_next"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
-                android:src="@drawable/img_next"/>
+                android:src="@drawable/img_next" />
 
         </LinearLayout>
-
     </LinearLayout>
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".activity.SettingActivity">
+
     <RelativeLayout
         android:id="@+id/rlLet"
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             android:gravity="center"
             android:text="@string/settings"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <ImageView
             android:id="@+id/imgBack"
@@ -31,11 +32,13 @@
             android:src="@drawable/baseline_arrow_back_24" />
 
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_below="@+id/rlLet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/rlLet"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/llLanguage"
             android:layout_width="match_parent"
@@ -57,9 +60,10 @@
                 android:layout_weight="3"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/language"
-                android:textSize="18dp"
-                android:textColor="#3f3f3f" />
+                android:textColor="#3f3f3f"
+                android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llShare"
             android:layout_width="match_parent"
@@ -81,9 +85,10 @@
                 android:layout_weight="3"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/share_app"
-                android:textSize="18dp"
-                android:textColor="#3f3f3f" />
+                android:textColor="#3f3f3f"
+                android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llRate"
             android:layout_width="match_parent"
@@ -105,9 +110,10 @@
                 android:layout_weight="3"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/rate_app"
-                android:textSize="18dp"
-                android:textColor="#3f3f3f" />
+                android:textColor="#3f3f3f"
+                android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/llPrivacyPolicy"
             android:layout_width="match_parent"
@@ -129,16 +135,8 @@
                 android:layout_weight="3"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/privacy_policy"
-                android:textSize="18dp"
-                android:textColor="#3f3f3f" />
+                android:textColor="#3f3f3f"
+                android:textSize="18sp" />
         </LinearLayout>
-        <include
-            android:id="@+id/in_view"
-            layout="@layout/common_native_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="visible" />
     </LinearLayout>
 </RelativeLayout>

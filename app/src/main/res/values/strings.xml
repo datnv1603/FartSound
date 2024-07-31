@@ -122,6 +122,24 @@
     <string name="halloween">Halloween</string>
     <string name="snore">Snore</string>
     <string name="meme">Meme</string>
+    <string name="save">SAVE</string>
+    <string name="cancle">CANCLE</string>
+    <string name="enter_name">Enter name</string>
+    <string name="save_as">Save As</string>
+    <string name="select">Select</string>
+    <string name="german">German</string>
+    <string name="italian">Italian</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="french">French</string>
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Spanish</string>
+    <string name="english">English</string>
+    <string name="type_your_message">Type your message</string>
+    <string name="send">Send</string>
+    <string name="no_found_favorite_sounds_yet">No found favorite sounds yet!</string>
+    <string name="play">Play</string>
+    <string name="event">Event</string>
+    <string name="new_">New</string>
 
 
 </resources>

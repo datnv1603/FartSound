@@ -27,7 +27,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.wa.pranksound.R
 import com.wa.pranksound.databinding.ActivityEditRecordBinding
 import com.wa.pranksound.model.Record
-import com.wa.pranksound.utils.AdsUtils
 import com.wa.pranksound.utils.Utils
 import java.io.File
 import java.io.FileInputStream
@@ -95,7 +94,7 @@ class EditRecordActivity : AppCompatActivity() {
                 binding.seekBar.max = player!!.duration
                 binding.tvTimeStart.text = currentTime
                 binding.tvTimeEnd.text = totalDuration
-                handler.postDelayed(runnable!!, 5) // Cập nhật mỗi giây
+                handler.postDelayed(runnable!!, 5) // Update per second
             }
         }
         handler.postDelayed(runnable!!, 5)
@@ -218,7 +217,7 @@ class EditRecordActivity : AppCompatActivity() {
         }
     }
 
-    fun showSaveDialog(context: Context) {
+    private fun showSaveDialog(context: Context) {
 
         val dialog = Dialog(context)
         // Set the layout for the dialog
@@ -413,7 +412,7 @@ class EditRecordActivity : AppCompatActivity() {
         Log.d("List_record", "$formattedDate | $formattedTime")
 
         val strDateTime = "$formattedDate | $formattedTime"
-        fileNameSave = "audio_$timestamp.mp3" // Tạo tên tệp mới với thời gian hiện tại
+        fileNameSave = "audio_$timestamp.mp3" // create new file with recent time
         val newFile = File(filesDir, fileNameSave)
         val inputStream = FileInputStream(File(file))
         val outputStream = FileOutputStream(newFile)
@@ -516,44 +515,15 @@ class EditRecordActivity : AppCompatActivity() {
         val btnNegative = dialogCustomExit.findViewById<TextView>(R.id.btnNegative)
         val btnPositive = dialogCustomExit.findViewById<TextView>(R.id.btnPositive)
         btnPositive.setOnClickListener {
-            AdsUtils.loadAndShowInterstitialAd(
-                this,
-                AdsUtils.interAdHolder,
-                object : AdsUtils.loadAndShow {
-                    override fun onAdClose() {
-                        val timestamp =
-                            SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
-                        recordName = "$recordName-$timestamp"
-                        saveAudio(fileNameNew, recordName)
-                    }
-
-                    override fun onAdFailed() {
-                        val timestamp =
-                            SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
-                        recordName = "$recordName-$timestamp"
-                        saveAudio(fileNameNew, recordName)
-                    }
-
-                })
-
+            val timestamp =
+                SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
+            recordName = "$recordName-$timestamp"
+            saveAudio(fileNameNew, recordName)
         }
         btnNegative.setOnClickListener {
-            AdsUtils.loadAndShowInterstitialAd(
-                this,
-                AdsUtils.interAdHolder,
-                object : AdsUtils.loadAndShow {
-                    override fun onAdClose() {
-                        val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
-                        intent.putExtra("from_record", "record")
-                        startActivity(intent)
-                    }
-
-                    override fun onAdFailed() {
-                        val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
-                        intent.putExtra("from_record", "record")
-                        startActivity(intent)
-                    }
-                })
+            val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
+            intent.putExtra("from_record", "record")
+            startActivity(intent)
         }
     }
 }

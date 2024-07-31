@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".activity.FavoriteActivity">
+
     <RelativeLayout
         android:id="@+id/rlLet"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/action_color">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -21,7 +20,7 @@
             android:gravity="center"
             android:text="@string/favorite"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <ImageView
             android:id="@+id/imgBack"
@@ -31,31 +30,25 @@
             android:src="@drawable/baseline_arrow_back_24" />
 
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_above="@+id/in_view"
-        android:layout_below="@+id/rlLet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlLet">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/txtNoFound"
-            android:gravity="center"
-            android:fontFamily="@font/quicksand_bold"
-            android:textSize="18dp"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="No found favorite sounds yet!"/>
+            android:fontFamily="@font/quicksand_bold"
+            android:gravity="center"
+            android:text="@string/no_found_favorite_sounds_yet"
+            android:textSize="18sp"
+            android:visibility="gone" />
     </RelativeLayout>
-
-    <include
-        android:id="@+id/in_view"
-        layout="@layout/common_banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp" />
 </RelativeLayout>

@@ -1,8 +1,6 @@
 package com.wa.pranksound.adapter;
 
 
-
-import static com.wa.pranksound.utils.AdsUtils.INSTANCE;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.is_fav;
 import static com.wa.pranksound.utils.KeyClass.music_name;
@@ -10,7 +8,6 @@ import static com.wa.pranksound.utils.KeyClass.music_name;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.wa.pranksound.R;
 import com.wa.pranksound.activity.SoundDetailActivity;
-import com.wa.pranksound.utils.AdsUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -59,35 +55,17 @@ public class VerticalSoundAdapter extends Adapter<VerticalSoundAdapter.MyViewHol
         final int random = new Random().nextInt((max - min) + 1) + min;
         myViewHolder.txtSoundName.setText(soundName(images[i]));
 
-        myViewHolder.itemView.setOnClickListener(v -> INSTANCE.loadAndShowInterstitialAd(context, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-            @Override
-            public void onAdClose() {
-                Log.d("check_show_ads","show in list sound");
-                                        Intent intent  = new Intent(context, SoundDetailActivity.class);
-                intent.putExtra(is_fav, false);
-                //  intent.putExtra(music_name,"Sound "+number);
-                intent.putExtra(music_name,soundName(images[i]));
-                intent.putExtra(cate_name,strCateName);
-                context.startActivity(intent);
-
-            }
-
-            @Override
-            public void onAdFailed() {
-                Log.d("check_show_ads","not show in list sound");
-                Intent intent  = new Intent(context, SoundDetailActivity.class);
-                intent.putExtra(is_fav, false);
-                //  intent.putExtra(music_name,"Sound "+number);
-                intent.putExtra(music_name,soundName(images[i]));
-                intent.putExtra(cate_name,strCateName);
-                context.startActivity(intent);
-
-            }
-        }));
+        myViewHolder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SoundDetailActivity.class);
+            intent.putExtra(is_fav, false);
+            intent.putExtra(music_name, soundName(images[i]));
+            intent.putExtra(cate_name, strCateName);
+            context.startActivity(intent);
+        });
 
     }
 
-    public String soundName(String sound){
+    public String soundName(String sound) {
         String[] sound_name = sound.split("\\.");
         return sound_name[0];
     }

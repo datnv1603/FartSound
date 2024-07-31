@@ -3,14 +3,15 @@ package com.wa.pranksound.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.wa.pranksound.R;
+
 import khangtran.preferenceshelper.PrefHelper;
 
 public class FirstTimeLanguageActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +22,10 @@ public class FirstTimeLanguageActivity extends AppCompatActivity {
             finish();
             return;
         }
-
         findView();
-
     }
 
     private void findView() {
-
-
-
         findViewById(R.id.hindiCard).setOnClickListener(v -> {
             PrefHelper.setVal("locale", "hi");
             updatingUi();
@@ -65,7 +61,6 @@ public class FirstTimeLanguageActivity extends AppCompatActivity {
         });
         updatingUi();
     }
-
 
 
     private void updatingUi() {
@@ -114,7 +109,7 @@ public class FirstTimeLanguageActivity extends AppCompatActivity {
             findViewById(R.id.germanCard).setBackground(AppCompatResources.getDrawable(this, R.drawable.lang_button));
             findViewById(R.id.portaguesCheck).setBackground(AppCompatResources.getDrawable(this, R.drawable.lang_button));
             findViewById(R.id.italianCard).setBackground(AppCompatResources.getDrawable(this, R.drawable.lang_button));
-        }  else if (PrefHelper.getStringVal("locale", "en").equalsIgnoreCase("pt")) {
+        } else if (PrefHelper.getStringVal("locale", "en").equalsIgnoreCase("pt")) {
             findViewById(R.id.hindiCheck).setVisibility(View.INVISIBLE);
             findViewById(R.id.englishCheck).setVisibility(View.INVISIBLE);
             findViewById(R.id.spanishCheck).setVisibility(View.INVISIBLE);

@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.wa.pranksound.R
 import com.wa.pranksound.databinding.ActivityRecordBinding
-import com.wa.pranksound.utils.AdsUtils
 import com.wa.pranksound.utils.BaseActivity
 import java.io.File
 import java.io.IOException
@@ -27,8 +26,6 @@ class RecordActivity : BaseActivity() {
     private var playerEffects: MediaPlayer? = null
     private var recorder: MediaRecorder? = null
     private lateinit var countDownTimer: CountDownTimer
-
-
 
     private var permissions: Array<String> =
         arrayOf(
@@ -85,17 +82,7 @@ class RecordActivity : BaseActivity() {
         }
 
         binding.imgBack.setOnClickListener {
-            AdsUtils.loadAndShowInterstitialAd(
-                this,
-                AdsUtils.interAdHolder,
-                object : AdsUtils.loadAndShow {
-                    override fun onAdClose() {
-                        finish()
-                    }
-                    override fun onAdFailed() {
-                        finish()
-                    }
-                })
+            finish()
         }
 
         binding.imgNext.setOnClickListener {

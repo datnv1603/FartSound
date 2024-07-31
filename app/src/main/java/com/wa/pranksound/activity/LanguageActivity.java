@@ -1,7 +1,5 @@
 package com.wa.pranksound.activity;
 
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 

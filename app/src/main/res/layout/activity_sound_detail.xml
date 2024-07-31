@@ -126,7 +126,7 @@
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/seekBar"
             android:text="00:02"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -155,7 +155,7 @@
                 android:gravity="center"
                 android:text="@string/loop"
                 android:textColor="@color/text_color"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <Switch
                 android:id="@+id/swLoop"
@@ -182,9 +182,7 @@
                 android:gravity="center"
                 android:text="@string/play_after"
                 android:textColor="@color/text_color"
-                android:textSize="15dp"
-
-                />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvOff"
@@ -199,7 +197,7 @@
                 android:paddingBottom="3dp"
                 android:text="@string/_off"
                 android:textColor="#007ab7"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 tools:ignore="MissingConstraints" />
         </LinearLayout>
 
@@ -217,19 +215,10 @@
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignTop="@+id/ads_banner"
         android:background="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/ads_banner"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/ads_banner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:minHeight="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

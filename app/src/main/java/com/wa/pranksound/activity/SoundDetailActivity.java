@@ -1,6 +1,5 @@
 package com.wa.pranksound.activity;
 
-import static com.wa.pranksound.utils.AdsUtils.INSTANCE;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.image_sound;
 import static com.wa.pranksound.utils.KeyClass.is_fav;
@@ -43,7 +42,6 @@ import com.wa.pranksound.adapter.HorizontalFavoriteSoundAdapter;
 import com.wa.pranksound.Room.AppDatabase;
 import com.wa.pranksound.Room.InsertPrankSound;
 import com.wa.pranksound.Room.QueryClass;
-import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Utils;
 
@@ -94,7 +92,6 @@ public class SoundDetailActivity extends BaseActivity {
 
         findView();
         clickEvent();
-        LoadAndShowAds();
     }
 
     private void findView() {
@@ -237,20 +234,8 @@ public class SoundDetailActivity extends BaseActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void clickEvent() {
         imgBack.setOnClickListener(v -> {
-            INSTANCE.loadAndShowInterstitialAd(SoundDetailActivity.this, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                @Override
-                public void onAdClose() {
-                    Log.d("check_show_ads", "show in back sound list");
-                    getOnBackPressedDispatcher().onBackPressed();
-                }
-
-                @Override
-                public void onAdFailed() {
-                    Log.d("check_show_ads", "not show in back sound list");
-                    getOnBackPressedDispatcher().onBackPressed();
-                }
-            });
-
+            Log.d("check_show_ads", "show in back sound list");
+            getOnBackPressedDispatcher().onBackPressed();
         });
         llBtnOff.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(new ContextThemeWrapper(SoundDetailActivity.this, R.style.myPopupMenu), v);
@@ -485,11 +470,5 @@ public class SoundDetailActivity extends BaseActivity {
             systemService.cancel();
 
         }
-    }
-
-    private void LoadAndShowAds() {
-        AdsUtils.INSTANCE.RemoteBanner(this, AdsUtils.INSTANCE.getADS_BANNER().toString(), true, fl_banner, view_line);
-        AdsUtils.INSTANCE.loadInterstitialAd(this, AdsUtils.INSTANCE.getInterAdHolder());
-
     }
 }

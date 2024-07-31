@@ -29,7 +29,6 @@ import com.wa.pranksound.fragment.HomeFragment;
 import com.wa.pranksound.fragment.LeaderBoardFragment;
 import com.wa.pranksound.fragment.SettingFragment;
 import com.wa.pranksound.Room.QueryClass;
-import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Gdpr;
 
@@ -50,7 +49,6 @@ public class MainActivity extends BaseActivity {
     FrameLayout fl_banner;
     View view_line;
 
-
     QueryClass queryClass;
 
     @Override
@@ -62,7 +60,6 @@ public class MainActivity extends BaseActivity {
 
         findView();
         clickEvent();
-        LoadAndShowAds();
 
         fragmentManager = getSupportFragmentManager();
         bottomNavigationClick();
@@ -261,6 +258,7 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+
     private void clickEvent() {
         imgFav.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
@@ -269,6 +267,7 @@ public class MainActivity extends BaseActivity {
 
         imgGift.setOnClickListener(v -> Toast.makeText(getApplication(), "Coming Soon", Toast.LENGTH_SHORT).show());
     }
+
     public void showExitDialog() {
         Dialog dialogCustomExit = new Dialog(MainActivity.this);
         dialogCustomExit.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -291,9 +290,5 @@ public class MainActivity extends BaseActivity {
 
         });
         btnNegative.setOnClickListener(v -> dialogCustomExit.dismiss());
-    }
-    private void LoadAndShowAds() {
-        AdsUtils.INSTANCE.RemoteBanner(this,AdsUtils.INSTANCE.getADS_BANNER().toString(),true,fl_banner,view_line);
-        AdsUtils.INSTANCE.loadInterstitialAd(this, AdsUtils.INSTANCE.getInterAdHolder());
     }
 }

@@ -1,7 +1,6 @@
 package com.wa.pranksound.activity;
 
 
-import static com.wa.pranksound.utils.AdsUtils.INSTANCE;
 import static com.wa.pranksound.utils.KeyClass.air_horn;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.count_down;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.VerticalSoundAdapterTest;
 import com.wa.pranksound.model.Sound;
-import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.ImageLoader;
 
@@ -61,7 +59,6 @@ public class SoundListActivity extends BaseActivity {
 
         fl_banner = findViewById(R.id.ads_banner);
         view_line = findViewById(R.id.line);
-        LoadAndShowAds();
 
         String strCateName = getIntent().getStringExtra(cate_name);
 
@@ -118,24 +115,12 @@ public class SoundListActivity extends BaseActivity {
             throw new RuntimeException(e);
         }
 
-        imgBack.setOnClickListener(v -> INSTANCE.loadAndShowInterstitialAd(SoundListActivity.this, INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-            @Override
-            public void onAdClose() {
-                Log.d("check_show_ads", "show in back sound list");
-                startActivity(new Intent(SoundListActivity.this, MainActivity.class));
-            }
+        imgBack.setOnClickListener(v ->
+            startActivity(new Intent(SoundListActivity.this, MainActivity.class))
+        );
 
-            @Override
-            public void onAdFailed() {
-                Log.d("check_show_ads", "not show in back sound list");
-                startActivity(new Intent(SoundListActivity.this, MainActivity.class));
-            }
-        }));
-    }
-
-    private void LoadAndShowAds() {
-        AdsUtils.INSTANCE.RemoteBanner(this,AdsUtils.INSTANCE.getADS_BANNER().toString(),true,fl_banner,view_line);
-        AdsUtils.INSTANCE.loadInterstitialAd(this, AdsUtils.INSTANCE.getInterAdHolder());
-
+        imgBack.setOnClickListener(
+                v -> getOnBackPressedDispatcher().onBackPressed()
+        );
     }
 }

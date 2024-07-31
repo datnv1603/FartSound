@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_70sdp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_item_leaderboard"
-    android:layout_marginTop="@dimen/_15sdp"
     android:layout_marginHorizontal="@dimen/_15sdp"
+    android:layout_marginTop="@dimen/_15sdp"
+    android:background="@drawable/bg_item_leaderboard"
     android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/ll_img"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
         android:background="@drawable/bg_record_item"
         android:gravity="center"
-        android:layout_marginStart="@dimen/_10sdp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/ic_helium"
-           />
+            android:src="@drawable/ic_helium" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
         android:gravity="center"
-        app:layout_constraintStart_toEndOf="@id/ll_img"
-        app:layout_constraintTop_toTopOf="@+id/ll_img"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/ll_img"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:orientation="vertical">
+        app:layout_constraintStart_toEndOf="@id/ll_img"
+        app:layout_constraintTop_toTopOf="@+id/ll_img">
+
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:singleLine="true"
-            android:textSize="@dimen/_15ssp"
+            android:layout_gravity="start"
             android:layout_marginEnd="@dimen/_8sdp"
             android:fontFamily="@font/inter_extrabold"
+            android:singleLine="true"
+            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"
             android:textColor="@color/text_color"
-            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"/>
+            android:textSize="@dimen/_15ssp" />
+
         <TextView
             android:id="@+id/textViewTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textSize="@dimen/_13ssp"
+            android:layout_gravity="start"
             android:fontFamily="@font/inter_regular"
+            android:text="cccccccccccccccccccc"
             android:textColor="@color/text_color"
-            android:text="cccccccccccccccccccc"/>
+            android:textSize="@dimen/_13ssp" />
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

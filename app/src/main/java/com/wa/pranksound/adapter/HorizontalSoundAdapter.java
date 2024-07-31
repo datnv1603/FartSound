@@ -70,25 +70,6 @@ public class HorizontalSoundAdapter extends Adapter<HorizontalSoundAdapter.MyVie
 
 
         myViewHolder.tvTitle.setText(context.getString(R.string.sound) + " " + number);
-//        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                fullAdsLoadAndShow(context, new AdsClass.MyCallback() {
-//                    @Override
-//                    public void callbackCall() {
-//                        int number = i + 1;
-//                        Intent intent = new Intent(context, SoundDetailActivity.class);
-//                        intent.putExtra(is_fav, false);
-//                        intent.putExtra(music_name, "Sound " + number);
-//                        intent.putExtra(cate_name, strCateName);
-//                        context.startActivity(intent);
-//                        context.finish();
-//                    }
-//                });
-//
-//            }
-//        });
-
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

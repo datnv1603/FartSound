@@ -1,6 +1,5 @@
 package com.wa.pranksound.adapter;
 
-
 import static com.wa.pranksound.utils.KeyClass.air_horn;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.count_down;
@@ -25,7 +24,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wa.pranksound.R;
 import com.wa.pranksound.activity.SoundListActivity;
-import com.wa.pranksound.utils.AdsUtils;
 
 import java.util.List;
 
@@ -53,24 +51,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdsUtils.INSTANCE.loadAndShowInterstitialAd(context, AdsUtils.INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                    @Override
-                    public void onAdClose() {
-                        Log.d("check_show_ads", "show in categories");
-                        Intent intent = new Intent(context, SoundListActivity.class);
-                        intent.putExtra(cate_name, folderName);
-                        context.startActivity(intent);
-                    }
-
-                    @Override
-                    public void onAdFailed() {
-                        Log.d("check_show_ads", "not show in categories");
-                        Intent intent = new Intent(context, SoundListActivity.class);
-                        intent.putExtra(cate_name, folderName);
-                        context.startActivity(intent);
-                    }
-                });
-
+                Log.d("check_show_ads", "show in categories");
+                Intent intent = new Intent(context, SoundListActivity.class);
+                intent.putExtra(cate_name, folderName);
+                context.startActivity(intent);
             }
         });
 
@@ -105,18 +89,18 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
                 folderImage.setImageResource(R.drawable.img_fart);
             } else if (folderName.equals(count_down)) {
                 folderImage.setImageResource(R.drawable.img_count_down);
-             //   tv_new.setVisibility(View.VISIBLE);
+                //   tv_new.setVisibility(View.VISIBLE);
             } else if (folderName.equals(ghost)) {
                 folderImage.setImageResource(R.drawable.img_ghost);
-               // tv_new.setVisibility(View.VISIBLE);
+                // tv_new.setVisibility(View.VISIBLE);
             } else if (folderName.equals(halloween)) {
                 folderImage.setImageResource(R.drawable.img_halloween);
             } else if (folderName.equals(snore)) {
                 folderImage.setImageResource(R.drawable.img_snore);
-            //    tv_event.setVisibility(View.VISIBLE);
+                //    tv_event.setVisibility(View.VISIBLE);
             } else if (folderName.equals(gun)) {
                 folderImage.setImageResource(R.drawable.img_gun);
-           //     tv_event.setVisibility(View.VISIBLE);
+                //     tv_event.setVisibility(View.VISIBLE);
             }
             // Set folder name
             folderName = folderName.replace("_", " ");

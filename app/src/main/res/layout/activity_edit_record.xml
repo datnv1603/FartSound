@@ -14,7 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
@@ -42,7 +41,7 @@
             android:background="@drawable/bg_btn_save"
             android:fontFamily="@font/inter_extrabold"
             android:gravity="center"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp" />
     </RelativeLayout>
@@ -51,85 +50,89 @@
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlLet"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_30sdp"
-        android:thumb="@drawable/custom_thumb"
         android:progressBackgroundTint="@color/text_color"
-        />
+        android:thumb="@drawable/custom_thumb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rlLet" />
+
     <TextView
         android:id="@+id/tv_time_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_15sdp"
+        android:text="00:00"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"/>
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
     <TextView
         android:id="@+id/tv_time_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="00:00"
-        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"/>
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:text="00:00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <LinearLayout
         android:id="@+id/ll_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time_start"
         android:layout_marginTop="@dimen/_20sdp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time_start">
+
         <ImageView
             android:id="@+id/img_replay"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/img_replay"/>
+            android:src="@drawable/img_replay" />
+
         <ImageView
             android:id="@+id/img_pause"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:src="@drawable/img_edit_record_pause"
-            android:layout_marginHorizontal="@dimen/_30sdp"/>
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:src="@drawable/img_edit_record_pause" />
+
         <ImageView
             android:id="@+id/img_cut"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/img_cut"/>
+            android:src="@drawable/img_cut" />
 
 
     </LinearLayout>
 
 
     <Button
-        android:visibility="gone"
         android:id="@+id/btn_luu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:text="luu nhac"
+        android:text="@string/save"
         android:textColor="@color/black"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_edit" />
 
     <Button
-        android:visibility="gone"
         android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_15sdp"
-        android:text="phat nhac"
+        android:text="@string/play"
         android:textColor="@color/black"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_luu" />
@@ -137,252 +140,191 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_300sdp"
+        android:background="@drawable/bottom_record"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bottom_record"
-        app:layout_constraintStart_toStartOf="parent"
-        android:orientation="vertical"
-        >
+        app:layout_constraintStart_toStartOf="parent">
+
         <TextView
-            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_15sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/inter_extrabold"
-            android:textSize="@dimen/_15ssp"
+            android:text="@string/voice_change"
             android:textColor="@color/text_color"
-            android:text="@string/voice_change"/>
+            android:textSize="@dimen/_15ssp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        >
-        <GridLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:columnCount="3"
-            android:orientation="horizontal"
-            android:paddingVertical="@dimen/_15sdp">
+            android:layout_marginTop="@dimen/_10sdp">
 
-            <!--        -->
-            <!--        <ImageView-->
-            <!--            android:id="@+id/ivChipmunk"-->
-            <!--            android:layout_width="@dimen/_100sdp"-->
-            <!--            android:layout_height="@dimen/_100sdp"-->
-            <!--            android:layout_gravity="left"-->
-            <!--            android:contentDescription="@string/image"-->
-            <!--            android:scaleType="fitXY"-->
-            <!--            android:src="@drawable/ic_chipmunk"-->
-            <!--             />-->
-
-            <!--        <ImageView-->
-            <!--            android:id="@+id/ivCave"-->
-            <!--            android:layout_width="@dimen/_100sdp"-->
-            <!--            android:layout_height="@dimen/_100sdp"-->
-            <!--            android:layout_gravity="center_horizontal"-->
-            <!--            android:contentDescription="@string/image"-->
-            <!--            android:scaleType="fitXY"-->
-            <!--            android:src="@drawable/ic_cave"-->
-            <!--           />-->
-
-            <!--        <ImageView-->
-            <!--            android:id="@+id/ivRobot"-->
-            <!--            android:layout_width="@dimen/_100sdp"-->
-            <!--            android:layout_gravity="end"-->
-            <!--            android:layout_height="@dimen/_100sdp"-->
-            <!--            android:contentDescription="@string/image"-->
-            <!--            android:scaleType="fitXY"-->
-            <!--            android:src="@drawable/ic_robot"-->
-            <!--            />-->
-
-
-            <!--        <ImageView-->
-            <!--            android:id="@+id/ivRadio"-->
-            <!--            android:layout_width="@dimen/_100sdp"-->
-            <!--            android:layout_height="@dimen/_100sdp"-->
-            <!--            android:layout_marginEnd="10dp"-->
-            <!--            android:contentDescription="@string/image"-->
-            <!--            android:scaleType="fitXY"-->
-            <!--            android:src="@drawable/ic_radio"-->
-            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--            app:layout_constraintEnd_toEndOf="parent"-->
-            <!--            app:layout_constraintStart_toEndOf="@+id/ivRobot"-->
-            <!--            app:layout_constraintTop_toTopOf="parent" />-->
-            <LinearLayout
-                android:id="@+id/original"
-                android:layout_width="0dp"
+            <GridLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:contentDescription="@string/image"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_original"
-                  />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/original"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/text_color"/>
-            </LinearLayout>
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:columnCount="3"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_15sdp">
 
-            <LinearLayout
-                android:id="@+id/iv_chipmunk"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:contentDescription="@string/image"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_helium"
-                />
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/original"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/helium"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/text_color"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ivRobot"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:contentDescription="@string/image"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_robot"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/robot"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/text_color"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/iv_radio"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:contentDescription="@string/image"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_radio"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivRobot"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/radio"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/text_color"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/backward"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:contentDescription="@string/image"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_backward"
-                     />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/backward"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/text_color"/>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/iv_cave"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-                <ImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:contentDescription="@string/image"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/img_indoor" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/indoor"
-                    android:fontFamily="@font/inter_extrabold"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:textColor="@color/text_color"/>
-            </LinearLayout>
-<!--            <LinearLayout-->
-<!--                android:id="@+id/ll_test"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_columnWeight="1"-->
-<!--                android:layout_marginBottom="@dimen/_20sdp"-->
-<!--                android:gravity="center_horizontal"-->
-<!--                android:orientation="vertical">-->
-<!--                <ImageView-->
-<!--                    android:layout_width="@dimen/_80sdp"-->
-<!--                    android:layout_height="@dimen/_80sdp"-->
-<!--                    android:contentDescription="@string/image"-->
-<!--                    android:scaleType="fitXY"-->
-<!--                    android:src="@drawable/img_original"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/ivRobot"-->
-<!--                    app:layout_constraintTop_toTopOf="parent" />-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/original"-->
-<!--                    android:fontFamily="@font/inter_extrabold"-->
-<!--                    android:layout_marginTop="@dimen/_10sdp"-->
-<!--                    android:textColor="@color/text_color"/>-->
-<!--            </LinearLayout>-->
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_original" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="@string/original"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
 
-        </GridLayout>
+                <LinearLayout
+                    android:id="@+id/iv_chipmunk"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-    </ScrollView>
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_helium" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="@string/helium"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ivRobot"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_robot" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="@string/robot"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/iv_radio"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_radio"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ivRobot"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="@string/radio"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/backward"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_backward" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="@string/backward"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/iv_cave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:contentDescription="@string/image"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/img_indoor" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:fontFamily="@font/inter_extrabold"
+                        android:text="@string/indoor"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+            </GridLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 

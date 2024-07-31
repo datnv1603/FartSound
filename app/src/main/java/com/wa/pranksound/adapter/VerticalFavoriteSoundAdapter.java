@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.activity.SoundDetailActivity;
-import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.Room.InsertPrankSound;
 
 import org.jetbrains.annotations.NotNull;
@@ -72,31 +71,16 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
         myViewHolder.cvBG.setBackgroundResource(R.drawable.bg_sound);
 
         myViewHolder.txtSoundName.setText(arrFavPrankSound.get(i).sound_name.replace("Sound",context.getString(R.string.sound)));
-        myViewHolder.itemView.setOnClickListener(v -> AdsUtils.INSTANCE.loadAndShowInterstitialAd(context, AdsUtils.INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-            @Override
-            public void onAdClose() {
-                Log.d("check_show_ads","show in verticalFav");
-                Intent intent = new Intent(context, SoundDetailActivity.class);
-                intent.putExtra(is_fav, true);
-                intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
-                intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-                intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
-                intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
-                context.startActivity(intent);
-            }
 
-            @Override
-            public void onAdFailed() {
-                Log.d("check_show_ads","not show in verticalFav");
-                Intent intent = new Intent(context, SoundDetailActivity.class);
-                intent.putExtra(is_fav, true);
-                intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
-                intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-                intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
-                intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
-                context.startActivity(intent);
-            }
-        }));
+        myViewHolder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SoundDetailActivity.class);
+            intent.putExtra(is_fav, true);
+            intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
+            intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
+            intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
+            intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
+            context.startActivity(intent);
+        });
 
     }
 

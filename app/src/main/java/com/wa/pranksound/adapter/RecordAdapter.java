@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.activity.SoundDetailActivity;
-import com.wa.pranksound.utils.AdsUtils;
 import com.wa.pranksound.model.Record;
 
 import java.util.List;
@@ -55,34 +54,15 @@ public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AdsUtils.INSTANCE.loadAndShowInterstitialAd(context, AdsUtils.INSTANCE.getInterAdHolder(), new AdsUtils.loadAndShow() {
-                    @Override
-                    public void onAdClose() {
-                        Log.d("check_show_ads","show in record");
-                        Intent intent = new Intent(context, SoundDetailActivity.class);
-                        intent.putExtra(is_fav, false);
-                        intent.putExtra(music_name, record.getName());
-                        intent.putExtra(image_sound, record.getImage());
-                        intent.putExtra(cate_name, "Record");
-                        intent.putExtra(sound_path, record.getFilePath());
+                Log.d("check_show_ads","show in record");
+                Intent intent = new Intent(context, SoundDetailActivity.class);
+                intent.putExtra(is_fav, false);
+                intent.putExtra(music_name, record.getName());
+                intent.putExtra(image_sound, record.getImage());
+                intent.putExtra(cate_name, "Record");
+                intent.putExtra(sound_path, record.getFilePath());
 
-                        context.startActivity(intent);
-                    }
-
-                    @Override
-                    public void onAdFailed() {
-                        Log.d("check_show_ads","not show in record");
-                        Intent intent = new Intent(context, SoundDetailActivity.class);
-                        intent.putExtra(is_fav, false);
-                        intent.putExtra(music_name, record.getName());
-                        intent.putExtra(image_sound, record.getImage());
-                        intent.putExtra(cate_name, "Record");
-                        intent.putExtra(sound_path, record.getFilePath());
-
-                        context.startActivity(intent);
-                    }
-                });
-
+                context.startActivity(intent);
             }
         });
     }

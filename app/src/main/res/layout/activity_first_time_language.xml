@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,9 +21,7 @@
             android:gravity="center"
             android:text="@string/language"
             android:textColor="@color/black"
-            android:textSize="25dp" />
-
-
+            android:textSize="25sp" />
 
     </RelativeLayout>
 
@@ -79,7 +76,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="English"
+                            android:text="@string/english"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_11sdp" />
 
@@ -115,7 +112,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="Spanish"
+                            android:text="spanish"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_11sdp" />
 
@@ -152,7 +149,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="Italian"
+                            android:text="@string/italian"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_11sdp" />
 
@@ -197,7 +194,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="Hindi"
+                            android:text="@string/hindi"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/_11sdp" />
 
@@ -234,9 +231,9 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="French"
+                            android:text="@string/french"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11ssp" />
 
                         <ImageView
                             android:id="@+id/frenchCheck"
@@ -270,9 +267,9 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="German"
+                            android:text="@string/german"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11ssp" />
 
                         <ImageView
                             android:id="@+id/germanCheck"
@@ -315,9 +312,9 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="Portuguese"
+                            android:text="@string/portuguese"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11ssp" />
 
                         <ImageView
                             android:id="@+id/portaguesCheck"
@@ -332,13 +329,13 @@
 
 
                     <RelativeLayout
-                        android:visibility="invisible"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/_3sdp"
                         android:layout_marginRight="@dimen/_3sdp"
                         android:layout_weight="1"
-                        android:background="@drawable/lang_button">
+                        android:background="@drawable/lang_button"
+                        android:visibility="invisible">
 
                         <ImageView
                             android:layout_width="@dimen/_25sdp"
@@ -353,9 +350,9 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="Italian"
+                            android:text="@string/italian"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11ssp" />
 
                         <ImageView
                             android:layout_width="@dimen/_18sdp"
@@ -366,6 +363,7 @@
                             android:src="@drawable/ic_select"
                             android:visibility="gone" />
                     </RelativeLayout>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -387,9 +385,9 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginBottom="@dimen/_7sdp"
                             android:gravity="center_horizontal"
-                            android:text="German"
+                            android:text="@string/german"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11ssp" />
 
                         <ImageView
                             android:layout_width="@dimen/_18sdp"
@@ -409,18 +407,16 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:background="@drawable/button_click"
-                    android:letterSpacing="0.06"
                     android:gravity="center"
+                    android:letterSpacing="0.06"
                     android:paddingHorizontal="@dimen/_25sdp"
                     android:paddingLeft="@dimen/_25sdp"
                     android:paddingRight="@dimen/_25sdp"
-                    android:text="Select"
+                    android:text="@string/select"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_14ssp" />
             </LinearLayout>
-
-
 
 
         </LinearLayout>
