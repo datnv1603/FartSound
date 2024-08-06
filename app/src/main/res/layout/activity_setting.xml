@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@color/action_color"
-            android:fontFamily="@font/quicksand_bold"
+            android:fontFamily="@font/nunito_bold"
             android:gravity="center"
             android:text="@string/settings"
             android:textColor="@color/black"
@@ -58,7 +58,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/quicksand_bold"
+                android:fontFamily="@font/nunito_bold"
                 android:text="@string/language"
                 android:textColor="#3f3f3f"
                 android:textSize="18sp" />
@@ -83,7 +83,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/quicksand_bold"
+                android:fontFamily="@font/nunito_bold"
                 android:text="@string/share_app"
                 android:textColor="#3f3f3f"
                 android:textSize="18sp" />
@@ -108,7 +108,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/quicksand_bold"
+                android:fontFamily="@font/nunito_bold"
                 android:text="@string/rate_app"
                 android:textColor="#3f3f3f"
                 android:textSize="18sp" />
@@ -133,7 +133,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/quicksand_bold"
+                android:fontFamily="@font/nunito_bold"
                 android:text="@string/privacy_policy"
                 android:textColor="#3f3f3f"
                 android:textSize="18sp" />

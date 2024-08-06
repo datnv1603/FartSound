@@ -35,7 +35,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:fontFamily="@font/inter_extrabold"
+            android:fontFamily="@font/nunito_extra_bold"
             android:singleLine="true"
             android:text="hair_clipper"
             android:textAlignment="center"

@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.adjust.sdk.Adjust
+import com.wa.pranksound.utils.extention.setFullScreen
 
 abstract class BaseBindingActivity<B : ViewDataBinding, VM : BaseViewModel> : BaseActivity() {
     lateinit var binding: B
@@ -34,6 +35,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding, VM : BaseViewModel> : Ba
     override fun onCreate(savedInstanceState: Bundle?) {
         lockPortraitOrientation(this)
         super.onCreate(savedInstanceState)
+        setFullScreen()
         binding = DataBindingUtil.setContentView(this, layoutId)
         viewModel = ViewModelProvider(this)[getViewModel()]
         window.setLightStatusBars(false)

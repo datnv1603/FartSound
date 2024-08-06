@@ -21,7 +21,7 @@
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
-            android:fontFamily="@font/inter_black"
+            android:fontFamily="@font/nunito_black"
             android:gravity="center"
             android:text="@string/record"
             android:textColor="@color/title_color"
@@ -42,7 +42,7 @@
 
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_24sdp"
-        android:fontFamily="@font/inter_extrabold"
+        android:fontFamily="@font/nunito_extra_bold"
         android:text="@string/time_record"
         android:textColor="@color/text_color"
         android:textSize="@dimen/_18ssp"
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:fontFamily="@font/inter_extrabold"
+                android:fontFamily="@font/nunito_extra_bold"
                 android:text="@string/record_here"
                 android:textColor="#2EB0FB"
                 android:textSize="@dimen/_12ssp" />

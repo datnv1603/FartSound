@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/inter_extrabold"
+                android:fontFamily="@font/nunito_extra_bold"
                 android:text="@string/feed_back"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_15ssp" />
@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/inter_extrabold"
+                android:fontFamily="@font/nunito_extra_bold"
                 android:text="@string/rate"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_15ssp" />
@@ -80,7 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/inter_extrabold"
+                android:fontFamily="@font/nunito_extra_bold"
                 android:text="@string/share"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_15ssp" />
@@ -106,7 +106,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:fontFamily="@font/inter_extrabold"
+                android:fontFamily="@font/nunito_extra_bold"
                 android:text="@string/vibration"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/_15ssp" />

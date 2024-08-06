@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginEnd="@dimen/_8sdp"
-            android:fontFamily="@font/inter_extrabold"
+            android:fontFamily="@font/nunito_extra_bold"
             android:singleLine="true"
             android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"
             android:textColor="@color/text_color"
@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:fontFamily="@font/inter_regular"
+            android:fontFamily="@font/nunito_regular"
             android:text="cccccccccccccccccccc"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_13ssp" />

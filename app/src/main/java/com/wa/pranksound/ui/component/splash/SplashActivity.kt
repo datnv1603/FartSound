@@ -46,6 +46,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     }
 
     private fun init() {
+        viewModel.starTimeCount(3000)
         viewModel.isCompleteLiveData.observe(this) {
             openChooseLanguageActivity()
             kotlin.runCatching {

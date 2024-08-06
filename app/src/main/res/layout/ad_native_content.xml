@@ -71,7 +71,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/nunito_bold"
                         android:background="@drawable/background_round_8"
                         android:gravity="center"
                         android:includeFontPadding="false"

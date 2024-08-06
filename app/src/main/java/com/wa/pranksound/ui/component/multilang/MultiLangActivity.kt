@@ -10,6 +10,7 @@ import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityMultiLangBinding
 import com.wa.pranksound.ui.adapter.MultiLangAdapter
 import com.wa.pranksound.ui.base.BaseBindingActivity
+import com.wa.pranksound.ui.component.intro.IntroActivity
 import com.wa.pranksound.utils.SystemUtil
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
@@ -96,7 +97,7 @@ class MultiLangActivity : BaseBindingActivity<ActivityMultiLangBinding, MultiLan
     }
 
     private fun gotoIntroActivity() {
-        //startActivity(Intent(this, IntroActivity::class.java))
+        startActivity(Intent(this, IntroActivity::class.java))
         finish()
     }
 

@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="1"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -58,7 +58,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/air_horn"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="@string/count_play"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="2"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -110,7 +110,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/hair_clipper"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="23441244 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -139,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="3"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -162,7 +162,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/fart"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="20242424 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -191,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="4"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -214,7 +214,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/ghost"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="17442424 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -243,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="5"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -266,7 +266,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/halloween"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -276,7 +276,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="10344141 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="6"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -318,7 +318,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/snore"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -328,7 +328,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="10344131 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -347,7 +347,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="7"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -370,7 +370,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/gun"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -380,7 +380,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="10344121 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />
@@ -399,7 +399,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="8"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -422,7 +422,7 @@
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/inter_medium"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/count_down"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_15ssp" />
@@ -432,7 +432,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/inter_regular"
+                    android:fontFamily="@font/nunito_regular"
                     android:text="10344100 plays"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/_12ssp" />

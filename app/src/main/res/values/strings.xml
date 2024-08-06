@@ -109,6 +109,12 @@
     <string name="open">Open</string>
     <string name="test_sound">Test Sound</string>
     <string name="this_action_can_contain_ad">This action can contain ad</string>
+    <string name="introduce">Introduce</string>
+    <string name="next">Next</string>
+    <string name="title_intro_1">Funny Prank Sounds</string>
+    <string name="title_intro_2">100+ Hilarious Sound Effects</string>
+    <string name="title_intro_3">Laugh Wherever You Are!</string>
+    <string name="start">Start</string>
 
 
 </resources>
