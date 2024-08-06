@@ -21,8 +21,8 @@
     <color name="buttonColor">#3f3f3f</color>
 
     <color name="title_color">#2A6ACA</color>
-    <color name="bottom_nav_text_color">#B9B9B9</color>
-    <color name="bottom_nav_text_color_selected">#00A3FF</color>
+    <color name="bottom_nav_text_color">#797D87</color>
+    <color name="bottom_nav_text_color_selected">@color/mainColor</color>
 
     <color name="count_play_color">#818181</color>
 

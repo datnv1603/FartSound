@@ -9,7 +9,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -65,13 +64,13 @@ public class MainActivity extends BaseActivity {
                 imgHome.setBackgroundResource(R.drawable.ic_home_selected);
                 tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
 
-                imgCreate.setBackgroundResource(R.drawable.ic_create);
+                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
                 tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgFavorites.setBackgroundResource(R.drawable.ic_favorite);
+                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
                 tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board);
+                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
                 imgSetting.setBackgroundResource(R.drawable.ic_setting);
@@ -84,16 +83,16 @@ public class MainActivity extends BaseActivity {
                 fragmentManager.beginTransaction().replace(R.id.fragmentMain, new CreateFragment()).commit();
                 tv_title.setText(R.string.create_sound);
 
-                imgHome.setBackgroundResource(R.drawable.ic_home);
+                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
                 tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
                 imgCreate.setBackgroundResource(R.drawable.ic_create_selected);
                 tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
 
-                imgFavorites.setBackgroundResource(R.drawable.ic_favorite);
+                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
                 tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board);
+                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
                 imgSetting.setBackgroundResource(R.drawable.ic_setting);
@@ -105,16 +104,16 @@ public class MainActivity extends BaseActivity {
                 fragmentManager.beginTransaction().replace(R.id.fragmentMain, new FavoritesFragment()).commit();
                 tv_title.setText(R.string.favorites);
 
-                imgHome.setBackgroundResource(R.drawable.ic_home);
+                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
                 tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgCreate.setBackgroundResource(R.drawable.ic_create);
+                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
                 tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgFavorites.setBackgroundResource(R.drawable.ic_favorite_selected);
+                imgFavorites.setBackgroundResource(R.drawable.ic_fav_selected);
                 tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
 
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board);
+                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
                 imgSetting.setBackgroundResource(R.drawable.ic_setting);
@@ -126,13 +125,13 @@ public class MainActivity extends BaseActivity {
                 fragmentManager.beginTransaction().replace(R.id.fragmentMain, new LeaderBoardFragment()).commit();
                 tv_title.setText(R.string.leaderboard);
 
-                imgHome.setBackgroundResource(R.drawable.ic_home);
+                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
                 tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgCreate.setBackgroundResource(R.drawable.ic_create);
+                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
                 tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgFavorites.setBackgroundResource(R.drawable.ic_favorite);
+                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
                 tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
                 imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_selected);
@@ -147,16 +146,16 @@ public class MainActivity extends BaseActivity {
                 fragmentManager.beginTransaction().replace(R.id.fragmentMain, new SettingFragment()).commit();
                 tv_title.setText(R.string.setting);
 
-                imgHome.setBackgroundResource(R.drawable.ic_home);
+                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
                 tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgCreate.setBackgroundResource(R.drawable.ic_create);
+                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
                 tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgFavorites.setBackgroundResource(R.drawable.ic_favorite);
+                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
                 tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board);
+                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
                 imgSetting.setBackgroundResource(R.drawable.ic_setting_selected);
@@ -171,31 +170,26 @@ public class MainActivity extends BaseActivity {
         ll_home.setOnClickListener(v -> {
             navTab = "home";
             changeFragment(navTab);
-            Log.d("Change_fragment", "Home fragment");
         });
 
         ll_create.setOnClickListener(v -> {
             navTab = "create";
             changeFragment(navTab);
-            Log.d("Change_fragment", "Create fragment");
         });
 
         ll_favorites.setOnClickListener(v -> {
             navTab = "favorites";
             changeFragment(navTab);
-            Log.d("Change_fragment", "Favorites fragment");
         });
 
         ll_leaderboard.setOnClickListener(v -> {
             navTab = "leaderboard";
             changeFragment(navTab);
-            Log.d("Change_fragment", "Leaderboard fragment");
         });
 
         ll_setting.setOnClickListener(v -> {
             navTab = "setting";
             changeFragment(navTab);
-            Log.d("Change_fragment", "Setting fragment");
         });
 
     }

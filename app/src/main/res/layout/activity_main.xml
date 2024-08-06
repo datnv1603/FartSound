@@ -57,9 +57,10 @@
                 android:id="@+id/bottomNav"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_60sdp"
-                android:background="@drawable/bg_bottom_nav"
+                android:background="@drawable/bg_bottom_navigation"
                 android:baselineAligned="false"
                 android:orientation="horizontal"
+                android:elevation="0dp"
                 app:layout_constraintBottom_toTopOf="@id/rl_banner"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -77,7 +78,7 @@
                         android:id="@+id/img_home"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/ic_home"
+                        android:background="@drawable/ic_home_unselected"
                         android:importantForAccessibility="no" />
 
                     <TextView
@@ -107,7 +108,7 @@
                         android:id="@+id/img_create"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/ic_create"
+                        android:background="@drawable/ic_create_unselected"
                         android:importantForAccessibility="no" />
 
                     <TextView
@@ -137,7 +138,7 @@
                         android:id="@+id/img_favorites"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/ic_favorite"
+                        android:background="@drawable/ic_fav_unselected"
                         android:importantForAccessibility="no" />
 
                     <TextView
@@ -167,7 +168,7 @@
                         android:id="@+id/img_leaderboard"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/ic_leader_board"
+                        android:background="@drawable/ic_leader_board_unselected"
                         android:importantForAccessibility="no" />
 
                     <TextView

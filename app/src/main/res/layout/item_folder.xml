@@ -1,78 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/cvBG"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="@dimen/_15sdp">
+        android:layout_margin="@dimen/_5sdp">
 
-        <RelativeLayout
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_120sdp"
-            android:background="@drawable/bg_categories"
-            android:gravity="center"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvBG"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/folder_image"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/_30sdp"
-                android:background="@drawable/iconbackground"
-                android:src="@drawable/air_horn_test" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/item_image"
+                android:src="@drawable/img_air_horn" />
 
-            <TextView
-                android:id="@+id/folder_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginHorizontal="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:fontFamily="@font/nunito_extra_bold"
-                android:singleLine="true"
-                android:text="@string/hair_clipper"
-                android:textColor="@color/text_color"
-                android:textSize="20sp" />
-        </RelativeLayout>
 
-    </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tv_event"
-        android:layout_width="@dimen/_50ssp"
-        android:layout_height="@dimen/_25ssp"
-        android:layout_alignEnd="@+id/cvBG"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_minus8sdp"
-        android:background="@drawable/bg_event"
-        android:fontFamily="@font/nunito_extra_bold"
-        android:gravity="center"
-        android:text="@string/event"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/folder_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_4sdp"
+            android:gravity="center"
+            android:fontFamily="@font/nunito_extra_bold"
+            android:singleLine="true"
+            android:text="@string/hair_clipper"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <TextView
-        android:id="@+id/tv_new"
-        android:layout_width="@dimen/_50ssp"
-        android:layout_height="@dimen/_25ssp"
-        android:layout_alignEnd="@+id/cvBG"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginEnd="@dimen/_minus8sdp"
-        android:background="@drawable/bg_new"
-        android:fontFamily="@font/nunito_extra_bold"
-        android:gravity="center"
-        android:text="@string/new_"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp"
-        android:visibility="invisible" />
-</RelativeLayout>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.7575757575" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -51,7 +51,7 @@
                         android:id="@+id/imageView"
                         android:layout_width="@dimen/_45sdp"
                         android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/air_horn_test" />
+                        android:src="@drawable/img_air_horn" />
                 </LinearLayout>
 
                 <TextView

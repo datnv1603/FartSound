@@ -26,7 +26,7 @@
             android:layout_marginHorizontal="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_30sdp"
-            android:src="@drawable/air_horn_test" />
+            android:src="@drawable/img_air_horn" />
 
         <TextView
             android:id="@+id/txtSoundName"

@@ -116,6 +116,8 @@
     <string name="title_intro_3">Laugh Wherever You Are!</string>
     <string name="start">Start</string>
     <string name="background">Background</string>
+    <string name="item_image">Item image</string>
+    <string name="create_effect">Create effect</string>
 
 
 </resources>

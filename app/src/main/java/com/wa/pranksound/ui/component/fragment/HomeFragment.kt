@@ -20,11 +20,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var categoriesAdapter: CategoriesAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,10 +36,6 @@ class HomeFragment : Fragment() {
              cate = requireActivity().assets.list("prank_sound")?.toList()
         } catch (e: IOException) {
             throw RuntimeException(e)
-        }
-        Log.d("Categories", cate!!.size.toString())
-        for (i in cate!!.indices) {
-            Log.d("Categories", cate!![i])
         }
 
 

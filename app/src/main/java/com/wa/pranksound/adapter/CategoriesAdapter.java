@@ -12,7 +12,6 @@ import static com.wa.pranksound.utils.KeyClass.snore;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,14 +47,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
         String folderName = folderNames.get(position);
         holder.bind(folderName);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("check_show_ads", "show in categories");
-                Intent intent = new Intent(context, SoundListActivity.class);
-                intent.putExtra(cate_name, folderName);
-                context.startActivity(intent);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SoundListActivity.class);
+            intent.putExtra(cate_name, folderName);
+            context.startActivity(intent);
         });
 
     }
@@ -67,40 +62,34 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
     public static class CategoriesViewHolder extends RecyclerView.ViewHolder {
         ImageView folderImage;
-        TextView folderNameText, tv_new, tv_event;
+        TextView folderNameText;
 
 
         public CategoriesViewHolder(@NonNull View itemView) {
             super(itemView);
             folderImage = itemView.findViewById(R.id.folder_image);
             folderNameText = itemView.findViewById(R.id.folder_name);
-            tv_new = itemView.findViewById(R.id.tv_new);
-            tv_event = itemView.findViewById(R.id.tv_event);
         }
 
         public void bind(String folderName) {
             // Load image based on folderName
 
             if (folderName.equals(air_horn)) {
-                folderImage.setImageResource(R.drawable.air_horn_test);
+                folderImage.setImageResource(R.drawable.img_air_horn);
             } else if (folderName.equals(hair_clipper)) {
                 folderImage.setImageResource(R.drawable.img_hair_clipper);
             } else if (folderName.equals(fart)) {
                 folderImage.setImageResource(R.drawable.img_fart);
             } else if (folderName.equals(count_down)) {
                 folderImage.setImageResource(R.drawable.img_count_down);
-                //   tv_new.setVisibility(View.VISIBLE);
             } else if (folderName.equals(ghost)) {
                 folderImage.setImageResource(R.drawable.img_ghost);
-                // tv_new.setVisibility(View.VISIBLE);
             } else if (folderName.equals(halloween)) {
                 folderImage.setImageResource(R.drawable.img_halloween);
             } else if (folderName.equals(snore)) {
                 folderImage.setImageResource(R.drawable.img_snore);
-                //    tv_event.setVisibility(View.VISIBLE);
             } else if (folderName.equals(gun)) {
                 folderImage.setImageResource(R.drawable.img_gun);
-                //     tv_event.setVisibility(View.VISIBLE);
             }
             // Set folder name
             folderName = folderName.replace("_", " ");
