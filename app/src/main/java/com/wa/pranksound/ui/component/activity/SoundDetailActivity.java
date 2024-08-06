@@ -1,4 +1,4 @@
-package com.wa.pranksound.activity;
+package com.wa.pranksound.ui.component.activity;
 
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.image_sound;

@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.adjust.sdk.Adjust
 import com.wa.pranksound.R
-import com.wa.pranksound.activity.MainActivity
+import com.wa.pranksound.ui.component.activity.MainActivity
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityIntroBinding

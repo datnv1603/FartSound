@@ -1,4 +1,4 @@
-package com.wa.pranksound.activity
+package com.wa.pranksound.ui.component.activity
 
 import android.os.Bundle
 import android.widget.Toast

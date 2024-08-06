@@ -1,4 +1,4 @@
-package com.wa.pranksound.fragment
+package com.wa.pranksound.ui.component.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wa.pranksound.activity.RecordActivity
+import com.wa.pranksound.ui.component.activity.RecordActivity
 import com.wa.pranksound.adapter.RecordAdapter
 import com.wa.pranksound.databinding.FragmentCreateBinding
 import com.wa.pranksound.utils.Utils

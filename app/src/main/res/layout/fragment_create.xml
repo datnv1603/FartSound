@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_home"
     android:orientation="vertical"
-    tools:context=".fragment.CreateFragment">
+    tools:context=".ui.component.fragment.CreateFragment">
 
     <ScrollView
         android:layout_width="match_parent"

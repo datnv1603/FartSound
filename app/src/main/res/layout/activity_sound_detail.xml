@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_home"
-    tools:context=".activity.SoundDetailActivity">
+    tools:context=".ui.component.activity.SoundDetailActivity">
 
     <RelativeLayout
         android:id="@+id/rlLet"

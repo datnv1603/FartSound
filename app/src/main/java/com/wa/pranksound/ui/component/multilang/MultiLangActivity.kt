@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.adjust.sdk.Adjust
 import com.wa.pranksound.R
-import com.wa.pranksound.activity.MainActivity
+import com.wa.pranksound.ui.component.activity.MainActivity
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityMultiLangBinding
@@ -70,7 +70,8 @@ class MultiLangActivity : BaseBindingActivity<ActivityMultiLangBinding, MultiLan
 
         when (type) {
             Constant.TYPE_LANGUAGE_SPLASH -> {
-                val isFirstRun = SharedPreferenceHelper.getBoolean("isFirstRun", true)
+//                val isFirstRun = SharedPreferenceHelper.getBoolean("isFirstRun", true)
+                val isFirstRun = true
                 binding.btnChooseLang.setOnClickListener {
                     SystemUtil.changeLang(code.ifEmpty { oldCode }, this)
                     if (isFirstRun) {

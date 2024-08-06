@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
-import com.wa.pranksound.activity.SoundDetailActivity;
+import com.wa.pranksound.ui.component.activity.SoundDetailActivity;
 import com.wa.pranksound.Room.InsertPrankSound;
 
 import org.jetbrains.annotations.NotNull;

@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wa.pranksound.R;
-import com.wa.pranksound.activity.SoundListActivity;
+import com.wa.pranksound.ui.component.activity.SoundListActivity;
 
 import java.util.List;
 

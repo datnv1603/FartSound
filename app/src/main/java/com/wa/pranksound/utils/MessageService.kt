@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.wa.pranksound.R
-import com.wa.pranksound.activity.MainActivity
+import com.wa.pranksound.ui.component.activity.MainActivity
 
 class MessageService : FirebaseMessagingService() {
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_home"
-    tools:context=".activity.FeedbackActivity">
+    tools:context=".ui.component.activity.FeedbackActivity">
 
     <RelativeLayout
         android:id="@+id/rlLet"

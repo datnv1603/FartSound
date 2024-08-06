@@ -1,4 +1,4 @@
-package com.wa.pranksound.fragment
+package com.wa.pranksound.ui.component.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

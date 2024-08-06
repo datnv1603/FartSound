@@ -1,4 +1,4 @@
-package com.wa.pranksound.fragment
+package com.wa.pranksound.ui.component.fragment
 
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable

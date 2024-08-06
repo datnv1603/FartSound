@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_home"
-    tools:context=".activity.FavoriteActivity">
+    tools:context=".ui.component.activity.FavoriteActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

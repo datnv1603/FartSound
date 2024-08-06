@@ -1,4 +1,4 @@
-package com.wa.pranksound.activity;
+package com.wa.pranksound.ui.component.activity;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.core.content.ContextCompat;
@@ -6,33 +6,29 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wa.pranksound.R;
-import com.wa.pranksound.fragment.CreateFragment;
-import com.wa.pranksound.fragment.FavoritesFragment;
-import com.wa.pranksound.fragment.HomeFragment;
-import com.wa.pranksound.fragment.LeaderBoardFragment;
-import com.wa.pranksound.fragment.SettingFragment;
+import com.wa.pranksound.ui.component.fragment.CreateFragment;
+import com.wa.pranksound.ui.component.fragment.FavoritesFragment;
+import com.wa.pranksound.ui.component.fragment.HomeFragment;
+import com.wa.pranksound.ui.component.fragment.LeaderBoardFragment;
+import com.wa.pranksound.ui.component.fragment.SettingFragment;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Gdpr;
 
 import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
-    ImageView imgFav, imgGift, imgHome, imgCreate, imgFavorites, imgLeaderboard, imgSetting;
+    ImageView imgHome, imgCreate, imgFavorites, imgLeaderboard, imgSetting;
     RecyclerView rcv_cate;
     FragmentManager fragmentManager;
 
@@ -40,16 +36,12 @@ public class MainActivity extends BaseActivity {
     String navTab = "home";
     TextView tv_title, tv_home, tv_create, tv_favorites, tv_leaderboard, tv_setting;
 
-    FrameLayout fl_banner;
-    View view_line;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         findView();
-        clickEvent();
 
         fragmentManager = getSupportFragmentManager();
         bottomNavigationClick();
@@ -210,9 +202,6 @@ public class MainActivity extends BaseActivity {
 
     private void findView() {
 
-        imgFav = findViewById(R.id.imgFav);
-        imgGift = findViewById(R.id.imgGift);
-
         rcv_cate = findViewById(R.id.rcv_cate);
 
         ll_home = findViewById(R.id.ll_home);
@@ -244,15 +233,6 @@ public class MainActivity extends BaseActivity {
                 showExitDialog();
             }
         });
-    }
-
-    private void clickEvent() {
-        imgFav.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, FavoriteActivity.class);
-            startActivity(intent);
-        });
-
-        imgGift.setOnClickListener(v -> Toast.makeText(getApplication(), "Coming Soon", Toast.LENGTH_SHORT).show());
     }
 
     public void showExitDialog() {
