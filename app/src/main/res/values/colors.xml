@@ -31,6 +31,8 @@
     <color name="text_color_save">#1EA0EE</color>
 
     <color name="colorAds">#FFC907</color>
+    <color name="mainColor">#FFB400</color>
+    <color name="transparent">#00000000</color>
 
 </resources>
 

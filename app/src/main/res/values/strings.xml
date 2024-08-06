@@ -108,6 +108,7 @@
     <string name="icon_advertising">Icon advertising</string>
     <string name="open">Open</string>
     <string name="test_sound">Test Sound</string>
+    <string name="this_action_can_contain_ad">This action can contain ad</string>
 
 
 </resources>
