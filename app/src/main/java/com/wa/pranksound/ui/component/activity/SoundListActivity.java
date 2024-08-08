@@ -52,6 +52,7 @@ public class SoundListActivity extends BaseActivity {
         findView();
 
     }
+
     private void findView() {
         imgBack = findViewById(R.id.imgBack);
         rvSound = findViewById(R.id.rvSound);
@@ -90,9 +91,6 @@ public class SoundListActivity extends BaseActivity {
 
                 //list đường dẫn đến hình ảnh ở list asset
                 List<String> imageList = ImageLoader.getImageListFromAssets(this, "prank_image/" + strCateName);
-                Log.d("list_image", "prank_image/" + strCateName);
-                Log.d("list_image", String.valueOf(imageList.size()));
-                Log.d("list_image", imageList.get(0));
 
                 for (int i = 0; i < images.length; i++) {
                     Sound sound;
@@ -104,9 +102,7 @@ public class SoundListActivity extends BaseActivity {
                     listSound.add(sound);
 
                 }
-                VerticalSoundAdapterTest verticalSoundAdapter = new VerticalSoundAdapterTest(this, listSound);
-                GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-                rvSound.setLayoutManager(layoutManager);
+                VerticalSoundAdapterTest verticalSoundAdapter = new VerticalSoundAdapterTest(listSound);
                 rvSound.setAdapter(verticalSoundAdapter);
 
             }
@@ -115,7 +111,7 @@ public class SoundListActivity extends BaseActivity {
         }
 
         imgBack.setOnClickListener(v ->
-            startActivity(new Intent(SoundListActivity.this, MainActivity.class))
+                startActivity(new Intent(SoundListActivity.this, MainActivity.class))
         );
 
         imgBack.setOnClickListener(

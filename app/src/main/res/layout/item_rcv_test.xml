@@ -1,48 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:background="#00000000"
-    android:gravity="center">
+    android:layout_margin="@dimen/_6sdp">
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/cvBG"
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bg_sound"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/bg1"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imgCate"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_30sdp"
-            android:src="@drawable/img_air_horn" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_12sdp"
+            android:contentDescription="@string/air_horn"
+            android:src="@drawable/air_horn1" />
 
-        <TextView
-            android:id="@+id/txtSoundName"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:fontFamily="@font/nunito_extra_bold"
-            android:singleLine="true"
-            android:text="hair_clipper"
-            android:textAlignment="center"
-            android:textColor="@color/text_color"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtSoundName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:fontFamily="@font/nunito_bold"
+        android:singleLine="true"
+        android:text="@string/hair_clipper"
+        android:textAlignment="center"
+        android:textSize="@dimen/_11ssp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/cvBG" />
 
     <ImageView
         android:id="@+id/img_ads"
@@ -52,8 +46,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_12sdp"
+        android:contentDescription="@string/ads"
         android:src="@drawable/ic_ads"
-        android:visibility="invisible" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

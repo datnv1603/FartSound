@@ -7,34 +7,74 @@
     android:background="@drawable/bg_home"
     tools:context=".ui.component.activity.SoundListActivity">
 
-    <RelativeLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bg_main"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/background"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rlLet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_43sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <com.wa.pranksound.utils.customview.StrokeTextView
             android:id="@+id/txtTitle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_60sdp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_40sdp"
             android:fontFamily="@font/nunito_black"
             android:gravity="center"
+            android:maxLines="1"
             android:text="@string/app_name"
-            android:textColor="@color/title_color"
-            android:textSize="@dimen/_20ssp" />
+            android:textColor="#D85B00"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/white"
+            app:strokeWidth="@dimen/_5sdp" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imgBack"
-            android:layout_width="56dp"
-            android:layout_height="@dimen/_60sdp"
-            android:padding="10dp"
-            android:src="@drawable/ic_back" />
-    </RelativeLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:background="@color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/backward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSound"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/rlLet" />
+        android:layout_height="0dp"
+        android:background="@drawable/bg_sub_main"
+        android:padding="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rlLet">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSound"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
