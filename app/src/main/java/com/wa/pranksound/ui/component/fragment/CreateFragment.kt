@@ -31,17 +31,17 @@ class CreateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.llBtnCreate.setOnClickListener {
+        binding.btnCreateEffect.setOnClickListener {
             val intent = Intent(requireActivity(), RecordActivity::class.java)
             startActivity(intent)
         }
 
         val list = Utils.getAudioList(requireActivity())
         for (i in list) {
-            Log.d("record", i.filePath)
+
         }
         if (list.isEmpty()) {
-            binding.llNoRecord.visibility = View.VISIBLE
+            binding.txtNoFoundTitle.visibility = View.VISIBLE
         } else {
             recordAdapter = RecordAdapter(requireActivity(), list)
             binding.rcvRecord.layoutManager =

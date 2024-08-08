@@ -5,6 +5,7 @@
          <item name="colorPrimary">@color/action_color</item>
         <item name="android:statusBarColor">@color/action_color</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:textColor">#0A121C</item>
     </style>
 
     <style name="Theme.PrankSound" parent="Base.Theme.PrankSound" />

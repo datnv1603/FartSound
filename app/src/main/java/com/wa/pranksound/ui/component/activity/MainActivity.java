@@ -20,20 +20,19 @@ import com.wa.pranksound.ui.component.fragment.CreateFragment;
 import com.wa.pranksound.ui.component.fragment.FavoritesFragment;
 import com.wa.pranksound.ui.component.fragment.HomeFragment;
 import com.wa.pranksound.ui.component.fragment.LeaderBoardFragment;
-import com.wa.pranksound.ui.component.fragment.SettingFragment;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Gdpr;
 
 import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
-    ImageView imgHome, imgCreate, imgFavorites, imgLeaderboard, imgSetting;
+    ImageView imgHome, imgCreate, imgFavorites, imgLeaderboard;
     RecyclerView rcv_cate;
     FragmentManager fragmentManager;
 
-    LinearLayout ll_home, ll_create, ll_favorites, ll_leaderboard, ll_setting;
+    LinearLayout ll_home, ll_create, ll_favorites, ll_leaderboard;
     String navTab = "home";
-    TextView tv_title, tv_home, tv_create, tv_favorites, tv_leaderboard, tv_setting;
+    TextView tv_title, tv_home, tv_create, tv_favorites, tv_leaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +72,6 @@ public class MainActivity extends BaseActivity {
                 imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
 
-                imgSetting.setBackgroundResource(R.drawable.ic_setting);
-                tv_setting.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-
                 break;
 
             case "create":
@@ -94,10 +89,6 @@ public class MainActivity extends BaseActivity {
 
                 imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgSetting.setBackgroundResource(R.drawable.ic_setting);
-                tv_setting.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
                 break;
 
             case "favorites":
@@ -115,10 +106,6 @@ public class MainActivity extends BaseActivity {
 
                 imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgSetting.setBackgroundResource(R.drawable.ic_setting);
-                tv_setting.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
                 break;
 
             case "leaderboard":
@@ -136,18 +123,13 @@ public class MainActivity extends BaseActivity {
 
                 imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_selected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-
-                imgSetting.setBackgroundResource(R.drawable.ic_setting);
-                tv_setting.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
                 break;
+            default:
+                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new HomeFragment()).commit();
+                tv_title.setText(R.string.home);
 
-            case "setting":
-                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new SettingFragment()).commit();
-                tv_title.setText(R.string.setting);
-
-                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
-                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
+                imgHome.setBackgroundResource(R.drawable.ic_home_selected);
+                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
 
                 imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
                 tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
@@ -157,12 +139,7 @@ public class MainActivity extends BaseActivity {
 
                 imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
                 tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgSetting.setBackgroundResource(R.drawable.ic_setting_selected);
-                tv_setting.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-
                 break;
-
         }
     }
 
@@ -186,12 +163,6 @@ public class MainActivity extends BaseActivity {
             navTab = "leaderboard";
             changeFragment(navTab);
         });
-
-        ll_setting.setOnClickListener(v -> {
-            navTab = "setting";
-            changeFragment(navTab);
-        });
-
     }
 
     private void findView() {
@@ -202,7 +173,6 @@ public class MainActivity extends BaseActivity {
         ll_create = findViewById(R.id.ll_create);
         ll_favorites = findViewById(R.id.ll_favorites);
         ll_leaderboard = findViewById(R.id.ll_leaderboard);
-        ll_setting = findViewById(R.id.ll_setting);
 
         tv_title = findViewById(R.id.tv_title);
 
@@ -210,13 +180,11 @@ public class MainActivity extends BaseActivity {
         imgCreate = findViewById(R.id.img_create);
         imgFavorites = findViewById(R.id.img_favorites);
         imgLeaderboard = findViewById(R.id.img_leaderboard);
-        imgSetting = findViewById(R.id.img_setting);
 
         tv_home = findViewById(R.id.tv_home);
         tv_create = findViewById(R.id.tv_create);
         tv_favorites = findViewById(R.id.tv_favorites);
         tv_leaderboard = findViewById(R.id.tv_leaderboard);
-        tv_setting = findViewById(R.id.tv_setting);
 
         new Gdpr().make(this);
 

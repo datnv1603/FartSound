@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/mainColor"
-
         tools:context=".ui.component.activity.MainActivity">
 
         <ImageView
@@ -20,25 +19,55 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/background"/>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rlLet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_43sdp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_40sdp"
                 android:fontFamily="@font/nunito_black"
                 android:gravity="center"
                 android:text="@string/app_name"
-                android:textColor="@color/title_color"
-                android:textSize="@dimen/_22ssp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:maxLines="1"
+                android:textColor="#D85B00"
+                android:visibility="gone"
+                android:textSize="@dimen/_20ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.wa.pranksound.utils.customview.StrokeTextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_40sdp"
+                android:fontFamily="@font/nunito_black"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:maxLines="1"
+                android:textColor="#D85B00"
+                android:textSize="@dimen/_20ssp"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_settings"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -181,36 +210,6 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="@string/leaderboard"
-                        android:textColor="@color/bottom_nav_text_color"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_setting"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:ignore="RtlSymmetry,UseCompoundDrawables">
-
-                    <ImageView
-                        android:id="@+id/img_setting"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:background="@drawable/ic_setting"
-                        android:importantForAccessibility="no" />
-
-                    <TextView
-                        android:id="@+id/tv_setting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:ellipsize="marquee"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/settings"
                         android:textColor="@color/bottom_nav_text_color"
                         android:textSize="13sp" />
                 </LinearLayout>

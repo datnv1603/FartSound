@@ -45,13 +45,11 @@ class RecordActivity : BaseActivity() {
             if (!checkPermissions()) {
                 checkPer()
             } else {
-
                 startRecording()
-                binding.imgRecording.visibility = View.VISIBLE
-                binding.imgRecord.visibility = View.INVISIBLE
+                binding.imgPauseRecord.visibility = View.VISIBLE
+//                binding.imgRecord.visibility = View.INVISIBLE
                 binding.llStartRecord.visibility = View.VISIBLE
                 binding.llRecordHere.visibility = View.GONE
-                Log.d(LOG_TAG, "da co quyen va bat dau ghi am")
             }
         }
 
@@ -68,8 +66,8 @@ class RecordActivity : BaseActivity() {
             startRecording()
             binding.imgStartRecord.visibility = View.GONE
             binding.imgPauseRecord.visibility = View.VISIBLE
-            binding.imgRecording.visibility = View.VISIBLE
-            binding.imgRecord.visibility = View.INVISIBLE
+            binding.imgPauseRecord.visibility = View.VISIBLE
+//            binding.imgRecord.visibility = View.INVISIBLE
         }
 
         binding.imgPauseRecord.setOnClickListener {
@@ -196,8 +194,8 @@ class RecordActivity : BaseActivity() {
     }
 
     private fun stopRecording() {
-        binding.imgRecording.visibility = View.INVISIBLE
-        binding.imgRecord.visibility = View.VISIBLE
+        binding.imgPauseRecord.visibility = View.INVISIBLE
+//        binding.imgRecord.visibility = View.VISIBLE
         playerEffects?.stop()
         playerBackground?.stop()
 

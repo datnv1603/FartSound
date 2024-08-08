@@ -5,16 +5,17 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_15sdp"
     android:background="@drawable/bg_item_language"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/_18sdp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_15sdp"
-        android:fontFamily="@font/nunito_semi_bold"
+        android:fontFamily="@font/nunito_bold"
+        android:gravity="center"
         android:text="@string/save_as"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/_14ssp" />
+        android:textSize="@dimen/_16ssp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutFileName"
@@ -30,8 +31,12 @@
             android:id="@+id/editTextFileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_negative"
+            android:fontFamily="@font/nunito_regular"
+            android:hint="@string/enter_name"
             android:maxLength="30"
-            android:textColor="@color/text_color" />
+            android:shadowRadius="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -43,22 +48,27 @@
 
         <TextView
             android:id="@+id/btnCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_negative"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
             android:text="@string/cancle"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_13ssp" />
 
         <TextView
             android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
             android:text="@string/save"
-            android:textColor="@color/text_color_save"
             android:textSize="@dimen/_13ssp" />
     </LinearLayout>
-
-
 </LinearLayout>

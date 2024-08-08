@@ -148,7 +148,7 @@ class EditRecordActivity : AppCompatActivity() {
         binding.save.setOnClickListener {
 //            saveAudio(fileNameNew)
             pauseAudio()
-            binding.imgPause.setImageResource(R.drawable.img_edit_record_play)
+            binding.imgPause.setImageResource(R.drawable.ic_start)
             isPlaying = false
             showSaveDialog(this)
         }
@@ -164,11 +164,11 @@ class EditRecordActivity : AppCompatActivity() {
 
         binding.imgPause.setOnClickListener {
             if (isPlaying) {
-                binding.imgPause.setImageResource(R.drawable.img_edit_record_play)
+                binding.imgPause.setImageResource(R.drawable.ic_start)
                 pauseAudio()
                 isPlaying = false
             } else {
-                binding.imgPause.setImageResource(R.drawable.img_edit_record_pause)
+                binding.imgPause.setImageResource(R.drawable.ic_small_pause)
                 resumeAudio()
                 isPlaying = true
             }
