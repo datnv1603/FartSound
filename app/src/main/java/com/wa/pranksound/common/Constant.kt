@@ -60,7 +60,4 @@ object Constant {
 
     const val CREATE_STICKER_DELAY = 3000L
 
-    internal const val IS_RATED = "IS_RATED"
-
-
 }

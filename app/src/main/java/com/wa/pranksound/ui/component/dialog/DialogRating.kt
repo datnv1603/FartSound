@@ -1,10 +1,10 @@
 package com.wa.pranksound.ui.component.dialog
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.wa.pranksound.R
 import com.wa.pranksound.common.Constant
+import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.DialogRatingBinding
 import com.wa.pranksound.ui.base.BaseBindingDialogFragment
 import com.wa.pranksound.utils.extention.setOnSafeClick
@@ -29,8 +29,7 @@ class DialogRating : BaseBindingDialogFragment<DialogRatingBinding>() {
 	}
 
 	private fun savePrefData() {
-		val sharePref = requireContext().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-		sharePref.edit().putBoolean(Constant.IS_RATED, true).apply()
+		SharedPreferenceHelper.storeBoolean(Constant.KEY_IS_RATE, true)
 	}
 
 	private fun changeRating() {

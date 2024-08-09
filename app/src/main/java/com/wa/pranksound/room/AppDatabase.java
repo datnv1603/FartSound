@@ -1,4 +1,4 @@
-package com.wa.pranksound.Room;
+package com.wa.pranksound.room;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

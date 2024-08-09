@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.VerticalFavoriteSoundAdapter;
-import com.wa.pranksound.Room.AppDatabase;
-import com.wa.pranksound.Room.InsertPrankSound;
-import com.wa.pranksound.Room.QueryClass;
+import com.wa.pranksound.room.AppDatabase;
+import com.wa.pranksound.room.InsertPrankSound;
+import com.wa.pranksound.room.QueryClass;
 
 import java.util.Collections;
 import java.util.List;

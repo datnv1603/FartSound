@@ -32,7 +32,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -40,9 +39,9 @@ import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.CategoriesAdapter;
 import com.wa.pranksound.adapter.HorizontalFavoriteSoundAdapter;
-import com.wa.pranksound.Room.AppDatabase;
-import com.wa.pranksound.Room.InsertPrankSound;
-import com.wa.pranksound.Room.QueryClass;
+import com.wa.pranksound.room.AppDatabase;
+import com.wa.pranksound.room.InsertPrankSound;
+import com.wa.pranksound.room.QueryClass;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Utils;
 

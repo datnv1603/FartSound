@@ -5,10 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.wa.pranksound.R
+import com.wa.pranksound.common.Constant
+import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivitySettingsBinding
 import com.wa.pranksound.ui.base.BaseBindingActivity
-import com.wa.pranksound.ui.component.activity.LanguageActivity
 import com.wa.pranksound.ui.component.dialog.DialogRating
+import com.wa.pranksound.ui.component.multilang.MultiLangActivity
 import com.wa.pranksound.ui.component.policy.PolicyActivity
 import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.extention.gone
@@ -56,9 +58,14 @@ class SettingsActivity : BaseBindingActivity<ActivitySettingsBinding, SettingsVi
         }
 
         binding.language.setOnSafeClick {
-            startActivity(Intent(this, LanguageActivity::class.java))
+            val intent = Intent(this, MultiLangActivity::class.java)
+            intent.putExtra(Constant.TYPE_LANG, Constant.TYPE_LANGUAGE_SETTING)
+            startActivity(intent)
         }
 
+        if (SharedPreferenceHelper.getBoolean(Constant.KEY_IS_RATE, false)) {
+            binding.rate.gone()
+        }
         binding.rate.setOnSafeClick {
             if (!ratingDialog.isAdded)
                 ratingDialog.show(supportFragmentManager, null)

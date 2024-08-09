@@ -131,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/_minus5sdp"
-                android:background="@color/white"
+                android:background="@color/car"
                 app:layout_constraintEnd_toEndOf="@+id/tvTerm"
                 app:layout_constraintStart_toStartOf="@+id/tvTerm"
                 app:layout_constraintTop_toBottomOf="@+id/tvTerm" />

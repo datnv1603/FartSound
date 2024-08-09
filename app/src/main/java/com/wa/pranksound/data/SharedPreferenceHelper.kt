@@ -141,6 +141,6 @@ class SharedPreferenceHelper(context: Context) {
     }
 
     init {
-        sharedPreferences = context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        sharedPreferences = context.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
     }
 }

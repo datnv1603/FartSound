@@ -71,7 +71,7 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.component.activity.SettingActivity"
+            android:name=".ui.component.settings.SettingsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -92,10 +92,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.component.activity.MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.component.activity.FirstTimeLanguageActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
