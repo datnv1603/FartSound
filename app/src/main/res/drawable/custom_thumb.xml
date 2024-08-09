@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="#FFA306"/>
-            <size android:height="2dp" android:width="2dp"/>
+            <solid android:color="@color/mainColor"/>
+            <size
+                android:width="35dp"
+                android:height="35dp"/>
         </shape>
     </item>
 </layer-list>

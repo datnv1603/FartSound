@@ -72,7 +72,7 @@
             android:layout_marginTop="@dimen/_40sdp"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
+            app:lottie_autoPlay="false"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/anim_recording" />
 
@@ -84,7 +84,6 @@
             android:fontFamily="@font/inter_semibold"
             android:gravity="center"
             android:text="@string/time_record"
-            android:textColor="@color/text_color"
             android:textSize="@dimen/_37ssp"
             app:layout_constraintTop_toBottomOf="@id/animRecording" />
 
@@ -116,11 +115,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/img_micro"
+                    android:id="@+id/btnMicro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
@@ -139,7 +138,7 @@
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/img_micro"/>
+                    app:layout_constraintTop_toBottomOf="@id/btnMicro"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,22 +149,22 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageButton
-                    android:id="@+id/img_reload"
+                    android:id="@+id/btnDiscard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_30sdp"
                     android:background="@color/transparent"
                     android:contentDescription="@string/button_reload"
-                    app:layout_constraintEnd_toStartOf="@id/img_pause_record"
-                    app:layout_constraintTop_toTopOf="@id/img_pause_record"
-                    app:layout_constraintBottom_toBottomOf="@id/img_pause_record"
+                    app:layout_constraintEnd_toStartOf="@id/btnPause"
+                    app:layout_constraintTop_toTopOf="@id/btnPause"
+                    app:layout_constraintBottom_toBottomOf="@id/btnPause"
                     android:src="@drawable/ic_x" />
 
                 <ImageButton
-                    android:id="@+id/img_start_record"
+                    android:id="@+id/btnStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_20sdp"
@@ -178,7 +177,7 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageButton
-                    android:id="@+id/img_pause_record"
+                    android:id="@+id/btnPause"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_20sdp"
@@ -197,9 +196,9 @@
                     android:background="@color/transparent"
                     android:contentDescription="@string/button_next"
                     android:src="@drawable/ic_save"
-                    app:layout_constraintStart_toEndOf="@id/img_pause_record"
-                    app:layout_constraintTop_toTopOf="@id/img_pause_record"
-                    app:layout_constraintBottom_toBottomOf="@id/img_pause_record"/>
+                    app:layout_constraintStart_toEndOf="@id/btnPause"
+                    app:layout_constraintTop_toTopOf="@id/btnPause"
+                    app:layout_constraintBottom_toBottomOf="@id/btnPause"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

@@ -28,6 +28,8 @@ import com.wa.pranksound.R
 import com.wa.pranksound.databinding.ActivityEditRecordBinding
 import com.wa.pranksound.model.Record
 import com.wa.pranksound.utils.Utils
+import com.wa.pranksound.utils.extention.gone
+import com.wa.pranksound.utils.extention.visible
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -76,8 +78,10 @@ class EditRecordActivity : AppCompatActivity() {
         playOriginal(fileName, fileNameNew)
 
         //setting seekbar
-        val length: Int = player!!.duration // duration in time in millis
-
+        var length: Int = 0
+        player?.apply {
+            length = duration
+        }
 
         val durationText =
             DateUtils.formatElapsedTime((length / 1000).toLong()) // converting time in millis to minutes:second format eg 14:15 min
@@ -220,14 +224,11 @@ class EditRecordActivity : AppCompatActivity() {
     private fun showSaveDialog(context: Context) {
 
         val dialog = Dialog(context)
-        // Set the layout for the dialog
         dialog.setContentView(R.layout.dialog_save_file)
-        // Set width and height to match parent
         dialog.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog.window?.setBackgroundDrawableResource(R.drawable.bg_item_language)
-        // Find views in the dialog layout
         val editTextFileName = dialog.findViewById<TextInputEditText>(R.id.editTextFileName)
         val textInputLayoutFileName =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayoutFileName)
@@ -249,7 +250,7 @@ class EditRecordActivity : AppCompatActivity() {
             }
         }
         dialog.findViewById<TextView>(R.id.btnCancel)?.setOnClickListener {
-            dialog.dismiss() // Dismiss the dialog when Cancel button is clicked
+            dialog.dismiss()
         }
         dialog.show()
     }
@@ -392,11 +393,11 @@ class EditRecordActivity : AppCompatActivity() {
     }
 
     private fun showProgress() {
-        binding.progressCircular.visibility = View.VISIBLE
+        binding.progressCircular.visible()
     }
 
     private fun hideProgress() {
-        binding.progressCircular.visibility = View.GONE
+        binding.progressCircular.gone()
     }
 
     private fun saveAudio(file: String, fileName: String) {

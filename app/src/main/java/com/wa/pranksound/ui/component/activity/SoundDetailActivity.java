@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,9 +31,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -39,10 +43,14 @@ import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.CategoriesAdapter;
 import com.wa.pranksound.adapter.HorizontalFavoriteSoundAdapter;
+import com.wa.pranksound.adapter.HorizontalSoundAdapterTest;
+import com.wa.pranksound.adapter.VerticalSoundAdapterTest;
+import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.room.AppDatabase;
 import com.wa.pranksound.room.InsertPrankSound;
 import com.wa.pranksound.room.QueryClass;
 import com.wa.pranksound.utils.BaseActivity;
+import com.wa.pranksound.utils.ImageLoader;
 import com.wa.pranksound.utils.Utils;
 
 import java.io.IOException;
@@ -71,7 +79,6 @@ public class SoundDetailActivity extends BaseActivity {
     List<InsertPrankSound> arrFavPrankSound = new ArrayList<>();
     HorizontalFavoriteSoundAdapter horizontalSoundAdapter;
     Boolean isFav = false;
-    LinearLayout llBtnOff;
     CountDownTimer countDownTimer;
     List<String> cate;
     String[] images;
@@ -83,6 +90,11 @@ public class SoundDetailActivity extends BaseActivity {
     FrameLayout fl_banner;
     View view_line;
 
+    ImageButton btnVolumeLoud, btnVolumeSmall;
+    SeekBar volume;
+    private AudioManager audioManager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +104,38 @@ public class SoundDetailActivity extends BaseActivity {
 
         findView();
         clickEvent();
+
+        setUpVolume();
+    }
+
+    private void setUpVolume() {
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        volume.setMax(maxVolume);
+        volume.setProgress(currentVolume);
+        btnVolumeSmall.setOnClickListener(v ->
+                volume.setProgress(maxVolume/5)
+        );
+        btnVolumeLoud.setOnClickListener(v ->
+                volume.setProgress(4 * maxVolume/5)
+        );
+        volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     private void findView() {
@@ -104,9 +148,11 @@ public class SoundDetailActivity extends BaseActivity {
         swLoop = findViewById(R.id.swLoop);
         rvSound = findViewById(R.id.rvSound);
         imgHeart = findViewById(R.id.imgHeart);
-        llBtnOff = findViewById(R.id.llBtnOff);
         txtCountTime = findViewById(R.id.txtCountTime);
         tvOff = findViewById(R.id.tvOff);
+        volume = findViewById(R.id.seekBarVolume);
+        btnVolumeLoud = findViewById(R.id.btnVolumeLoud);
+        btnVolumeSmall = findViewById(R.id.btnVolumeSmall);
 
         imgAnimation = findViewById(R.id.animation);
 
@@ -124,12 +170,6 @@ public class SoundDetailActivity extends BaseActivity {
         int_img_sound = getIntent().getIntExtra(image_sound, 0);
 
         soundPath = getIntent().getStringExtra(sound_path);
-
-        Log.d("check_file", "sound path: " + soundPath);
-        Log.d("check_file", "image_sound_in_detail: " + int_img_sound);
-        Log.d("check_file", "image_sound_from_fav: " + string_img_sound);
-        Log.d("check_file", "music name: " + strMusicName);
-
         InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
         imgHeart.setSelected(true);
         imgHeart.setSelected(insertPrankSound1 != null);
@@ -137,19 +177,30 @@ public class SoundDetailActivity extends BaseActivity {
         if (strMusicName != null) {
             txtTitle.setText(strMusicName);
         }
-        Log.d("check_file", "str cate name: " + strCateName);
+
         if (strCateName != null) {
             try {
                 cate = Arrays.asList(Objects.requireNonNull(getAssets().list("prank_sound")));
                 images = getAssets().list("prank_sound/" + strCateName);
+
+                // lấy hình ảnh từ file asset
+                String[] images = getAssets().list("prank_sound/" + strCateName);
+                List<Sound> listSound = new ArrayList<>();
+                assert images != null;
+
+                //list đường dẫn đến hình ảnh ở list asset
+                List<String> imageList = ImageLoader.getImageListFromAssets(this, "prank_image/" + strCateName);
+
+                for (int i = 0; i < images.length; i++) {
+                    Sound sound;
+                    sound = new Sound(strCateName, imageList.get(i), images[i], 0, true, false);
+                    listSound.add(sound);
+                }
+                HorizontalSoundAdapterTest verticalSoundAdapter = new HorizontalSoundAdapterTest(listSound);
+                rvSound.setAdapter(verticalSoundAdapter);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-            CategoriesAdapter categoriesAdapter = new CategoriesAdapter(this, cate);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-            rvSound.setLayoutManager(layoutManager);
-            rvSound.setAdapter(categoriesAdapter);
 
             //load ảnh từ file asset
             if (int_img_sound != 0) {
@@ -165,7 +216,6 @@ public class SoundDetailActivity extends BaseActivity {
             }
 
             try {
-                Log.d("check_file", "str cate name in sound: " + strCateName);
                 if (strCateName.equals("record")) {
                     soundPath = strMusicName;
                 }
@@ -179,14 +229,11 @@ public class SoundDetailActivity extends BaseActivity {
                 } else {
                     AssetFileDescriptor descriptor;
                     descriptor = getAssets().openFd("prank_sound/" + strCateName + "/" + strMusicName + ".ogg");
-                    Log.d("check_file", "des path: " + "prank_sound/" + strCateName + "/" + strMusicName + ".ogg");
-                    Log.d("check_file", "descriptor: " + descriptor);
                     mediaPlayer.setDataSource(descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength());
                     descriptor.close();
 
                 }
                 mediaPlayer.prepare();
-                Log.d("check_file", "str cate name outttt: " + strCateName);
                 int length = mediaPlayer.getDuration(); // lấy giá trị độ dài của sound
 
                 String durationText = DateUtils.formatElapsedTime(length / 1000); // converting time in millis to minutes:second format eg 14:15 min
@@ -228,48 +275,7 @@ public class SoundDetailActivity extends BaseActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void clickEvent() {
-        imgBack.setOnClickListener(v -> {
-            Log.d("check_show_ads", "show in back sound list");
-            getOnBackPressedDispatcher().onBackPressed();
-        });
-        llBtnOff.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(new ContextThemeWrapper(SoundDetailActivity.this, R.style.myPopupMenu), v);
-            popupMenu.getMenuInflater().inflate(R.menu.set_time, popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.five) {
-                    startCountDownTimer(5000, txtCountTime);
-                    tvOff.setText(R.string._5s);
-                    return true;
-                } else if (item.getItemId() == R.id.fiveMinute) {
-                    startCountDownTimer(300000, txtCountTime);
-                    tvOff.setText(R.string._5m);
-                    return true;
-                } else if (item.getItemId() == R.id.off) {
-                    if (countDownTimer != null) {
-                        countDownTimer.cancel();
-                    }
-                    imgPlayPause.setEnabled(true);
-                    txtCountTime.setText("");
-                    tvOff.setText(R.string._off);
-                    return true;
-                } else if (item.getItemId() == R.id.oneMinute) {
-                    startCountDownTimer(60000, txtCountTime);
-                    tvOff.setText(R.string._1m);
-                    return true;
-                } else if (item.getItemId() == R.id.ten) {
-                    startCountDownTimer(10000, txtCountTime);
-                    tvOff.setText(R.string._10s);
-                    return true;
-                } else if (item.getItemId() == R.id.thirty) {
-                    startCountDownTimer(30000, txtCountTime);
-                    tvOff.setText(R.string._30s);
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-            popupMenu.show();
-        });
+        imgBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         //set playing when click item
         imgItem.setOnTouchListener((v, event) -> {
@@ -307,33 +313,6 @@ public class SoundDetailActivity extends BaseActivity {
             return false;
         });
 
-        imgPlayPause.setOnClickListener(v -> {
-            if (isPlaying) {
-                isPlaying = false;
-                imgPlayPause.setImageResource(R.drawable.play);
-                if (mediaPlayer != null) {
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.pause();
-                        stopVibrate();
-                    }
-                }
-            } else {
-                isPlaying = true;
-                imgPlayPause.setImageResource(R.drawable.pause);
-                if (mediaPlayer != null) {
-                    if (!mediaPlayer.isPlaying()) {
-                        mediaPlayer.start();
-                        startVibrate();
-                        handler.postDelayed(runnable, 5);
-                    }
-
-                }
-
-            }
-
-        });
-
-
         //test favories
         imgHeart.setOnClickListener(v -> {
             InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
@@ -365,43 +344,6 @@ public class SoundDetailActivity extends BaseActivity {
         });
     }
 
-    private void startCountDownTimer(int i, TextView txtCountTime) {
-        imgPlayPause.setEnabled(false);
-        imgAnimation.setVisibility(View.INVISIBLE);
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-        countDownTimer = new CountDownTimer(i, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                long j2 = millisUntilFinished / ((long) 1000);
-                long j3 = (long) 60;
-                long j4 = j2 / j3;
-                long j5 = j2 % j3;
-                String format = String.format("%02d:%02d", Arrays.copyOf(new Object[]{Long.valueOf(j4), Long.valueOf(j5)}, 2));
-                txtCountTime.setText(format);
-            }
-
-            @Override
-            public void onFinish() {
-                tvOff.setText(R.string._off);
-                txtCountTime.setText("");
-                imgPlayPause.setEnabled(true);
-                isPlaying = true;
-                imgPlayPause.setImageResource(R.drawable.pause);
-                imgAnimation.setVisibility(View.VISIBLE);
-                if (mediaPlayer != null) {
-                    if (!mediaPlayer.isPlaying()) {
-                        mediaPlayer.start();
-                        startVibrate();
-                        handler.postDelayed(runnable, 5);
-                    }
-                }
-            }
-        }.start();
-
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -412,7 +354,6 @@ public class SoundDetailActivity extends BaseActivity {
                 mediaPlayer.stop();
                 mediaPlayer.release();
                 mediaPlayer = null;
-
             }
         }
         if (countDownTimer != null) {
@@ -463,7 +404,6 @@ public class SoundDetailActivity extends BaseActivity {
     public final void stopVibrate() {
         if (systemService != null) {
             systemService.cancel();
-
         }
     }
 }

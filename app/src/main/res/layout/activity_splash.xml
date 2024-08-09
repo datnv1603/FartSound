@@ -30,20 +30,19 @@
             android:layout_marginBottom="@dimen/_80sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/js_loading" />
+            app:lottie_rawRes="@raw/anim_splash" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:gravity="center"
             android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
             android:text="@string/this_action_can_contain_ad"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

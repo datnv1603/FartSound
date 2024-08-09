@@ -152,4 +152,9 @@
     <string name="version">Version</string>
     <string name="privacy_policy_link">https://battery-charger-animatio-76c82.web.app/policy/</string>
     <string name="no_favourite_sound">No Favourite Sound</string>
+    <string name="ok">OKAY</string>
+    <string name="cancel">Cancel</string>
+    <string name="volume_small">Volume small</string>
+    <string name="volume_loud">Volume loud</string>
+    <string name="more_sound">More sounds:</string>
 </resources>

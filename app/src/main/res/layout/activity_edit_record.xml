@@ -72,20 +72,24 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/img_pause"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:src="@drawable/ic_start" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_4sdp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_small_pause" />
 
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_3sdp"
                 android:layout_marginHorizontal="@dimen/_6sdp"
                 android:layout_weight="1"
                 android:progressBackgroundTint="#41494C"
+                android:progressDrawable="@drawable/seekbar_style"
                 android:thumb="@drawable/custom_thumb"
+                android:splitTrack="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

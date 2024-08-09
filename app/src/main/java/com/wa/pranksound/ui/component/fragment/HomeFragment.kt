@@ -1,5 +1,6 @@
 package com.wa.pranksound.ui.component.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wa.pranksound.adapter.CategoriesAdapter
 import com.wa.pranksound.databinding.FragmentHomeBinding
+import com.wa.pranksound.ui.component.activity.RecordActivity
+import com.wa.pranksound.utils.extention.setOnSafeClick
 import java.io.IOException
 
 class HomeFragment : Fragment() {
@@ -43,5 +46,9 @@ class HomeFragment : Fragment() {
         categoriesAdapter = CategoriesAdapter(requireActivity(), cate)
         binding.rcvCate.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rcvCate.setAdapter(categoriesAdapter)
+        binding.btnCreateEffect.setOnSafeClick {
+            val intent = Intent(requireActivity(), RecordActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
