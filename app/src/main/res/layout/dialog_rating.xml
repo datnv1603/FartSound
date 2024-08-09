@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000">
+
+        <ImageView
+            android:id="@+id/imgStateRate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            android:elevation="@dimen/_10sdp"
+            android:src="@drawable/img_rating_default"
+            android:translationY="@dimen/_40sdp"
+            app:layout_constraintBottom_toTopOf="@id/layoutRate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_minus45sdp"
+            android:background="@drawable/bg_rounded_20"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_34sdp"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:text="@string/do_you_like_the_app"
+                android:textAlignment="center"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:fontFamily="@font/nunito_regular"
+                android:text="@string/let_us_know_your_experience"
+                android:textAlignment="center"
+                android:textColor="#8B93A7"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+            <com.wa.pranksound.utils.rate.ScaleRatingBar
+                android:id="@+id/rbRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:rating="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvContent"
+                app:srb_clearRatingEnabled="true"
+                app:srb_clickable="true"
+                app:srb_drawableEmpty="@drawable/ic_star_unfilled"
+                app:srb_drawableFilled="@drawable/ic_star_filled"
+                app:srb_isIndicator="false"
+                app:srb_minimumStars="0"
+                app:srb_numStars="5"
+                app:srb_rating="5"
+                app:srb_scrollable="true"
+                app:srb_starHeight="@dimen/_18sdp"
+                app:srb_starPadding="@dimen/_6sdp"
+                app:srb_starWidth="@dimen/_18sdp"
+                app:srb_stepSize="1" />
+
+            <TextView
+                android:id="@+id/tvRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:gravity="center"
+                android:text="@string/the_best_we_can_get"
+                android:textColor="#856DFF"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rbRate" />
+
+            <ImageView
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_directional_narrow"
+                android:translationX="@dimen/_minus14sdp"
+                android:translationY="@dimen/_minus10sdp"
+                app:layout_constraintStart_toEndOf="@id/rbRate"
+                app:layout_constraintTop_toBottomOf="@id/rbRate" />
+
+            <TextView
+                android:id="@+id/btnRate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginHorizontal="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/bg_button"
+                android:fontFamily="@font/nunito_semi_bold"
+                android:gravity="center"
+                android:text="@string/rate"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintTop_toBottomOf="@+id/tvRate" />
+
+            <TextView
+                android:id="@+id/tvExit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/nunito_regular"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:paddingVertical="12dp"
+                android:text="@string/may_be_later"
+                app:layout_constraintTop_toBottomOf="@+id/btnRate" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

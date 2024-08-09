@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,7 +65,7 @@ public class SoundDetailActivity extends BaseActivity {
     ProgressBar seekBar;
     Handler handler = new Handler();
     Runnable runnable;
-    Switch swLoop;
+    CheckBox swLoop;
     RecyclerView rvSound;
     QueryClass queryClass;
     String strCateName, musicName;

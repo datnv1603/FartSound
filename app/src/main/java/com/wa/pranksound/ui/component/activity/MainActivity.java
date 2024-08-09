@@ -6,11 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.wa.pranksound.ui.component.fragment.CreateFragment;
 import com.wa.pranksound.ui.component.fragment.FavoritesFragment;
 import com.wa.pranksound.ui.component.fragment.HomeFragment;
 import com.wa.pranksound.ui.component.fragment.LeaderBoardFragment;
+import com.wa.pranksound.ui.component.settings.SettingsActivity;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.Gdpr;
 
@@ -33,6 +36,7 @@ public class MainActivity extends BaseActivity {
     LinearLayout ll_home, ll_create, ll_favorites, ll_leaderboard;
     String navTab = "home";
     TextView tv_title, tv_home, tv_create, tv_favorites, tv_leaderboard;
+    ImageButton btnSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,9 @@ public class MainActivity extends BaseActivity {
             changeFragment("home");
         }
 
-
+        btnSettings.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+        });
     }
 
     private void changeFragment(String tab) {
@@ -185,10 +191,9 @@ public class MainActivity extends BaseActivity {
         tv_create = findViewById(R.id.tv_create);
         tv_favorites = findViewById(R.id.tv_favorites);
         tv_leaderboard = findViewById(R.id.tv_leaderboard);
+        btnSettings = findViewById(R.id.btnSettings);
 
         new Gdpr().make(this);
-
-
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

@@ -59,4 +59,8 @@ object Constant {
     const val INTERNAL_ITEM_OPTIONS_DIR = "item_options"
 
     const val CREATE_STICKER_DELAY = 3000L
+
+    internal const val IS_RATED = "IS_RATED"
+
+
 }

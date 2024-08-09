@@ -1,12 +1,38 @@
 package com.wa.pranksound.ui.component.settings
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.wa.pranksound.R
 import com.wa.pranksound.databinding.ActivitySettingsBinding
 import com.wa.pranksound.ui.base.BaseBindingActivity
+import com.wa.pranksound.ui.component.activity.LanguageActivity
+import com.wa.pranksound.ui.component.dialog.DialogRating
+import com.wa.pranksound.ui.component.policy.PolicyActivity
 import com.wa.pranksound.utils.Utils
+import com.wa.pranksound.utils.extention.gone
+import com.wa.pranksound.utils.extention.setOnSafeClick
 
 class SettingsActivity : BaseBindingActivity<ActivitySettingsBinding, SettingsViewModel>() {
+
+    private val ratingDialog: DialogRating by lazy {
+        DialogRating().apply {
+            onRating = {
+                toast(getString(R.string.thank_you))
+                ratingDialog.dismiss()
+            }
+            onClickFiveStar = {
+                binding.rate.gone()
+                toast(getString(R.string.thank_you))
+                ratingDialog.dismiss()
+            }
+
+            onDismiss = {
+
+            }
+        }
+    }
 
     override val layoutId: Int
         get() = R.layout.activity_settings
@@ -28,5 +54,60 @@ class SettingsActivity : BaseBindingActivity<ActivitySettingsBinding, SettingsVi
             }
 
         }
+
+        binding.language.setOnSafeClick {
+            startActivity(Intent(this, LanguageActivity::class.java))
+        }
+
+        binding.rate.setOnSafeClick {
+            if (!ratingDialog.isAdded)
+                ratingDialog.show(supportFragmentManager, null)
+        }
+
+        binding.policy.setOnSafeClick {
+            startActivity(Intent(this, PolicyActivity::class.java))
+        }
+
+        binding.shareApp.setOnSafeClick {
+            shareApp()
+        }
+
+        binding.moreApp.setOnSafeClick {
+            openGooglePlayStore()
+        }
     }
+
+    private fun shareApp() {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name))
+        val shareMessage =
+            "${getString(R.string.app_name)} \n https://play.google.com/store/apps/details?id=${packageName}"
+
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage)
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.share_to)))
+    }
+
+    private fun openGooglePlayStore() {
+        val uri =
+            Uri.parse("https://play.google.com/store/apps/dev?id=6851346720901755210")
+        val goToMarket = Intent(Intent.ACTION_VIEW, uri)
+        goToMarket.addFlags(
+            Intent.FLAG_ACTIVITY_NO_HISTORY or
+                    Intent.FLAG_ACTIVITY_NEW_DOCUMENT or
+                    Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+        )
+        try {
+            startActivity(goToMarket)
+        } catch (e: ActivityNotFoundException) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    uri
+                )
+            )
+        }
+    }
+
+
 }

@@ -193,7 +193,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/share"
+                    android:id="@+id/shareApp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:layout_marginBottom="@dimen/_6sdp"
@@ -224,7 +224,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/about"
+                    android:id="@+id/moreApp"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
                     android:background="@drawable/bg_item_settings"
