@@ -10,6 +10,7 @@ import static com.wa.pranksound.utils.KeyClass.sound_path;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
+import com.wa.pranksound.data.BackGround;
 import com.wa.pranksound.ui.component.activity.SoundDetailActivity;
 import com.wa.pranksound.room.InsertPrankSound;
 
@@ -36,14 +39,11 @@ import java.util.List;
 
 public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundAdapter.MyViewHolder> {
 
-    private Activity context;
     List<InsertPrankSound> arrFavPrankSound;
 
 
-    public VerticalFavoriteSoundAdapter(Activity context, List<InsertPrankSound> arrFavPrankSound) {
-        this.context = context;
+    public VerticalFavoriteSoundAdapter(List<InsertPrankSound> arrFavPrankSound) {
         this.arrFavPrankSound = arrFavPrankSound;
-
     }
 
     @Override
@@ -54,7 +54,7 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
 
     public void onBindViewHolder(MyViewHolder myViewHolder, @SuppressLint("RecyclerView") int i) {
 
-
+        Context context = myViewHolder.imgCate.getRootView().getContext();
         String strCateName = arrFavPrankSound.get(i).folder_name;
         String imagePath = arrFavPrankSound.get(i).image_path;
         Log.d("Img Path", imagePath);
@@ -68,8 +68,7 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
             Log.d("Img Path", "asset");
         }
 
-        myViewHolder.cvBG.setBackgroundResource(R.drawable.bg_sound);
-
+        myViewHolder.cvBG.setBackgroundResource(BackGround.INSTANCE.getBackground(i));
         myViewHolder.txtSoundName.setText(arrFavPrankSound.get(i).sound_name.replace("Sound",context.getString(R.string.sound)));
 
         myViewHolder.itemView.setOnClickListener(v -> {
@@ -89,13 +88,13 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
     @Override
     public MyViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int i) {
 
-        return new MyViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.view_item_rcv, viewGroup, false));
+        return new MyViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_rcv_test, viewGroup, false));
     }
 
     public static class MyViewHolder extends ViewHolder {
         ImageView imgCate;
         TextView txtSoundName;
-        RelativeLayout cvBG;
+        FrameLayout cvBG;
 
         public MyViewHolder(View view) {
             super(view);

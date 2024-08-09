@@ -36,7 +36,7 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val db = Room.databaseBuilder(
-           requireActivity(),
+            requireActivity(),
             AppDatabase::class.java, "prank_sound"
         ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
 
@@ -50,10 +50,9 @@ class FavoritesFragment : Fragment() {
         if ((arrFavPrankSound as MutableList<InsertPrankSound>?)!!.size > 0) {
             arrFavPrankSound?.reversed()
             binding.tvNotFound.gone()
-           binding.rvSound.visible()
-            val verticalSoundAdapter = VerticalFavoriteSoundAdapter(requireActivity(), arrFavPrankSound)
-            val layoutManager = GridLayoutManager(requireContext(), 3)
-            binding.rvSound.setLayoutManager(layoutManager)
+            binding.rvSound.visible()
+            val verticalSoundAdapter =
+                VerticalFavoriteSoundAdapter(arrFavPrankSound)
             binding.rvSound.setAdapter(verticalSoundAdapter)
         } else {
             binding.rvSound.gone()

@@ -59,7 +59,7 @@ public class FavoriteActivity extends AppCompatActivity {
             Collections.reverse(arrFavPrankSound);
             txtNoFound.setVisibility(View.GONE);
             rvSound.setVisibility(View.VISIBLE);
-            VerticalFavoriteSoundAdapter verticalSoundAdapter = new VerticalFavoriteSoundAdapter(this, arrFavPrankSound);
+            VerticalFavoriteSoundAdapter verticalSoundAdapter = new VerticalFavoriteSoundAdapter(arrFavPrankSound);
             GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
             rvSound.setLayoutManager(layoutManager);
             rvSound.setAdapter(verticalSoundAdapter);
