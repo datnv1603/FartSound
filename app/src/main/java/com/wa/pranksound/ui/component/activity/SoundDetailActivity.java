@@ -67,7 +67,7 @@ public class SoundDetailActivity extends BaseActivity {
     CheckBox swLoop;
     RecyclerView rvSound;
     QueryClass queryClass;
-    String strCateName, musicName;
+    String strCateName;
     List<InsertPrankSound> arrFavPrankSound = new ArrayList<>();
     HorizontalFavoriteSoundAdapter horizontalSoundAdapter;
     Boolean isFav = false;
@@ -95,9 +95,9 @@ public class SoundDetailActivity extends BaseActivity {
     }
 
     private void findView() {
-        imgBack = findViewById(R.id.imgBack);
+        imgBack = findViewById(R.id.btnBack);
         imgItem = findViewById(R.id.imgItem);
-        txtTitle = findViewById(R.id.txtTitle);
+        txtTitle = findViewById(R.id.tvTitle);
         imgPlayPause = findViewById(R.id.imgPlayPause);
         endTime = findViewById(R.id.endTime);
         seekBar = findViewById(R.id.seekBar);
@@ -120,7 +120,6 @@ public class SoundDetailActivity extends BaseActivity {
         strCateName = getIntent().getStringExtra(cate_name);
 
         //get music name from sound list
-        musicName = getIntent().getStringExtra(music_name);
         string_img_sound = getIntent().getStringExtra(image_sound);
         int_img_sound = getIntent().getIntExtra(image_sound, 0);
 
@@ -129,17 +128,14 @@ public class SoundDetailActivity extends BaseActivity {
         Log.d("check_file", "sound path: " + soundPath);
         Log.d("check_file", "image_sound_in_detail: " + int_img_sound);
         Log.d("check_file", "image_sound_from_fav: " + string_img_sound);
-        Log.d("check_file", "music name: " + musicName);
+        Log.d("check_file", "music name: " + strMusicName);
 
         InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
-        if (insertPrankSound1 != null) {
-            imgHeart.setImageResource(R.drawable.ic_favorite_check);
-        } else {
-            imgHeart.setImageResource(R.drawable.ic_heart);
-        }
+        imgHeart.setSelected(true);
+        imgHeart.setSelected(insertPrankSound1 != null);
 
         if (strMusicName != null) {
-            txtTitle.setText(musicName);
+            txtTitle.setText(strMusicName);
         }
         Log.d("check_file", "str cate name: " + strCateName);
         if (strCateName != null) {
@@ -171,7 +167,7 @@ public class SoundDetailActivity extends BaseActivity {
             try {
                 Log.d("check_file", "str cate name in sound: " + strCateName);
                 if (strCateName.equals("record")) {
-                    soundPath = musicName;
+                    soundPath = strMusicName;
                 }
                 //set sound from asset or record
                 if (soundPath != null) {
@@ -343,7 +339,7 @@ public class SoundDetailActivity extends BaseActivity {
             InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
             if (insertPrankSound1 != null) {
                 queryClass.getUnFavSound(strCateName, strMusicName);
-                imgHeart.setImageResource(R.drawable.ic_heart);
+                imgHeart.setSelected(false);
             } else {
                 InsertPrankSound insertPrankSound = new InsertPrankSound();
                 insertPrankSound.folder_name = strCateName;
@@ -357,7 +353,7 @@ public class SoundDetailActivity extends BaseActivity {
                 }
                 Log.d("Img_path", insertPrankSound.image_path);
                 queryClass.insertPrankSound(insertPrankSound);
-                imgHeart.setImageResource(R.drawable.ic_favorite_check);
+                imgHeart.setSelected(true);
             }
             if (isFav) {
                 arrFavPrankSound = queryClass.getAllFavSound();

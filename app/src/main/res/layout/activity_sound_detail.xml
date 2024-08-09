@@ -27,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_12sdp"
@@ -38,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.wa.pranksound.utils.customview.StrokeTextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/_40sdp"
