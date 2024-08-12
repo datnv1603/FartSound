@@ -76,7 +76,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/nunito_regular"
+                        android:fontFamily="@font/nunito_semi_bold"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/text_color"
                         android:text="@string/vibration" />
 
                     <androidx.appcompat.widget.SwitchCompat
@@ -96,6 +98,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_bold"
                     android:gravity="start|center_vertical"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/text_color"
                     android:text="@string/other" />
 
                 <LinearLayout
@@ -118,7 +122,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/nunito_regular"
+                        android:fontFamily="@font/nunito_semi_bold"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/text_color"
                         android:text="@string/language" />
 
                     <ImageButton
@@ -149,7 +155,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/nunito_regular"
+                        android:fontFamily="@font/nunito_semi_bold"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/text_color"
                         android:text="@string/rate_us" />
 
                     <ImageButton
@@ -181,7 +189,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/nunito_regular"
+                        android:fontFamily="@font/nunito_semi_bold"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/text_color"
                         android:text="@string/privacy_policy" />
 
                     <ImageButton
@@ -212,7 +222,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/nunito_regular"
+                        android:fontFamily="@font/nunito_semi_bold"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/text_color"
                         android:text="@string/share_app" />
 
                     <ImageButton
@@ -242,7 +254,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/nunito_regular"
+                        android:fontFamily="@font/nunito_semi_bold"
+                        android:textSize="@dimen/_11ssp"
+                        android:textColor="@color/text_color"
                         android:text="@string/more_app" />
 
                     <ImageButton

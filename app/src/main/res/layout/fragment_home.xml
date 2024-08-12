@@ -29,7 +29,7 @@
             android:gravity="center"
             android:text="@string/create_effect"
             android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"
+            android:textSize="@dimen/_16ssp"
             app:drawableStartCompat="@drawable/ic_creative_pen"
             app:layout_constraintBottom_toBottomOf="@id/btnCreateEffect"
             app:layout_constraintEnd_toEndOf="@id/btnCreateEffect"

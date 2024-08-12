@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF1F1">
+        android:background="#FFF7ED">
 
         <TextView
             android:id="@+id/tvTitle"
@@ -15,21 +15,36 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="@dimen/_18sdp"
-            android:fontFamily="@font/nunito_semi_bold"
-            android:gravity="start"
+            android:fontFamily="@font/nunito_bold"
+            android:gravity="center"
             android:includeFontPadding="false"
             android:paddingHorizontal="5dp"
             android:text="@string/language"
             android:textColor="#252E40"
-            android:textSize="20sp"
+            android:textSize="@dimen/_16ssp"
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_back"
+            android:visibility="invisible"
+            android:background="@color/transparent"
+            android:foreground="?android:selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            tools:ignore="ContentDescription" />
 
         <ImageButton
             android:id="@+id/btnChooseLang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_6sdp"
+            android:padding="@dimen/_8sdp"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_tick"
             android:visibility="invisible"

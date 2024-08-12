@@ -36,17 +36,21 @@ class MultiLangAdapter : BaseBindingAdapterDiff<LanguageUI, ItemMultiLangBinding
     var callBack: (Int, LanguageUI) -> Unit = { _, _ -> }
     override fun onBindViewHolderBase(holder: BaseHolder<ItemMultiLangBinding>, position: Int) {
         with(getItem(holder.adapterPosition)) {
+            val context = holder.itemView.context
             holder.binding.apply {
                 tvLanguage.text = name
                 if (holder.adapterPosition == newPosition) {
                     avatar?.let {
                         llItemLanguage.isSelected = true
                         radioBtn.isChecked = true
+                        tvLanguage.setTextColor(context.resources.getColor(R.color.white, null))
+                        tvLanguage.resources.getColor(R.color.white, null)
                         imgLanguage.setImageResource(it)
                     }
 
                 } else {
                     avatar?.let {
+                        tvLanguage.setTextColor(context.resources.getColor(R.color.text_color, null))
                         llItemLanguage.isSelected = false
                         radioBtn.isChecked = false
                         imgLanguage.setImageResource(it)

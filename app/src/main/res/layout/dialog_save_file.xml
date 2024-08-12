@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#66000000"
     android:gravity="center"
-    android:background="#66000000">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,6 +22,7 @@
             android:fontFamily="@font/nunito_bold"
             android:gravity="center"
             android:text="@string/save_as"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/_16ssp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -42,6 +43,7 @@
                 android:fontFamily="@font/nunito_regular"
                 android:hint="@string/enter_name"
                 android:maxLength="30"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/_12ssp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,6 +77,7 @@
                 android:gravity="center"
                 android:padding="@dimen/_12sdp"
                 android:text="@string/save"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp" />
         </LinearLayout>
     </LinearLayout>

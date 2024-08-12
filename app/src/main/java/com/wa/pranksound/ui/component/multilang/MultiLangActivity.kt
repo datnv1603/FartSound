@@ -6,7 +6,6 @@ import com.adjust.sdk.Adjust
 import com.wa.pranksound.R
 import com.wa.pranksound.ui.component.activity.MainActivity
 import com.wa.pranksound.common.Constant
-import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityMultiLangBinding
 import com.wa.pranksound.ui.adapter.MultiLangAdapter
 import com.wa.pranksound.ui.base.BaseBindingActivity
@@ -84,6 +83,10 @@ class MultiLangActivity : BaseBindingActivity<ActivityMultiLangBinding, MultiLan
             }
 
             Constant.TYPE_LANGUAGE_SETTING -> {
+                binding.btnBack.visible()
+                binding.btnBack.setOnSafeClick {
+                    finish()
+                }
                 binding.btnChooseLang.setOnSafeClick {
                     if (oldCode != code) {
                         SystemUtil.changeLang(code.ifEmpty { oldCode }, this)
