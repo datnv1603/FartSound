@@ -77,7 +77,7 @@ public class SoundDetailActivity extends BaseActivity {
     ProgressBar seekBar;
     Handler handler = new Handler();
     Runnable runnable;
-    CheckBox swLoop;
+    ImageButton swLoop;
     RecyclerView rvSound;
     QueryClass queryClass;
     String strCateName;
@@ -92,7 +92,7 @@ public class SoundDetailActivity extends BaseActivity {
     String soundName;
     String soundPath;
     LinearLayout llBtnOff;
-
+    LinearLayout llMoreSound;
     FrameLayout fl_banner;
     View view_line;
 
@@ -156,7 +156,7 @@ public class SoundDetailActivity extends BaseActivity {
         imgHeart = findViewById(R.id.imgHeart);
         txtCountTime = findViewById(R.id.txtCountTime);
         tvOff = findViewById(R.id.tvOff);
-        volume = findViewById(R.id.seekBarVolume);
+        volume = findViewById(R.id.volumeSeekBar);
         btnVolumeLoud = findViewById(R.id.btnVolumeLoud);
         btnVolumeSmall = findViewById(R.id.btnVolumeSmall);
         btnDelete = findViewById(R.id.btnDelete);
@@ -165,7 +165,7 @@ public class SoundDetailActivity extends BaseActivity {
 
         view_line = findViewById(R.id.line);
         llBtnOff = findViewById(R.id.llBtnOff);
-
+        llMoreSound = findViewById(R.id.llMoreSounds);
         systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         strMusicName = getIntent().getStringExtra(music_name);
@@ -181,8 +181,10 @@ public class SoundDetailActivity extends BaseActivity {
         soundPath = getIntent().getStringExtra(sound_path);
         InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
         if (isRecord) {
+            llMoreSound.setVisibility(View.GONE);
             btnDelete.setVisibility(View.VISIBLE);
             imgHeart.setVisibility(View.GONE);
+
         } else {
             btnDelete.setVisibility(View.GONE);
             imgHeart.setVisibility(View.VISIBLE);
@@ -284,8 +286,10 @@ public class SoundDetailActivity extends BaseActivity {
                 Log.d("check_file", "error " + e);
                 e.printStackTrace();
             }
-
-            swLoop.setOnCheckedChangeListener((buttonView, isChecked) -> isLoop = isChecked);
+            swLoop.setOnClickListener(v -> {
+                swLoop.setSelected(!swLoop.isSelected());
+                isLoop = swLoop.isSelected();
+            });
         }
     }
 

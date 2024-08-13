@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item
-        android:id="@+id/progressshape" >
-        <clip>
-            <shape
-                android:shape="rectangle" >
-                <size android:height="5dp"/>
-                <corners
-                    android:radius="5dp" />
-                <solid android:color="#FFA306"/>
-            </shape>
-        </clip>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="32dp"/>
+            <solid android:color="#E1E1E1"/> <!-- Màu xám nhạt cho nền của SeekBar -->
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <shape>
+            <corners android:radius="32dp"/>
+            <solid android:color="#FFB400"/> <!-- Màu vàng đậm cho phần progress -->
+        </shape>
     </item>
 </layer-list>

@@ -93,7 +93,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
             }
             // Set folder name
             folderName = folderName.replace("_", " ");
-            folderNameText.setText(folderName);
+            String capitalizedText = folderName.substring(0, 1).toUpperCase() + folderName.substring(1).toLowerCase();
+            folderNameText.setText(capitalizedText);
         }
     }
 

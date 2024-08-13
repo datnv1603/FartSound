@@ -57,8 +57,13 @@ public class HorizontalSoundAdapterTest extends RecyclerView.Adapter<HorizontalS
             intent.putExtra(music_name, soundName(sound.getName()));
             intent.putExtra(cate_name, sound.getTypeSound());
             intent.putExtra(image_sound, sound.getImage());
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
+            if (context instanceof SoundDetailActivity) {
+                ((SoundDetailActivity) context).finish();
+            }
         });
+
 
     }
 

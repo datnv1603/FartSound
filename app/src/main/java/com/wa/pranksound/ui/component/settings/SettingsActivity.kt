@@ -46,6 +46,11 @@ class SettingsActivity : BaseBindingActivity<ActivitySettingsBinding, SettingsVi
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
+
+        binding.imgBack.setOnSafeClick {
+            finish()
+        }
+
         binding.swVibrate.isChecked = Utils.getVibration(this)
 
         binding.swVibrate.setOnCheckedChangeListener { _, isChecked ->

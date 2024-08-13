@@ -1,5 +1,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <size android:width="12dp" android:height="12dp" />
+    <size android:width="22dp" android:height="22dp" />
     <solid android:color="#FFB300" /> <!-- Màu vàng đậm cho thumb -->
 </shape>

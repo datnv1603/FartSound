@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_70sdp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="@dimen/_8sdp"
     android:background="@drawable/bg_item_leaderboard"
     android:orientation="horizontal">
@@ -12,7 +13,6 @@
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_10sdp"
-        android:background="@drawable/bg_record_item"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_helium" />
     </LinearLayout>
 
@@ -44,7 +44,7 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:fontFamily="@font/nunito_extra_bold"
             android:singleLine="true"
-            android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaa"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_15ssp" />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:fontFamily="@font/nunito_regular"
-            android:text="cccccccccccccccccccc"
+            tools:text="cccccccccccccccccccc"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_13ssp" />
     </LinearLayout>

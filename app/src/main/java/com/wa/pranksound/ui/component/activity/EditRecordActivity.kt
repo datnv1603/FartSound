@@ -560,15 +560,11 @@ class EditRecordActivity : AppCompatActivity() {
         val btnNegative = dialogCustomExit.findViewById<TextView>(R.id.btnNegative)
         val btnPositive = dialogCustomExit.findViewById<TextView>(R.id.btnPositive)
         btnPositive.setOnClickListener {
-            val timestamp =
-                SimpleDateFormat("yyyyMMdd-HHmmss", Locale.getDefault()).format(Date())
-            recordName = "$recordName-$timestamp"
-            saveAudio(fileNameNew, recordName)
+            val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
+            startActivity(intent)
         }
         btnNegative.setOnClickListener {
-            val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
-            intent.putExtra("from_record", "record")
-            startActivity(intent)
+            dialogCustomExit.dismiss()
         }
     }
 }

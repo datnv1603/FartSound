@@ -83,10 +83,8 @@
             <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_3sdp"
-                android:layout_marginHorizontal="@dimen/_6sdp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:progressBackgroundTint="#41494C"
                 android:progressDrawable="@drawable/seekbar_style"
                 android:splitTrack="false"
                 android:thumb="@drawable/custom_thumb"
@@ -264,7 +262,7 @@
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/indoor"
-                    app:drawableTopCompat="@drawable/ic_original"
+                    app:drawableTopCompat="@drawable/ic_indoor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
