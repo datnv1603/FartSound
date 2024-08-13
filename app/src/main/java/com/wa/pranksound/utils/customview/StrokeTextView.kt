@@ -38,20 +38,23 @@ class StrokeTextView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val text = this.text.toString()
-        val x = calculateXPosition(text)
+        // Lấy tối đa 12 ký tự từ văn bản
+        val displayText = if (this.text.length > 12) this.text.substring(0, 12) else this.text.toString()
+
+        val x = calculateXPosition(displayText)
         val y = calculateYPosition()
 
-        // Draw stroke
+        // Vẽ stroke cho văn bản
         if (visibility == VISIBLE) {
             strokePaint.textSize = textSize
             strokePaint.typeface = typeface
             strokePaint.textAlign = paint.textAlign
-            canvas.drawText(text, x, y, strokePaint)
+            canvas.drawText(displayText, x, y, strokePaint)
         }
 
-        // Draw text fill
-        super.onDraw(canvas)
+        // Vẽ văn bản chính với màu sắc được giữ nguyên
+        paint.color = currentTextColor // Đảm bảo rằng màu text chính xác được sử dụng
+        canvas.drawText(displayText, x, y, paint)
     }
 
     private fun calculateXPosition(text: String): Float {

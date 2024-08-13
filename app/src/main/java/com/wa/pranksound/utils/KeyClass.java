@@ -4,6 +4,7 @@ public class KeyClass {
     public static String cate_name = "cate_name";
     public static String music_name = "music_name";
     public static String is_fav = "is_fav";
+    public static String is_record = "is_record";
     public static String air_horn = "air_horn";
     public static String count_down = "count_down";
     public static String fart = "fart";

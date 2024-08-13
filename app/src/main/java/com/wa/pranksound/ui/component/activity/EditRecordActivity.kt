@@ -29,6 +29,7 @@ import com.wa.pranksound.databinding.ActivityEditRecordBinding
 import com.wa.pranksound.model.Record
 import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.extention.gone
+import com.wa.pranksound.utils.extention.invisible
 import com.wa.pranksound.utils.extention.visible
 import java.io.File
 import java.io.FileInputStream
@@ -111,42 +112,76 @@ class EditRecordActivity : AppCompatActivity() {
             Log.d("Check_sound_replay", "sound in main:")
         }
 
+        binding.original.setOnClickListener {
+            playOriginal(fileName, fileNameNew)
+            recordName = getString(R.string.original)
+            recordImage = R.drawable.ic_original
+            binding.ivCheckedOriginal.visible()
+            binding.ivCheckedHelium.invisible()
+            binding.ivCheckedRobot.invisible()
+            binding.ivCheckedRadio.invisible()
+            binding.ivCheckedBackWard.invisible()
+            binding.ivCheckedCave.invisible()
+        }
 
         binding.ivChipmunk.setOnClickListener {
             playChipmunk(fileName, fileNameNew)
-
             recordName = getString(R.string.helium)
             recordImage = R.drawable.ic_helium
+            binding.ivCheckedOriginal.invisible()
+            binding.ivCheckedHelium.visible()
+            binding.ivCheckedRobot.invisible()
+            binding.ivCheckedRadio.invisible()
+            binding.ivCheckedBackWard.invisible()
+            binding.ivCheckedCave.invisible()
         }
 
         binding.ivRobot.setOnClickListener {
             playRobot(fileName, fileNameNew)
             recordName = getString(R.string.robot)
             recordImage = R.drawable.ic_robot
-        }
-
-        binding.ivCave.setOnClickListener {
-            playCave(fileName, fileNameNew)
-            recordName = getString(R.string.indoor)
-            recordImage = R.drawable.ic_indoor
+            binding.ivCheckedOriginal.invisible()
+            binding.ivCheckedHelium.invisible()
+            binding.ivCheckedRobot.visible()
+            binding.ivCheckedRadio.invisible()
+            binding.ivCheckedBackWard.invisible()
+            binding.ivCheckedCave.invisible()
         }
 
         binding.ivRadio.setOnClickListener {
             playRadio(fileName, fileNameNew)
             recordName = getString(R.string.radio)
             recordImage = R.drawable.ic_radio
-        }
-        binding.original.setOnClickListener {
-            //  startRecord()
-            playOriginal(fileName, fileNameNew)
-            recordName = getString(R.string.original)
-            recordImage = R.drawable.ic_original
+            binding.ivCheckedOriginal.invisible()
+            binding.ivCheckedHelium.invisible()
+            binding.ivCheckedRobot.invisible()
+            binding.ivCheckedRadio.visible()
+            binding.ivCheckedBackWard.invisible()
+            binding.ivCheckedCave.invisible()
         }
 
         binding.backward.setOnClickListener {
             playBackward(fileName, fileNameNew)
             recordName = getString(R.string.backward)
             recordImage = R.drawable.ic_backward
+            binding.ivCheckedOriginal.invisible()
+            binding.ivCheckedHelium.invisible()
+            binding.ivCheckedRobot.invisible()
+            binding.ivCheckedRadio.invisible()
+            binding.ivCheckedBackWard.visible()
+            binding.ivCheckedCave.invisible()
+        }
+
+        binding.ivCave.setOnClickListener {
+            playCave(fileName, fileNameNew)
+            recordName = getString(R.string.indoor)
+            recordImage = R.drawable.ic_indoor
+            binding.ivCheckedOriginal.invisible()
+            binding.ivCheckedHelium.invisible()
+            binding.ivCheckedRobot.invisible()
+            binding.ivCheckedRadio.invisible()
+            binding.ivCheckedBackWard.invisible()
+            binding.ivCheckedCave.visible()
         }
 
         binding.save.setOnClickListener {
@@ -386,6 +421,7 @@ class EditRecordActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        stopAudio()
         recorder?.release()
         recorder = null
         player?.release()
@@ -441,7 +477,7 @@ class EditRecordActivity : AppCompatActivity() {
         val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
         intent.putExtra("from_record", "record")
         startActivity(intent)
-
+        finish()
     }
 
     private fun playAudio() {
@@ -476,6 +512,14 @@ class EditRecordActivity : AppCompatActivity() {
                 }
             } catch (e: IOException) {
                 Log.e("tag", "prepare() failed")
+            }
+        }
+    }
+
+    private fun stopAudio() {
+        player?.apply {
+            if (isPlaying) {
+                stop()
             }
         }
     }

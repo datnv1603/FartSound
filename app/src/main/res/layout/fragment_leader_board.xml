@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.component.fragment.LeaderBoardFragment">
 
     <ScrollView
@@ -17,425 +17,447 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_top1">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgAirHorn"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/airhorn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="1"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:id="@+id/ll_img"
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_air_horn" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top1"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/air_horn"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgAirHorn"
+                    app:layout_constraintTop_toTopOf="@id/imgAirHorn"
+                    app:layout_constraintBottom_toBottomOf="@id/imgAirHorn"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
+                    android:fontFamily="@font/nunito_medium"
                     android:text="@string/count_play"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_top2">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgHairClipper"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/hairclipper"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="2"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_hair_clipper" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top2"
+                    android:contentDescription="@string/top_2"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/hair_clipper"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgHairClipper"
+                    app:layout_constraintTop_toTopOf="@id/imgHairClipper"
+                    app:layout_constraintBottom_toBottomOf="@id/imgHairClipper"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="23441244 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_23441244_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_top3">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgFart"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/fart"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="3"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_fart" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top3"
+                    android:contentDescription="@string/top_3"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/fart"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgFart"
+                    app:layout_constraintTop_toTopOf="@id/imgFart"
+                    app:layout_constraintBottom_toBottomOf="@id/imgFart"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="20242424 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_20242424_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_leader_board">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgGhost"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/ghost"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="4"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_ghost" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top4"
+                    android:contentDescription="@string/top_4"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/ghost"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgGhost"
+                    app:layout_constraintTop_toTopOf="@id/imgGhost"
+                    app:layout_constraintBottom_toBottomOf="@id/imgGhost"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="17442424 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_17442424_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_leader_board">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgHalloween"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/halloween"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="5"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_halloween" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top5"
+                    android:contentDescription="@string/top_5"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/halloween"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgHalloween"
+                    app:layout_constraintTop_toTopOf="@id/imgHalloween"
+                    app:layout_constraintBottom_toBottomOf="@id/imgHalloween"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="10344141 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_10344141_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_leader_board">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgSnore"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/snore"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="6"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_snore" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top6"
+                    android:contentDescription="@string/top_6"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/snore"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgSnore"
+                    app:layout_constraintTop_toTopOf="@id/imgSnore"
+                    app:layout_constraintBottom_toBottomOf="@id/imgSnore"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="10344131 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_10344131_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_leader_board">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imgGun"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/gun"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="7"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_gun" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top7"
+                    android:contentDescription="@string/top_7"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/gun"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imgGun"
+                    app:layout_constraintTop_toTopOf="@id/imgGun"
+                    app:layout_constraintBottom_toBottomOf="@id/imgGun"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="10344121 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_10343102_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/bg_item_leaderboard"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/bg_leader_board">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/_44sdp"
+                    android:layout_height="@dimen/_44sdp"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:src="@drawable/countdown"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:contentDescription="@string/top_1"/>
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_medium"
-                    android:text="8"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/bg_record_item"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
-                        android:src="@drawable/img_count_down" />
-                </LinearLayout>
+                    android:layout_margin="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:src="@drawable/ic_top8"
+                    android:contentDescription="@string/top_8"/>
 
                 <TextView
                     android:layout_width="@dimen/_90sdp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/nunito_medium"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/count_down"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_15ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintStart_toEndOf="@id/imageView"
+                    app:layout_constraintTop_toTopOf="@id/imageView"
+                    app:layout_constraintBottom_toBottomOf="@id/imageView"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_12sdp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:text="10344100 plays"
+                    android:fontFamily="@font/nunito_medium"
+                    android:text="@string/_9944057_plays"
                     android:textColor="@color/text_color"
-                    android:textSize="@dimen/_12ssp" />
-            </LinearLayout>
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </LinearLayout>

@@ -43,7 +43,7 @@ class CreateFragment : Fragment() {
         if (list.isEmpty()) {
             binding.txtNoFoundTitle.visibility = View.VISIBLE
         } else {
-            recordAdapter = RecordAdapter(requireActivity(), list)
+            recordAdapter = RecordAdapter(list)
             binding.rcvRecord.layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             binding.rcvRecord.adapter = recordAdapter

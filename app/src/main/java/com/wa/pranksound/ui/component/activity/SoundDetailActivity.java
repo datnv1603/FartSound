@@ -3,19 +3,23 @@ package com.wa.pranksound.ui.component.activity;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.image_sound;
 import static com.wa.pranksound.utils.KeyClass.is_fav;
+import static com.wa.pranksound.utils.KeyClass.is_record;
 import static com.wa.pranksound.utils.KeyClass.music_name;
 import static com.wa.pranksound.utils.KeyClass.sound_path;
 
 import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -29,6 +33,8 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -41,10 +47,9 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
-import com.wa.pranksound.adapter.CategoriesAdapter;
 import com.wa.pranksound.adapter.HorizontalFavoriteSoundAdapter;
 import com.wa.pranksound.adapter.HorizontalSoundAdapterTest;
-import com.wa.pranksound.adapter.VerticalSoundAdapterTest;
+import com.wa.pranksound.model.Record;
 import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.room.AppDatabase;
 import com.wa.pranksound.room.InsertPrankSound;
@@ -86,14 +91,15 @@ public class SoundDetailActivity extends BaseActivity {
     Integer int_img_sound;
     String soundName;
     String soundPath;
+    LinearLayout llBtnOff;
 
     FrameLayout fl_banner;
     View view_line;
 
-    ImageButton btnVolumeLoud, btnVolumeSmall;
+    ImageButton btnVolumeLoud, btnVolumeSmall, btnDelete;
     SeekBar volume;
     private AudioManager audioManager;
-
+    Boolean isRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,10 +123,10 @@ public class SoundDetailActivity extends BaseActivity {
         volume.setMax(maxVolume);
         volume.setProgress(currentVolume);
         btnVolumeSmall.setOnClickListener(v ->
-                volume.setProgress(maxVolume/5)
+                volume.setProgress(maxVolume / 5)
         );
         btnVolumeLoud.setOnClickListener(v ->
-                volume.setProgress(4 * maxVolume/5)
+                volume.setProgress(4 * maxVolume / 5)
         );
         volume.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -153,10 +159,12 @@ public class SoundDetailActivity extends BaseActivity {
         volume = findViewById(R.id.seekBarVolume);
         btnVolumeLoud = findViewById(R.id.btnVolumeLoud);
         btnVolumeSmall = findViewById(R.id.btnVolumeSmall);
+        btnDelete = findViewById(R.id.btnDelete);
 
         imgAnimation = findViewById(R.id.animation);
 
         view_line = findViewById(R.id.line);
+        llBtnOff = findViewById(R.id.llBtnOff);
 
         systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
@@ -168,11 +176,19 @@ public class SoundDetailActivity extends BaseActivity {
         //get music name from sound list
         string_img_sound = getIntent().getStringExtra(image_sound);
         int_img_sound = getIntent().getIntExtra(image_sound, 0);
+        isRecord = getIntent().getBooleanExtra(is_record, false);
 
         soundPath = getIntent().getStringExtra(sound_path);
         InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
-        imgHeart.setSelected(true);
-        imgHeart.setSelected(insertPrankSound1 != null);
+        if (isRecord) {
+            btnDelete.setVisibility(View.VISIBLE);
+            imgHeart.setVisibility(View.GONE);
+        } else {
+            btnDelete.setVisibility(View.GONE);
+            imgHeart.setVisibility(View.VISIBLE);
+            imgHeart.setSelected(insertPrankSound1 != null);
+        }
+
 
         if (strMusicName != null) {
             txtTitle.setText(strMusicName);
@@ -204,8 +220,8 @@ public class SoundDetailActivity extends BaseActivity {
 
             //load ảnh từ file asset
             if (int_img_sound != 0) {
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), int_img_sound);
-                Glide.with(this).load(bitmap).into(imgItem);
+                //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), int_img_sound);
+                Glide.with(this).load(int_img_sound).into(imgItem);
             } else {
                 if (!string_img_sound.contains("png")) {
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), Integer.parseInt(string_img_sound));
@@ -273,9 +289,83 @@ public class SoundDetailActivity extends BaseActivity {
         }
     }
 
+    private void startCountDownTimer(int i, TextView txtCountTime) {
+        imgPlayPause.setEnabled(false);
+        imgAnimation.setVisibility(View.INVISIBLE);
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        countDownTimer = new CountDownTimer(i, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long j2 = millisUntilFinished / ((long) 1000);
+                long j3 = (long) 60;
+                long j4 = j2 / j3;
+                long j5 = j2 % j3;
+                String format = String.format("%02d:%02d", Arrays.copyOf(new Object[]{Long.valueOf(j4), Long.valueOf(j5)}, 2));
+                txtCountTime.setText(format);
+            }
+
+            @Override
+            public void onFinish() {
+                tvOff.setText(R.string._off);
+                txtCountTime.setText("");
+                isPlaying = true;
+                imgAnimation.setVisibility(View.VISIBLE);
+                if (mediaPlayer != null) {
+                    if (!mediaPlayer.isPlaying()) {
+                        mediaPlayer.start();
+                        startVibrate();
+                        handler.postDelayed(runnable, 5);
+                    }
+                }
+            }
+        }.start();
+
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private void clickEvent() {
         imgBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
+
+        llBtnOff.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(new ContextThemeWrapper(SoundDetailActivity.this, R.style.myPopupMenu), v);
+            popupMenu.getMenuInflater().inflate(R.menu.set_time, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.five) {
+                    startCountDownTimer(5000, txtCountTime);
+                    tvOff.setText(R.string._5s);
+                    return true;
+                } else if (item.getItemId() == R.id.fiveMinute) {
+                    startCountDownTimer(300000, txtCountTime);
+                    tvOff.setText(R.string._5m);
+                    return true;
+                } else if (item.getItemId() == R.id.off) {
+                    if (countDownTimer != null) {
+                        countDownTimer.cancel();
+                    }
+                    imgPlayPause.setEnabled(true);
+                    txtCountTime.setText("");
+                    tvOff.setText(R.string._off);
+                    return true;
+                } else if (item.getItemId() == R.id.oneMinute) {
+                    startCountDownTimer(60000, txtCountTime);
+                    tvOff.setText(R.string._1m);
+                    return true;
+                } else if (item.getItemId() == R.id.ten) {
+                    startCountDownTimer(10000, txtCountTime);
+                    tvOff.setText(R.string._10s);
+                    return true;
+                } else if (item.getItemId() == R.id.thirty) {
+                    startCountDownTimer(30000, txtCountTime);
+                    tvOff.setText(R.string._30s);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            popupMenu.show();
+        });
 
         //set playing when click item
         imgItem.setOnTouchListener((v, event) -> {
@@ -342,6 +432,13 @@ public class SoundDetailActivity extends BaseActivity {
                 }
             }
         });
+
+        btnDelete.setOnClickListener(v -> {
+            showDiscardDialog(() -> {
+                deleteRecord(strMusicName);
+                startActivity(new Intent(SoundDetailActivity.this, MainActivity.class));
+            });
+        });
     }
 
     @Override
@@ -405,5 +502,42 @@ public class SoundDetailActivity extends BaseActivity {
         if (systemService != null) {
             systemService.cancel();
         }
+    }
+
+    public void deleteRecord(String fileName) {
+        List<Record> audioFileList = Utils.INSTANCE.getAudioList(this);
+        for (int i = 0; i < audioFileList.size(); i++) {
+            if (audioFileList.get(i).getName().equals(fileName)) {
+                audioFileList.remove(i);
+                break;
+            }
+        }
+        Utils.INSTANCE.saveAudioList(this, audioFileList);
+    }
+
+    private void showDiscardDialog(Runnable callback) {
+        Dialog dialogCustomExit = new Dialog(SoundDetailActivity.this);
+        dialogCustomExit.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Objects.requireNonNull(dialogCustomExit.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialogCustomExit.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
+        dialogCustomExit.setContentView(R.layout.dialog_delete_record);
+        dialogCustomExit.setCancelable(true);
+        dialogCustomExit.show();
+        dialogCustomExit.getWindow().setAttributes(lp);
+
+        TextView btnNegative = dialogCustomExit.findViewById(R.id.btnNegative);
+        TextView btnPositive = dialogCustomExit.findViewById(R.id.btnPositive);
+
+        btnPositive.setOnClickListener(v -> {
+            dialogCustomExit.dismiss();
+            callback.run();
+        });
+
+        btnNegative.setOnClickListener(v -> dialogCustomExit.dismiss());
     }
 }

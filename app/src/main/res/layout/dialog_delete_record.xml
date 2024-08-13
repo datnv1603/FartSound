@@ -16,23 +16,23 @@
 
         <TextView
             android:id="@+id/textTitle"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_bold"
+            android:fontFamily="@font/nunito_semi_bold"
             android:gravity="center"
-            android:text="@string/exit"
-            android:textSize="@dimen/_12ssp"
+            android:text="@string/delete"
             android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="@color/text_color" />
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/_12ssp" />
 
         <TextView
             android:id="@+id/textDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/nunito_medium"
+            android:layout_marginHorizontal="@dimen/_26sdp"
+            android:fontFamily="@font/nunito_regular"
             android:gravity="center"
-            android:text="@string/do_you_want_to_exit"
-            android:textColor="@color/text_color"
+            android:text="@string/are_you_sure_that_you_want_to_delete_this_record"
             android:textSize="@dimen/_10ssp" />
 
         <LinearLayout
@@ -53,7 +53,7 @@
                 android:padding="@dimen/_12sdp"
                 android:text="@string/cancel"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_13ssp" />
 
             <TextView
                 android:id="@+id/btnPositive"
@@ -62,12 +62,12 @@
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_button"
+                android:fontFamily="@font/nunito_medium"
                 android:gravity="center"
                 android:padding="@dimen/_12sdp"
-                android:text="@string/yes"
+                android:text="@string/delete"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_10ssp" />
+                android:textSize="@dimen/_13ssp" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

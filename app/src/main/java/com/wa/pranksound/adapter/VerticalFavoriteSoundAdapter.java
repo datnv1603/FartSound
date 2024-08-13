@@ -57,15 +57,14 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
         Context context = myViewHolder.imgCate.getRootView().getContext();
         String strCateName = arrFavPrankSound.get(i).folder_name;
         String imagePath = arrFavPrankSound.get(i).image_path;
-        Log.d("Img Path", imagePath);
+        boolean isDrawable;
         if(!imagePath.contains("png")){
             int resourceId = Integer.parseInt(imagePath);
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resourceId);
-            Glide.with(context).load(bitmap).into(myViewHolder.imgCate);
-            Log.d("Img Path", "drawable");
+            Glide.with(context).load(resourceId).into(myViewHolder.imgCate);
+            isDrawable = true;
         }else {
+            isDrawable = false;
             Glide.with(context).load("file:///android_asset/" + imagePath).into( myViewHolder.imgCate);
-            Log.d("Img Path", "asset");
         }
 
         myViewHolder.cvBG.setBackgroundResource(BackGround.INSTANCE.getBackground(i));
@@ -76,7 +75,11 @@ public class VerticalFavoriteSoundAdapter extends Adapter<VerticalFavoriteSoundA
             intent.putExtra(is_fav, true);
             intent.putExtra(music_name, arrFavPrankSound.get(i).sound_name);
             intent.putExtra(cate_name, arrFavPrankSound.get(i).folder_name);
-            intent.putExtra(image_sound, arrFavPrankSound.get(i).image_path);
+            if (isDrawable) {
+                intent.putExtra(image_sound, Integer.parseInt(imagePath));
+            } else {
+                intent.putExtra(image_sound, imagePath);
+            }
             intent.putExtra(sound_path, arrFavPrankSound.get(i).sound_path);
             context.startActivity(intent);
         });

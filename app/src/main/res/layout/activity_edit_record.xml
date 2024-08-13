@@ -76,8 +76,8 @@
                 android:id="@+id/img_pause"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_4sdp"
                 android:background="@color/transparent"
+                android:padding="@dimen/_4sdp"
                 android:src="@drawable/ic_small_pause" />
 
             <SeekBar
@@ -88,8 +88,8 @@
                 android:layout_weight="1"
                 android:progressBackgroundTint="#41494C"
                 android:progressDrawable="@drawable/seekbar_style"
-                android:thumb="@drawable/custom_thumb"
                 android:splitTrack="false"
+                android:thumb="@drawable/custom_thumb"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -162,11 +162,10 @@
                 android:text="@string/voice_change"
                 android:textSize="@dimen/_11ssp" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/_12sdp">
 
                 <TextView
                     android:id="@+id/original"
@@ -175,17 +174,21 @@
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/original"
-                    app:drawableTopCompat="@drawable/ic_original" />
+                    app:drawableTopCompat="@drawable/ic_original"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/iv_chipmunk"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/helium"
-                    app:drawableTopCompat="@drawable/ic_helium" />
+                    app:drawableTopCompat="@drawable/ic_helium"
+                    app:layout_constraintEnd_toStartOf="@id/ivRobot"
+                    app:layout_constraintStart_toEndOf="@id/original"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/ivRobot"
@@ -194,14 +197,42 @@
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/robot"
-                    app:drawableTopCompat="@drawable/ic_robot" />
-            </LinearLayout>
+                    app:drawableTopCompat="@drawable/ic_robot"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+
+                <ImageView
+                    android:id="@+id/ivCheckedOriginal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_checked_item"
+                    app:layout_constraintEnd_toEndOf="@id/original"
+                    app:layout_constraintTop_toTopOf="@id/original" />
+
+                <ImageView
+                    android:id="@+id/ivCheckedHelium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_checked_item"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/iv_chipmunk"
+                    app:layout_constraintTop_toTopOf="@id/iv_chipmunk" />
+
+                <ImageView
+                    android:id="@+id/ivCheckedRobot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_checked_item"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/ivRobot"
+                    app:layout_constraintTop_toTopOf="@id/ivRobot" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/_12sdp">
 
                 <TextView
                     android:id="@+id/iv_radio"
@@ -210,17 +241,21 @@
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/radio"
-                    app:drawableTopCompat="@drawable/ic_radio" />
+                    app:drawableTopCompat="@drawable/ic_radio"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/backward"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/backward"
-                    app:drawableTopCompat="@drawable/ic_backward" />
+                    app:drawableTopCompat="@drawable/ic_backward"
+                    app:layout_constraintEnd_toStartOf="@id/iv_cave"
+                    app:layout_constraintStart_toEndOf="@id/iv_radio"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/iv_cave"
@@ -229,8 +264,38 @@
                     android:drawablePadding="@dimen/_3sdp"
                     android:gravity="center"
                     android:text="@string/indoor"
-                    app:drawableTopCompat="@drawable/ic_original" />
-            </LinearLayout>
+                    app:drawableTopCompat="@drawable/ic_original"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivCheckedRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_checked_item"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/iv_radio"
+                    app:layout_constraintTop_toTopOf="@id/iv_radio" />
+
+                <ImageView
+                    android:id="@+id/ivCheckedBackWard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_checked_item"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="@id/backward"
+                    app:layout_constraintTop_toTopOf="@id/backward" />
+
+                <ImageView
+                    android:id="@+id/ivCheckedCave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_checked_item"
+                    android:visibility="invisible"
+                    app:layout_constraintTop_toTopOf="@id/iv_cave"
+                    app:layout_constraintEnd_toEndOf="@id/iv_cave"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <ProgressBar

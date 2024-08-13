@@ -34,6 +34,7 @@
         android:singleLine="true"
         android:text="@string/hair_clipper"
         android:textAlignment="center"
+        android:textColor="@color/text_color"
         android:textSize="@dimen/_11ssp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/cvBG" />
