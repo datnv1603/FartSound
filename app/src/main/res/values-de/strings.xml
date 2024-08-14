@@ -1,25 +1,177 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--You can change App Name here-->
+    <string name="app_name">Prank Sound</string>
 
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="_1m">1m</string>
+    <string name="_30s">30s</string>
+    <string name="_3s">3s</string>
+    <string name="_5m">5m</string>
 
     <string name="_off">Aus</string>
-
-
-    <string name="sound">Klang</string>
+    <string name="sound">Ton</string>
     <string name="favorite">Favorit</string>
     <string name="language">Sprache</string>
-    <string name="air_horn">Lufthorn</string>
-    <string name="hair_clipper">Haarspange</string>
-    <string name="meme">Meme</string>
+
     <string name="advertisement">Werbung</string>
     <string name="settings">Einstellungen</string>
     <string name="share_app">App teilen</string>
-    <string name="rate_app">Bewertungs App</string>
-    <string name="privacy_policy">Datenschutzrichtlinie</string>
+    <string name="rate_app">App bewerten</string>
+    <string name="privacy_policy">Datenschutzbestimmungen</string>
     <string name="loop">Schleife</string>
     <string name="time">Zeit</string>
-    <string name="exit">Ausfahrt</string>
-    <string name="do_you_want_to_exit">Möchtest du aussteigen?</string>
-    <string name="no">NEIN</string>
+    <string name="exit">Beenden</string>
+    <string name="do_you_want_to_exit">Möchten Sie beenden?</string>
+    <string name="no">Nein</string>
     <string name="yes">Ja</string>
+    <!-- Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hallo, leerer Fragment</string>
+
+    <string name="home">Startseite</string>
+    <string name="create_sound">Ton erstellen</string>
+    <string name="favorites">Favoriten</string>
+    <string name="leaderboard">Bestenliste</string>
+    <string name="setting">Einstellung</string>
+
+    <string name="create">Erstellen</string>
+
+    <string name="no_favotires">Keine Favoriten zum Anzeigen</string>
+
+    <!-- leaderboard -->
+    <string name="count_play">24452132 Wiedergaben</string>
+    <string name="missle">Rakete</string>
+    <string name="coughing">Husten</string>
+    <string name="bell_4">Glocke 4</string>
+    <string name="hair_clipper_4">Haarschneider 4</string>
+
+    <!-- setting -->
+    <string name="feed_back">Feedback</string>
+    <string name="rate">Bewerten Sie mit 5 Sternen</string>
+    <string name="share">Mit Freunden teilen</string>
+    <string name="vibration">Vibration</string>
+
+    <!-- create -->
+    <string name="no_sound_to_show">Kein Ton zum Anzeigen</string>
+    <string name="click_the_button">Klicken Sie auf die Schaltfläche "Erstellen", um neuen Ton hinzuzufügen</string>
+
+    <!-- sound detail -->
+    <string name="play_after">Abspielen nach</string>
+
+    <!-- record -->
+    <string name="record">Aufnehmen</string>
+    <string name="record_here">Hier aufnehmen</string>
+    <string name="time_record">00:00/00:30</string>
+
+    <string name="recorder">Recorder</string>
+    <string name="effects">Effekte</string>
+    <string name="image">Bild</string>
+
+    <!-- edit record -->
+    <string name="voice_change">Stimmenänderung</string>
+    <string name="original">Original</string>
+    <string name="helium">Helium</string>
+    <string name="robot">Roboter</string>
+    <string name="radio">Radio</string>
+    <string name="backward">Rückwärts</string>
+    <string name="indoor">Innen</string>
+
+    <string name="discard">Diesen Stimmeffekt verwerfen?</string>
+
+    <string name="air_horn">Lufthorn</string>
+    <string name="hair_clipper">Haarschneider</string>
+    <string name="fart">Furz</string>
+    <string name="ghost">Geist</string>
+    <string name="count_down">Countdown</string>
+    <string name="gun">Pistole</string>
+    <string name="halloween">Halloween</string>
+    <string name="snore">Schnarchen</string>
+    <string name="meme">Meme</string>
+    <string name="save">Speichern</string>
+    <string name="cancle">Abbrechen</string>
+    <string name="enter_name">Name eingeben</string>
+    <string name="save_as">Speichern unter</string>
+    <string name="select">Auswählen</string>
+    <string name="german">Deutsch</string>
+    <string name="italian">Italienisch</string>
+    <string name="portuguese">Portugiesisch</string>
+    <string name="french">Französisch</string>
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Spanisch</string>
+    <string name="english">Englisch</string>
+    <string name="type_your_message">Nachricht eingeben</string>
+    <string name="send">Senden</string>
+    <string name="no_found_favorite_sounds_yet">Noch keine Favoriten gefunden!</string>
+    <string name="play">Abspielen</string>
+    <string name="event">Ereignis</string>
+    <string name="new_">Neu</string>
+    <string name="icon_advertising">Werbung-Icon</string>
+    <string name="open">Öffnen</string>
+    <string name="test_sound">Testton</string>
+    <string name="this_action_can_contain_ad">Diese Aktion kann eine Anzeige enthalten</string>
+    <string name="introduce">Vorstellen</string>
+    <string name="next">Weiter</string>
+    <string name="title_intro_1">Lustige Streichgeräusche</string>
+    <string name="title_intro_2">100+ Hilarische Soundeffekte</string>
+    <string name="title_intro_3">Lachen Sie überall!</string>
+    <string name="start">Start</string>
+    <string name="background">Hintergrund</string>
+    <string name="item_image">Artikelbild</string>
+    <string name="create_effect">Effekt erstellen</string>
+    <string name="rate_us">Bewerten Sie uns</string>
+    <string name="more_app">Mehr Apps</string>
+    <string name="other">Andere</string>
+    <string name="no_create_sound">Kein erstellter Ton</string>
+    <string name="empty">Leer</string>
+    <string name="your_sound">Ihr Ton</string>
+    <string name="tap_here_to_record">Hier tippen, um aufzunehmen</string>
+    <string name="button_record">Aufnahmetaste</string>
+    <string name="button_reload">Neuladen-Taste</string>
+    <string name="button_pause">Pause-Taste</string>
+    <string name="button_next">Weiter-Taste</string>
+    <string name="add_effect">Effekt hinzufügen</string>
+    <string name="replay">Wiederholen</string>
+    <string name="cut">Schneiden</string>
+    <string name="ads">Anzeigen</string>
+    <string name="timer">Timer</string>
+    <string name="may_be_later">Vielleicht später</string>
+    <string name="do_you_like_the_app">Gefällt Ihnen die App?</string>
+    <string name="let_us_know_your_experience">Lassen Sie uns Ihre Erfahrungen wissen</string>
+    <string name="the_best_we_can_get">Das Beste, was wir bekommen können 🥳</string>
+
+    <!-- Rating -->
+    <string name="title_dialog_rating_1">Oh, nein!</string>
+    <string name="content_dialog_rating_1_2_3">Bitte geben Sie uns etwas Feedback</string>
+    <string name="title_dialog_rating_5">Wir lieben dich auch!</string>
+    <string name="content_dialog_rating_4_5">Danke für Ihr Feedback</string>
+    <string name="title_rate_default">Gefällt Ihnen die App?</string>
+    <string name="content_rate_default">Lassen Sie uns Ihre Erfahrungen wissen</string>
+    <string name="please_give_us_some_feedback">Bitte geben Sie uns etwas Feedback</string>
+    <string name="thank_you">Danke!</string>
+    <string name="share_to">Teilen mit</string>
+    <string name="version">Version</string>
+    <string name="privacy_policy_link">https://battery-charger-animatio-76c82.web.app/policy/</string>
+    <string name="no_favourite_sound">Kein Lieblingssound</string>
+    <string name="ok">Okay</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="volume_small">Lautstärke niedrig</string>
+    <string name="volume_loud">Lautstärke hoch</string>
+    <string name="more_sound">Mehr Klänge:</string>
+    <string name="delete">Löschen</string>
+    <string name="are_you_sure_that_you_want_to_delete_this_record">Möchten Sie diese Aufnahme wirklich löschen?</string>
+    <string name="top_1">Top 1</string>
+    <string name="top_2">Top 2</string>
+    <string name="top_3">Top 3</string>
+    <string name="top_8">Top 8</string>
+    <string name="top_7">Top 7</string>
+    <string name="top_6">Top 6</string>
+    <string name="top_5">Top 5</string>
+    <string name="top_4">Top 4</string>
+    <string name="_23441244_plays">23441244 Wiedergaben</string>
+    <string name="_20242424_plays">20242424 Wiedergaben</string>
+    <string name="_17442424_plays">17442424 Wiedergaben</string>
+    <string name="_10344141_plays">10344141 Wiedergaben</string>
+    <string name="_10344131_plays">10344131 Wiedergaben</string>
+    <string name="_10343102_plays">10343102 Wiedergaben</string>
+    <string name="_9944057_plays">9944057 Wiedergaben</string>
 </resources>

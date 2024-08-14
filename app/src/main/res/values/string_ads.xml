@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--    adjust-->
-    <string name="adjust" translatable="false">kodcrge6hhq8</string>
+    <string name="adjust" translatable="false">mrqc3c5bkow0</string>
     <!--    app id-->
-    <string name="app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-
-    <!--    open app-->
-    <string name="open_app" translatable="false">ca-app-pub-3621741958408545/1013252974</string>
-
-
+    <string name="app_id" translatable="false">ca-app-pub-3621741958408545~3045561890</string>
 
     //inter
-    <string name="inter_splash" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="inter_home" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="inter_record" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="inter_sound" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="inter_splash" translatable="false">ca-app-pub-3621741958408545/1930020841</string>
+    <string name="inter_home" translatable="false">ca-app-pub-3621741958408545/4370251857</string>
+    <string name="inter_record" translatable="false">ca-app-pub-3621741958408545/5320371448</string>
+    <string name="inter_sound" translatable="false">ca-app-pub-3621741958408545/3057170185</string>
 
     //native
-    <string name="native_intro" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="native_language" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="native_home" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="native_sound" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="native_intro" translatable="false">ca-app-pub-3621741958408545/6403149136</string>
+    <string name="native_language" translatable="false">ca-app-pub-3621741958408545/9616939179</string>
+    <string name="native_home" translatable="false">ca-app-pub-3621741958408545/7647151885</string>
+    <string name="native_sound" translatable="false">ca-app-pub-3621741958408545/5848615367</string>
 
     //banner
-    <string name="banner_main" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
-    <string name="banner_record" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
-    <string name="banner_sound" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
+    <string name="banner_main" translatable="false">ca-app-pub-3621741958408545/7547079534</string>
+    <string name="banner_record" translatable="false">ca-app-pub-3621741958408545/4007289772</string>
+    <string name="banner_sound" translatable="false">ca-app-pub-3621741958408545/5169958512</string>
 
 </resources>

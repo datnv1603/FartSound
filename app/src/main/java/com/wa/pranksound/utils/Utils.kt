@@ -27,13 +27,14 @@ object Utils {
         editor.apply()
     }
 
-    // Lấy danh sách từ SharedPreferences
     fun getAudioList(context: Context): List<Record> {
         val sharedPreferences = context.getSharedPreferences("audio_list", Context.MODE_PRIVATE)
         val json = sharedPreferences.getString("audio_list", null)
+
         val type = object : TypeToken<List<Record>>() {}.type
-        return Gson().fromJson(json, type) ?: emptyList()
+        return Gson().fromJson<List<Record>>(json, type) ?: emptyList()
     }
+
 
     fun removeAfterDot(input: String): String {
         if (!input.contains(".")) {

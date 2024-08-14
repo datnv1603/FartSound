@@ -1,23 +1,177 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="_off">Desligado</string>
+    <!--Você pode alterar o nome do aplicativo aqui-->
+    <string name="app_name">Som de Brincadeira</string>
 
+    <string name="_5s">5s</string>
+    <string name="_10s">10s</string>
+    <string name="_1m">1m</string>
+    <string name="_30s">30s</string>
+    <string name="_3s">3s</string>
+    <string name="_5m">5m</string>
+
+    <string name="_off">Desligado</string>
     <string name="sound">Som</string>
     <string name="favorite">Favorito</string>
-    <string name="language">Linguagem</string>
-    <string name="air_horn">Buzina de ar</string>
-    <string name="hair_clipper">Máquina de cortar cabelo</string>
-    <string name="gun">Pistola</string>
-    <string name="meme">Memes</string>
-    <string name="advertisement">Anúncio</string>
+    <string name="language">Idioma</string>
+
+    <string name="advertisement">Publicidade</string>
     <string name="settings">Configurações</string>
-    <string name="share_app">Compartilhe o aplicativo</string>
-    <string name="rate_app">Avaliar aplicativo</string>
-    <string name="privacy_policy">política de Privacidade</string>
-    <string name="loop">Laço</string>
+    <string name="share_app">Compartilhar App</string>
+    <string name="rate_app">Avaliar App</string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="loop">Repetir</string>
     <string name="time">Tempo</string>
-    <string name="exit">Saída</string>
+    <string name="exit">Sair</string>
     <string name="do_you_want_to_exit">Você quer sair?</string>
     <string name="no">Não</string>
     <string name="yes">Sim</string>
+    <!-- Remova ou altere este texto de espaço reservado -->
+    <string name="hello_blank_fragment">Olá fragmento em branco</string>
+
+    <string name="home">Início</string>
+    <string name="create_sound">Criar Som</string>
+    <string name="favorites">Favoritos</string>
+    <string name="leaderboard">Placar</string>
+    <string name="setting">Configuração</string>
+
+    <string name="create">Criar</string>
+
+    <string name="no_favotires">Nenhum favorito para mostrar</string>
+
+    //leaderboard
+    <string name="count_play">24452132 reproduções</string>
+    <string name="missle">Míssil</string>
+    <string name="coughing">Tosse</string>
+    <string name="bell_4">Sino 4</string>
+    <string name="hair_clipper_4">Cortador de Cabelo 4</string>
+
+    //setting
+    <string name="feed_back">Feedback</string>
+    <string name="rate">Avaliar 5 estrelas</string>
+    <string name="share">Compartilhar com amigos</string>
+    <string name="vibration">Vibração</string>
+
+    //create
+    <string name="no_sound_to_show">Nenhum som para mostrar</string>
+    <string name="click_the_button">Clique no botão criar para adicionar um novo som</string>
+
+    //sound detail
+    <string name="play_after">Reproduzir depois</string>
+
+    //record
+    <string name="record">Gravar</string>
+    <string name="record_here">Grave aqui</string>
+    <string name="time_record">00:00/00:30</string>
+
+    <string name="recorder">Gravador</string>
+    <string name="effects">Efeitos</string>
+    <string name="image">Imagem</string>
+
+    //edit record
+    <string name="voice_change">Mudar Voz</string>
+    <string name="original">Original</string>
+    <string name="helium">Hélio</string>
+    <string name="robot">Robô</string>
+    <string name="radio">Rádio</string>
+    <string name="backward">Para trás</string>
+    <string name="indoor">Interno</string>
+
+    <string name="discard">Descartar este efeito de voz?</string>
+
+    <string name="air_horn">Buzina de Ar</string>
+    <string name="hair_clipper">Cortador de Cabelo</string>
+    <string name="fart">Pum</string>
+    <string name="ghost">Fantasma</string>
+    <string name="count_down">Contagem Regressiva</string>
+    <string name="gun">Arma</string>
+    <string name="halloween">Halloween</string>
+    <string name="snore">Ronco</string>
+    <string name="meme">Meme</string>
+    <string name="save">SALVAR</string>
+    <string name="cancle">CANCELAR</string>
+    <string name="enter_name">Digite o nome</string>
+    <string name="save_as">Salvar como</string>
+    <string name="select">Selecionar</string>
+    <string name="german">Alemão</string>
+    <string name="italian">Italiano</string>
+    <string name="portuguese">Português</string>
+    <string name="french">Francês</string>
+    <string name="hindi">Hindi</string>
+    <string name="spanish">Espanhol</string>
+    <string name="english">Inglês</string>
+    <string name="type_your_message">Digite sua mensagem</string>
+    <string name="send">Enviar</string>
+    <string name="no_found_favorite_sounds_yet">Nenhum som favorito encontrado ainda!</string>
+    <string name="play">Reproduzir</string>
+    <string name="event">Evento</string>
+    <string name="new_">Novo</string>
+    <string name="icon_advertising">Publicidade do ícone</string>
+    <string name="open">Abrir</string>
+    <string name="test_sound">Testar Som</string>
+    <string name="this_action_can_contain_ad">Esta ação pode conter anúncio</string>
+    <string name="introduce">Introduzir</string>
+    <string name="next">Próximo</string>
+    <string name="title_intro_1">Sons de Brincadeira Divertidos</string>
+    <string name="title_intro_2">100+ Efeitos Sonoros Hilários</string>
+    <string name="title_intro_3">Ria Onde Quer Que Você Esteja!</string>
+    <string name="start">Iniciar</string>
+    <string name="background">Fundo</string>
+    <string name="item_image">Imagem do item</string>
+    <string name="create_effect">Criar efeito</string>
+    <string name="rate_us">Nos avalie</string>
+    <string name="more_app">Mais apps</string>
+    <string name="other">Outro</string>
+    <string name="no_create_sound">Nenhum Som Criado</string>
+    <string name="empty">Vazio</string>
+    <string name="your_sound">Seu som</string>
+    <string name="tap_here_to_record">Toque aqui para gravar</string>
+    <string name="button_record">Botão de gravação</string>
+    <string name="button_reload">Botão de recarregar</string>
+    <string name="button_pause">Botão de pausa</string>
+    <string name="button_next">Botão de próximo</string>
+    <string name="add_effect">Adicionar Efeito</string>
+    <string name="replay">Repetir</string>
+    <string name="cut">Cortar</string>
+    <string name="ads">Anúncios</string>
+    <string name="timer">Temporizador</string>
+    <string name="may_be_later">Talvez mais tarde</string>
+    <string name="do_you_like_the_app">Você gosta do aplicativo?</string>
+    <string name="let_us_know_your_experience">Deixe-nos saber sua experiência</string>
+    <string name="the_best_we_can_get">O melhor que podemos obter 🥳</string>
+
+    //Rating
+    <string name="title_dialog_rating_1">Oh, não!</string>
+    <string name="content_dialog_rating_1_2_3">Por favor, dê-nos um feedback</string>
+    <string name="title_dialog_rating_5">Nós também te amamos!</string>
+    <string name="content_dialog_rating_4_5">Obrigado pelo seu feedback</string>
+    <string name="title_rate_default">Você gosta do aplicativo?</string>
+    <string name="content_rate_default">Deixe-nos saber sua experiência</string>
+    <string name="please_give_us_some_feedback">Por favor, dê-nos um feedback</string>
+    <string name="thank_you">Obrigado!</string>
+    <string name="share_to">Compartilhar com</string>
+    <string name="version">Versão</string>
+    <string name="privacy_policy_link">https://battery-charger-animatio-76c82.web.app/policy/</string>
+    <string name="no_favourite_sound">Nenhum som favorito</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="volume_small">Volume baixo</string>
+    <string name="volume_loud">Volume alto</string>
+    <string name="more_sound">Mais sons:</string>
+    <string name="delete">Excluir</string>
+    <string name="are_you_sure_that_you_want_to_delete_this_record">Tem certeza de que deseja excluir esta gravação?</string>
+    <string name="top_1">Top 1</string>
+    <string name="top_2">Top 2</string>
+    <string name="top_3">Top 3</string>
+    <string name="top_8">Top 8</string>
+    <string name="top_7">Top 7</string>
+    <string name="top_6">Top 6</string>
+    <string name="top_5">Top 5</string>
+    <string name="top_4">Top 4</string>
+    <string name="_23441244_plays">23441244 reproduções</string>
+    <string name="_20242424_plays">20242424 reproduções</string>
+    <string name="_17442424_plays">17442424 reproduções</string>
+    <string name="_10344141_plays">10344141 reproduções</string>
+    <string name="_10344131_plays">10344131 reproduções</string>
+    <string name="_10343102_plays">10343102 reproduções</string>
+    <string name="_9944057_plays">9944057 reproduções</string>
 </resources>

@@ -1,23 +1,177 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--आप यहाँ ऐप का नाम बदल सकते हैं-->
+    <string name="app_name">मज़ेदार ध्वनि</string>
+
+    <string name="_5s">5 सेकंड</string>
+    <string name="_10s">10 सेकंड</string>
+    <string name="_1m">1 मिनट</string>
+    <string name="_30s">30 सेकंड</string>
+    <string name="_3s">3 सेकंड</string>
+    <string name="_5m">5 मिनट</string>
+
     <string name="_off">बंद</string>
-
-
-    <string name="sound">आवाज़</string>
+    <string name="sound">ध्वनि</string>
     <string name="favorite">पसंदीदा</string>
     <string name="language">भाषा</string>
-    <string name="air_horn">हवाई भोंपू</string>
-    <string name="hair_clipper">बालो का क्लिप</string>
-    <string name="meme">Meme</string>
+
     <string name="advertisement">विज्ञापन</string>
-    <string name="settings">समायोजन</string>
+    <string name="settings">सेटिंग्स</string>
     <string name="share_app">ऐप शेयर करें</string>
-    <string name="rate_app">एप्प का मूल्यांकन</string>
+    <string name="rate_app">ऐप रेट करें</string>
     <string name="privacy_policy">गोपनीयता नीति</string>
-    <string name="loop">कुंडली</string>
+    <string name="loop">लूप</string>
     <string name="time">समय</string>
-    <string name="exit">बाहर निकलना</string>
-    <string name="do_you_want_to_exit">क्या आपको बाहर निकलना है?</string>
+    <string name="exit">बाहर जाएं</string>
+    <string name="do_you_want_to_exit">क्या आप बाहर जाना चाहते हैं?</string>
     <string name="no">नहीं</string>
     <string name="yes">हाँ</string>
+    <!-- इस प्लेसहोल्डर टेक्स्ट को हटाएँ या बदलें -->
+    <string name="hello_blank_fragment">नमस्ते खाली फ्रेगमेंट</string>
+
+    <string name="home">होम</string>
+    <string name="create_sound">ध्वनि बनाएं</string>
+    <string name="favorites">पसंदीदा</string>
+    <string name="leaderboard">लीडरबोर्ड</string>
+    <string name="setting">सेटिंग</string>
+
+    <string name="create">बनाएं</string>
+
+    <string name="no_favotires">दिखाने के लिए कोई पसंदीदा नहीं</string>
+
+    //leaderboard
+    <string name="count_play">24452132 बार चलाया गया</string>
+    <string name="missle">मिसाइल</string>
+    <string name="coughing">खाँसी</string>
+    <string name="bell_4">घंटी 4</string>
+    <string name="hair_clipper_4">हेयर क्लिपर 4</string>
+
+    //setting
+    <string name="feed_back">प्रतिपुष्टि</string>
+    <string name="rate">5 सितारे दें</string>
+    <string name="share">मित्रों के साथ शेयर करें</string>
+    <string name="vibration">वाइब्रेशन</string>
+
+    //create
+    <string name="no_sound_to_show">दिखाने के लिए कोई ध्वनि नहीं</string>
+    <string name="click_the_button">नई ध्वनि जोड़ने के लिए बटन पर क्लिक करें</string>
+
+    //sound detail
+    <string name="play_after">बाद में चलाएं</string>
+
+    //record
+    <string name="record">रिकॉर्ड करें</string>
+    <string name="record_here">यहां रिकॉर्ड करें</string>
+    <string name="time_record">00:00/00:30</string>
+
+    <string name="recorder">रिकॉर्डर</string>
+    <string name="effects">इफेक्ट्स</string>
+    <string name="image">छवि</string>
+
+    //edit record
+    <string name="voice_change">आवाज़ बदलें</string>
+    <string name="original">मूल</string>
+    <string name="helium">हीलियम</string>
+    <string name="robot">रोबोट</string>
+    <string name="radio">रेडियो</string>
+    <string name="backward">पीछे</string>
+    <string name="indoor">भीतर</string>
+
+    <string name="discard">क्या आप इस वॉयस इफेक्ट को छोड़ना चाहते हैं?</string>
+
+    <string name="air_horn">एयर हॉर्न</string>
+    <string name="hair_clipper">हेयर क्लिपर</string>
+    <string name="fart">पाद</string>
+    <string name="ghost">भूत</string>
+    <string name="count_down">गिनती शुरू करें</string>
+    <string name="gun">बंदूक</string>
+    <string name="halloween">हैलोवीन</string>
+    <string name="snore">खर्राटे</string>
+    <string name="meme">मेमे</string>
+    <string name="save">सहेजें</string>
+    <string name="cancle">रद्द करें</string>
+    <string name="enter_name">नाम दर्ज करें</string>
+    <string name="save_as">के रूप में सहेजें</string>
+    <string name="select">चुनें</string>
+    <string name="german">जर्मन</string>
+    <string name="italian">इतालवी</string>
+    <string name="portuguese">पुर्तगाली</string>
+    <string name="french">फ्रेंच</string>
+    <string name="hindi">हिंदी</string>
+    <string name="spanish">स्पेनिश</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="type_your_message">अपना संदेश लिखें</string>
+    <string name="send">भेजें</string>
+    <string name="no_found_favorite_sounds_yet">अभी तक कोई पसंदीदा ध्वनि नहीं मिली!</string>
+    <string name="play">चलाएं</string>
+    <string name="event">इवेंट</string>
+    <string name="new_">नया</string>
+    <string name="icon_advertising">आइकन विज्ञापन</string>
+    <string name="open">खोलें</string>
+    <string name="test_sound">ध्वनि परीक्षण</string>
+    <string name="this_action_can_contain_ad">इस क्रिया में विज्ञापन हो सकता है</string>
+    <string name="introduce">परिचय</string>
+    <string name="next">अगला</string>
+    <string name="title_intro_1">मज़ेदार ध्वनियाँ</string>
+    <string name="title_intro_2">100+ मज़ेदार ध्वनि प्रभाव</string>
+    <string name="title_intro_3">जहाँ भी हों, हंसें!</string>
+    <string name="start">शुरू करें</string>
+    <string name="background">पृष्ठभूमि</string>
+    <string name="item_image">आइटम की छवि</string>
+    <string name="create_effect">इफेक्ट बनाएं</string>
+    <string name="rate_us">हमें रेट करें</string>
+    <string name="more_app">अधिक ऐप्स</string>
+    <string name="other">अन्य</string>
+    <string name="no_create_sound">कोई ध्वनि नहीं बनाई गई</string>
+    <string name="empty">खाली</string>
+    <string name="your_sound">आपकी ध्वनि</string>
+    <string name="tap_here_to_record">रिकॉर्ड करने के लिए यहां टैप करें</string>
+    <string name="button_record">रिकॉर्ड बटन</string>
+    <string name="button_reload">रीलोड बटन</string>
+    <string name="button_pause">रोकें बटन</string>
+    <string name="button_next">अगला बटन</string>
+    <string name="add_effect">इफेक्ट जोड़ें</string>
+    <string name="replay">फिर से चलाएं</string>
+    <string name="cut">काटें</string>
+    <string name="ads">विज्ञापन</string>
+    <string name="timer">टाइमर</string>
+    <string name="may_be_later">शायद बाद में</string>
+    <string name="do_you_like_the_app">क्या आपको यह ऐप पसंद है?</string>
+    <string name="let_us_know_your_experience">हमें अपने अनुभव के बारे में बताएं</string>
+    <string name="the_best_we_can_get">यह सबसे अच्छा है जो हमें मिल सकता है 🥳</string>
+
+    //Rating
+    <string name="title_dialog_rating_1">ओह, नहीं!</string>
+    <string name="content_dialog_rating_1_2_3">कृपया हमें अपनी राय दें</string>
+    <string name="title_dialog_rating_5">हम भी आपको प्यार करते हैं!</string>
+    <string name="content_dialog_rating_4_5">आपकी राय के लिए धन्यवाद</string>
+    <string name="title_rate_default">क्या आपको यह ऐप पसंद है?</string>
+    <string name="content_rate_default">हमें अपने अनुभव के बारे में बताएं</string>
+    <string name="please_give_us_some_feedback">कृपया हमें अपनी राय दें</string>
+    <string name="thank_you">धन्यवाद!</string>
+    <string name="share_to">के साथ साझा करें</string>
+    <string name="version">संस्करण</string>
+    <string name="privacy_policy_link">https://battery-charger-animatio-76c82.web.app/policy/</string>
+    <string name="no_favourite_sound">कोई पसंदीदा ध्वनि नहीं</string>
+    <string name="ok">ठीक है</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="volume_small">छोटा वॉल्यूम</string>
+    <string name="volume_loud">बड़ा वॉल्यूम</string>
+    <string name="more_sound">अधिक ध्वनियाँ:</string>
+    <string name="delete">हटाएँ</string>
+    <string name="are_you_sure_that_you_want_to_delete_this_record">क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?</string>
+    <string name="top_1">टॉप 1</string>
+    <string name="top_2">टॉप 2</string>
+    <string name="top_3">टॉप 3</string>
+    <string name="top_8">टॉप 8</string>
+    <string name="top_7">टॉप 7</string>
+    <string name="top_6">टॉप 6</string>
+    <string name="top_5">टॉप 5</string>
+    <string name="top_4">टॉप 4</string>
+    <string name="_23441244_plays">23441244 बार चलाया गया</string>
+    <string name="_20242424_plays">20242424 बार चलाया गया</string>
+    <string name="_17442424_plays">17442424 बार चलाया गया</string>
+    <string name="_10344141_plays">10344141 बार चलाया गया</string>
+    <string name="_10344131_plays">10344131 बार चलाया गया</string>
+    <string name="_10343102_plays">10343102 बार चलाया गया</string>
+    <string name="_9944057_plays">9944057 बार चलाया गया</string>
 </resources>

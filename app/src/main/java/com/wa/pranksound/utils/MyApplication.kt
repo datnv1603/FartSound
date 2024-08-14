@@ -41,7 +41,7 @@ class MyApplication : Application() {
     }
 
     private fun initTrackingAdjust() {
-        val appToken = getString(R.string.adjust)
+        val appToken = "mrqc3c5bkow0"
         val environment = AdjustConfig.ENVIRONMENT_PRODUCTION
         val config = AdjustConfig(this, appToken, environment)
         config.setLogLevel(LogLevel.WARN)

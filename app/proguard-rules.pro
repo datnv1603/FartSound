@@ -19,7 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep classes related to Adjust SDK
 -keep class com.adjust.sdk.** { *; }
+
+# Keep classes related to Google Play Services and Install Referrer
 -keep class com.google.android.gms.common.ConnectionResult {
   int SUCCESS;
 }
@@ -35,3 +39,26 @@
 # Suppress warnings related to Facebook annotations
 -dontwarn com.facebook.infer.annotation.Nullsafe$Mode
 -dontwarn com.facebook.infer.annotation.Nullsafe
+
+# Keep attributes for generic signatures
+-keepattributes Signature
+
+# Keep classes in your package
+-keep class com.wa.** { *; }
+
+# Optional: Keep Gson's reflective fields and methods
+-keep class com.google.gson.reflect.TypeToken { *; }
+
+# Optional: Keep fields and methods that Gson might reflectively access
+-keep class * {
+    @com.google.gson.annotations.SerializedName <fields>;
+}
+
+# Optional: Keep fields and methods that Gson might reflectively access based on ProGuard/R8 optimizations
+-keep class com.google.gson.** { *; }
+-keepclassmembers class * {
+    @com.google.gson.annotations.SerializedName *;
+}
+
+# Suppress warnings related to TypeToken usage
+-dontwarn com.google.gson.reflect.TypeToken
