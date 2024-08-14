@@ -42,7 +42,7 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
     }
 
     override fun setupData() {
-        //loadAds()
+        loadAds()
         viewModel.getIntro(this)
         viewModel.introMutableLiveData.observe(this) {
             introAdapter.submitList(it.toMutableList())

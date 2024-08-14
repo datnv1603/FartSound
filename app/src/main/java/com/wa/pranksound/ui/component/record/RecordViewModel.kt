@@ -1,11 +1,12 @@
-package com.wa.pranksound.ui.component.main
+package com.wa.pranksound.ui.component.record
 
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wa.pranksound.ui.base.BaseViewModel
 
-class MainViewModel : BaseViewModel() {
+class RecordViewModel: BaseViewModel() {
+
     private val _loadBanner: MutableLiveData<Boolean> = MutableLiveData()
     val loadBanner: LiveData<Boolean>
         get() = _loadBanner

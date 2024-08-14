@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.wa.pranksound.R
 import com.wa.pranksound.data.BackGround.getBackground
 import com.wa.pranksound.room.InsertPrankSound
-import com.wa.pranksound.ui.component.activity.SoundDetailActivity
+import com.wa.pranksound.ui.component.sound.SoundDetailActivity
 import com.wa.pranksound.utils.KeyClass
 
 

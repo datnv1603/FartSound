@@ -57,10 +57,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.component.activity.EditRecordActivity"
+            android:name=".ui.component.record.EditRecordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.component.activity.RecordActivity"
+            android:name=".ui.component.record.RecordActivity"
             android:exported="false" />
         <activity
             android:name=".ui.component.intro.IntroActivity"
@@ -79,15 +79,11 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.component.activity.FavoriteActivity"
+            android:name=".ui.component.sound.SoundDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.component.activity.SoundDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.component.activity.SoundListActivity"
+            android:name=".ui.component.sound.SoundListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

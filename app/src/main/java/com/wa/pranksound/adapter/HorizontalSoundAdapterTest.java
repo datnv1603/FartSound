@@ -1,12 +1,6 @@
 package com.wa.pranksound.adapter;
 
-import static com.wa.pranksound.utils.KeyClass.cate_name;
-import static com.wa.pranksound.utils.KeyClass.image_sound;
-import static com.wa.pranksound.utils.KeyClass.is_fav;
-import static com.wa.pranksound.utils.KeyClass.music_name;
-
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +15,6 @@ import com.wa.pranksound.R;
 import com.wa.pranksound.data.BackGround;
 import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.ui.OnSoundItemClickListener;
-import com.wa.pranksound.ui.component.activity.SoundDetailActivity;
 
 import org.jetbrains.annotations.NotNull;
 

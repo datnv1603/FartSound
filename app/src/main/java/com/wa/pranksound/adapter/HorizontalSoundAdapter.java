@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.wa.pranksound.R;
-import com.wa.pranksound.ui.component.activity.SoundDetailActivity;
+import com.wa.pranksound.ui.component.sound.SoundDetailActivity;
 
 import org.jetbrains.annotations.NotNull;
 

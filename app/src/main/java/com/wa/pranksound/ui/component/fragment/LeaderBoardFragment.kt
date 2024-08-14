@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.wa.pranksound.databinding.FragmentLeaderBoardBinding
-import com.wa.pranksound.ui.component.activity.SoundListActivity
+import com.wa.pranksound.ui.component.sound.SoundListActivity
 import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.ui.component.main.MainViewModel
 import com.wa.pranksound.utils.KeyClass

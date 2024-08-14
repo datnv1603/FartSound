@@ -1,4 +1,4 @@
-package com.wa.pranksound.ui.component.activity
+package com.wa.pranksound.ui.component.record
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -11,23 +11,57 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustAdRevenue
+import com.adjust.sdk.AdjustConfig
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdValue
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.OnPaidEventListener
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.R
+import com.wa.pranksound.common.Constant
+import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityRecordBinding
-import com.wa.pranksound.utils.BaseActivity
+import com.wa.pranksound.ui.base.BaseBindingActivity
+import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.ads.AdsConsentManager
+import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.invisible
+import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
 import java.io.File
 import java.io.IOException
-class RecordActivity : BaseActivity() {
-    private lateinit var binding: ActivityRecordBinding
+import java.util.Date
+import java.util.concurrent.atomic.AtomicBoolean
+
+class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewModel>() {
+
+    private var adsConsentManager: AdsConsentManager? = null
+    private val isAdsInitializeCalled = AtomicBoolean(false)
+    private val mFirebaseAnalytics: FirebaseAnalytics? = null
+    private var mInterstitialAd: InterstitialAd? = null
+
+    private var bannerReload: Long =
+        FirebaseRemoteConfig.getInstance().getLong(RemoteConfigKey.BANNER_RELOAD)
+    private var keyAdBanner: String =
+        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.BANNER_RECORD)
+
     private var fileName: String = ""
     private var playerBackground: MediaPlayer? = null
     private var playerEffects: MediaPlayer? = null
@@ -43,18 +77,26 @@ class RecordActivity : BaseActivity() {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityRecordBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override val layoutId: Int
+        get() = R.layout.activity_record
 
+    override fun getViewModel(): Class<RecordViewModel> = RecordViewModel::class.java
+    override fun setupData() {
+        loadAds()
+        initAdsManager()
+    }
+
+    override fun setupView(savedInstanceState: Bundle?) {
         initAction()
+
         fileName = File(this.filesDir, "audioRecord.mp3").toString()
     }
 
     private fun initAction() {
         binding.imgBack.setOnSafeClick {
-            finish()
+            showInterstitial(false) {
+                finish()
+            }
         }
 
         binding.btnMicro.setOnSafeClick {
@@ -85,6 +127,7 @@ class RecordActivity : BaseActivity() {
             stopRecording()
             val intent = Intent(this@RecordActivity, EditRecordActivity::class.java)
             startActivity(intent)
+            showInterstitial {}
         }
     }
 
@@ -106,7 +149,7 @@ class RecordActivity : BaseActivity() {
             ActivityCompat.requestPermissions(
                 this@RecordActivity,
                 permissions,
-                Companion.REQUEST_RECORD_AUDIO_PERMISSION
+                REQUEST_RECORD_AUDIO_PERMISSION
             )
         } else {
             // Permissions are already granted, proceed with recording
@@ -165,7 +208,6 @@ class RecordActivity : BaseActivity() {
             }
         }
     }
-
 
     private fun startRecording() {
         onRecording()
@@ -313,6 +355,163 @@ class RecordActivity : BaseActivity() {
         }
         btnNegative.setOnClickListener {
             dialogCustomExit.dismiss()
+        }
+    }
+
+    private fun loadAds() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_BANNER_RECORD)
+        ) {
+            loadBanner()
+        } else {
+            binding.rlBanner.gone()
+        }
+        viewModel.loadBanner.observe(this) {
+            loadBanner()
+        }
+    }
+
+    private fun loadBanner() {
+        viewModel.starTimeCountReloadBanner(bannerReload)
+        BannerUtils.instance?.loadCollapsibleBanner(this, keyAdBanner) {}
+    }
+
+    private fun initAdsManager() {
+        adsConsentManager = AdsConsentManager.getInstance(this)
+        adsConsentManager?.gatherConsent(this) { consentError ->
+            if (consentError != null) {
+
+                initializeMobileAdsSdk()
+            }
+
+            if (adsConsentManager?.canRequestAds == true) {
+                initializeMobileAdsSdk()
+            }
+        }
+
+        if (adsConsentManager?.canRequestAds == true) {
+            initializeMobileAdsSdk()
+        }
+    }
+
+    private fun initializeMobileAdsSdk() {
+        if (isAdsInitializeCalled.getAndSet(true)) {
+            return
+        }
+        try {
+            MobileAds.initialize(this) { }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        loadInterAd()
+    }
+
+    private fun loadInterAd() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_INTER_HOME)
+        ) {
+            val keyAdInterAllPrice = FirebaseRemoteConfig.getInstance()
+                .getString(RemoteConfigKey.INTER_HOME)
+            loadInterAdsMain(keyAdInterAllPrice)
+        }
+    }
+
+    private fun loadInterAdsMain(keyAdInter: String) {
+        InterstitialAd.load(
+            this,
+            keyAdInter,
+            AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mFirebaseAnalytics?.logEvent("e_load_inter_splash", null)
+                    mInterstitialAd = null
+
+                    Handler(Looper.getMainLooper()).postDelayed(
+                        { loadInterAdsMain(keyAdInter) },
+                        2000
+                    )
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    mFirebaseAnalytics?.logEvent("d_load_inter_splash", null)
+                    mInterstitialAd = ad
+                    mInterstitialAd!!.onPaidEventListener =
+                        OnPaidEventListener { adValue: AdValue ->
+                            val loadedAdapterResponseInfo =
+                                mInterstitialAd!!.responseInfo.loadedAdapterResponseInfo
+                            val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
+                            val revenue = adValue.valueMicros / 1000000.0
+                            adRevenue.setRevenue(revenue, adValue.currencyCode)
+                            adRevenue.adRevenueNetwork = loadedAdapterResponseInfo?.adSourceName
+                            Adjust.trackAdRevenue(adRevenue)
+
+                            val analytics = FirebaseAnalytics.getInstance(this@RecordActivity)
+                            val params = Bundle()
+                            params.putString(FirebaseAnalytics.Param.AD_PLATFORM, "admob mediation")
+                            params.putString(FirebaseAnalytics.Param.AD_SOURCE, "AdMob")
+                            params.putString(FirebaseAnalytics.Param.AD_FORMAT, "Interstitial")
+                            params.putDouble(FirebaseAnalytics.Param.VALUE, revenue)
+                            params.putString(FirebaseAnalytics.Param.CURRENCY, "USD")
+                            analytics.logEvent("ad_impression_2", params)
+                        }
+                }
+            }
+        )
+    }
+
+    fun showInterstitial(isReload: Boolean = true, onAdDismissedAction: () -> Unit) {
+        if (!isNetworkAvailable()) {
+            onAdDismissedAction.invoke()
+            return
+        }
+        val timeLoad = FirebaseRemoteConfig.getInstance()
+            .getLong(RemoteConfigKey.INTER_DELAY)
+
+        val timeSubtraction =
+            Date().time - SharedPreferenceHelper.getLong(Constant.TIME_LOAD_NEW_INTER_ADS)
+        if (timeSubtraction <= timeLoad) {
+            onAdDismissedAction.invoke()
+            return
+        }
+
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            loadInterAd()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
+                if (isReload) loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
         }
     }
 

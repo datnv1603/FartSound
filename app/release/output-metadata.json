@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.airhorn.prank.funny.sounds",
+  "applicationId": "com.wa.pranksound",
   "variantName": "release",
   "elements": [
     {
@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 1,
       "versionName": "1.0",
-      "outputFile": "app-release.apk"
+      "outputFile": "Prank_Sound_v1.0_v1_08.14.2024-release.apk"
     }
   ],
   "elementType": "File"

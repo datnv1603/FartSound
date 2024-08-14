@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wa.pranksound.R
 import com.wa.pranksound.model.Record
-import com.wa.pranksound.ui.component.activity.SoundDetailActivity
+import com.wa.pranksound.ui.component.sound.SoundDetailActivity
 import com.wa.pranksound.utils.KeyClass
 
 

@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -41,7 +40,8 @@ import com.wa.pranksound.ui.component.settings.SettingsActivity
 import com.wa.pranksound.utils.Gdpr
 import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.AdsConsentManager
-import com.wa.pranksound.utils.ads.BannerUtils.Companion.instance
+import com.wa.pranksound.utils.ads.BannerUtils
+import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import java.util.Date
@@ -144,7 +144,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
                 binding.tvTitle.setText(R.string.create_sound)
 
                 binding.imgHome.setBackgroundResource(R.drawable.ic_home_unselected)
-                binding.tvHome.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color))
+                binding.tvHome.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
 
                 binding.imgCreate.setBackgroundResource(R.drawable.ic_create_selected)
                 binding.tvCreate.setTextColor(
@@ -177,7 +182,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
                 binding.tvTitle.setText(R.string.favorites)
 
                 binding.imgHome.setBackgroundResource(R.drawable.ic_home_unselected)
-                binding.tvHome.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color))
+                binding.tvHome.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
 
                 binding.imgCreate.setBackgroundResource(R.drawable.ic_create_unselected)
                 binding.tvCreate.setTextColor(
@@ -210,7 +220,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
                 binding.tvTitle.setText(R.string.leaderboard)
 
                 binding.imgHome.setBackgroundResource(R.drawable.ic_home_unselected)
-                binding.tvHome.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color))
+                binding.tvHome.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
 
                 binding.imgCreate.setBackgroundResource(R.drawable.ic_create_unselected)
                 binding.tvCreate.setTextColor(
@@ -333,19 +348,22 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
         btnNegative.setOnSafeClick { dialogCustomExit.dismiss() }
     }
 
-
     private fun loadAds() {
         if (FirebaseRemoteConfig.getInstance()
                 .getBoolean(RemoteConfigKey.IS_SHOW_ADS_BANNER_MAIN)
         ) {
             loadBanner()
         } else {
-            binding.rlBanner.visibility = View.GONE
+            binding.rlBanner.gone()
+        }
+        viewModel.loadBanner.observe(this) {
+            loadBanner()
         }
     }
 
     private fun loadBanner() {
-        instance?.loadCollapsibleBanner(this, keyAdBanner) { }
+        viewModel.starTimeCountReloadBanner(bannerReload)
+        BannerUtils.instance?.loadCollapsibleBanner(this, keyAdBanner) {}
     }
 
     private fun initAdsManager() {
@@ -399,7 +417,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
                     mFirebaseAnalytics?.logEvent("e_load_inter_splash", null)
                     mInterstitialAd = null
 
-                    Handler(Looper.getMainLooper()).postDelayed({ loadInterAdsMain(keyAdInter) }, 2000)
+                    Handler(Looper.getMainLooper()).postDelayed(
+                        { loadInterAdsMain(keyAdInter) },
+                        2000
+                    )
                 }
 
                 override fun onAdLoaded(ad: InterstitialAd) {

@@ -1,96 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_home"
-    tools:context=".ui.component.activity.SoundListActivity">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/bg_main"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/background"/>
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/rlLet"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_43sdp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_home"
+        tools:context=".ui.component.sound.SoundListActivity">
 
-        <com.wa.pranksound.utils.customview.StrokeTextView
-            android:id="@+id/txtTitle"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/_40sdp"
-            android:fontFamily="@font/nunito_black"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="@string/app_name"
-            android:textColor="#D85B00"
-            android:textSize="@dimen/_20ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:strokeColor="@color/white"
-            app:strokeWidth="@dimen/_5sdp" />
-
-        <ImageButton
-            android:id="@+id/imgBack"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:background="@color/transparent"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:padding="@dimen/_10sdp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="@string/backward"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/background"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_main"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/bg_sub_main"
-        android:padding="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rlLet">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rlLet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_43sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSound"
+            <com.wa.pranksound.utils.customview.StrokeTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_40sdp"
+                android:fontFamily="@font/nunito_black"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/app_name"
+                android:textColor="#D85B00"
+                android:textSize="@dimen/_20ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/_5sdp" />
+
+            <ImageButton
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/backward"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/rl_native"/>
-
-        <RelativeLayout
-            android:id="@+id/rl_native"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:background="@drawable/bg_sub_main"
+            android:padding="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-            <FrameLayout
-                android:id="@+id/fr_native_ads"
+            app:layout_constraintTop_toBottomOf="@id/rlLet">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSound"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/rl_native"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="3" />
 
-                <include layout="@layout/ads_native_shimmer" />
-            </FrameLayout>
-        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_native"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="1.0">
+
+                <FrameLayout
+                    android:id="@+id/fr_native_ads"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include layout="@layout/ads_native_shimmer" />
+                </FrameLayout>
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

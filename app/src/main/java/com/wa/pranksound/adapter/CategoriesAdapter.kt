@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.wa.pranksound.R
 import com.wa.pranksound.adapter.CategoriesAdapter.CategoriesViewHolder
-import com.wa.pranksound.ui.component.activity.SoundListActivity
+import com.wa.pranksound.ui.component.sound.SoundListActivity
 import com.wa.pranksound.utils.KeyClass
 import java.util.Locale
 

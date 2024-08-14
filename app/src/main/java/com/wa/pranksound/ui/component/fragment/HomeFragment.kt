@@ -12,7 +12,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.adapter.CategoriesAdapter
 import com.wa.pranksound.databinding.AdNativeContentBinding
 import com.wa.pranksound.databinding.FragmentHomeBinding
-import com.wa.pranksound.ui.component.activity.RecordActivity
+import com.wa.pranksound.ui.component.record.RecordActivity
 import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.ui.component.main.MainViewModel
 import com.wa.pranksound.ui.component.splash.SplashActivity
@@ -71,8 +71,8 @@ class HomeFragment : Fragment() {
     private fun initAction() {
         binding.btnCreateEffect.setOnSafeClick {
             val intent = Intent(requireActivity(), RecordActivity::class.java)
-            mMainActivity.forceShowInterstitial {}
             startActivity(intent)
+            mMainActivity.forceShowInterstitial {}
         }
     }
 
