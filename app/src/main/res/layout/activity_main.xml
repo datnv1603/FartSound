@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.component.activity.MainActivity">
+        tools:context=".ui.component.main.MainActivity">
 
         <ImageView
             android:layout_width="match_parent"

@@ -7,14 +7,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wa.pranksound.ui.component.activity.RecordActivity
 import com.wa.pranksound.adapter.RecordAdapter
 import com.wa.pranksound.databinding.FragmentCreateBinding
+import com.wa.pranksound.ui.component.main.MainActivity
+import com.wa.pranksound.ui.component.main.MainViewModel
 import com.wa.pranksound.utils.Utils
 
 
 class CreateFragment : Fragment() {
+
+    private lateinit var mMainActivity: MainActivity
+    private lateinit var mMainViewModel: MainViewModel
+
     private lateinit var binding: FragmentCreateBinding
 
     private lateinit var recordAdapter: RecordAdapter
@@ -31,9 +38,13 @@ class CreateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mMainActivity = activity as MainActivity
+        mMainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
         binding.btnCreateEffect.setOnClickListener {
             val intent = Intent(requireActivity(), RecordActivity::class.java)
             startActivity(intent)
+            mMainActivity.showInterstitial { }
         }
 
         val list = Utils.getAudioList(requireActivity())
@@ -43,7 +54,9 @@ class CreateFragment : Fragment() {
         if (list.isEmpty()) {
             binding.txtNoFoundTitle.visibility = View.VISIBLE
         } else {
-            recordAdapter = RecordAdapter(list)
+            recordAdapter = RecordAdapter(list) {
+                mMainActivity.showInterstitial { }
+            }
             binding.rcvRecord.layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
             binding.rcvRecord.adapter = recordAdapter

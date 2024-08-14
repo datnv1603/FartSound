@@ -27,6 +27,7 @@ import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.VerticalSoundAdapterTest;
 import com.wa.pranksound.databinding.AdNativeVideoBinding;
 import com.wa.pranksound.model.Sound;
+import com.wa.pranksound.ui.component.main.MainActivity;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.ImageLoader;
 import com.wa.pranksound.utils.RemoteConfigKey;

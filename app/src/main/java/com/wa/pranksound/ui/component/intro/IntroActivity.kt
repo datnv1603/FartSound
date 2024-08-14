@@ -9,7 +9,7 @@ import com.adjust.sdk.Adjust
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.R
-import com.wa.pranksound.ui.component.activity.MainActivity
+import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityIntroBinding
@@ -112,7 +112,7 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
     }
 
     private fun loadAds() {
-        SplashActivity.adNativeLanguage?.let {
+        SplashActivity.adNativeIntro?.let {
             val adContainer = binding.frNativeAds
             if (it.parent != null) {
                 (it.parent as ViewGroup).removeView(it)

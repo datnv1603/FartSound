@@ -1,84 +1,53 @@
-package com.wa.pranksound.adapter;
+package com.wa.pranksound.adapter
+
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.wa.pranksound.R
+import com.wa.pranksound.model.Record
+import com.wa.pranksound.ui.component.activity.SoundDetailActivity
+import com.wa.pranksound.utils.KeyClass
 
 
-import static com.wa.pranksound.utils.KeyClass.cate_name;
-import static com.wa.pranksound.utils.KeyClass.image_sound;
-import static com.wa.pranksound.utils.KeyClass.is_fav;
-import static com.wa.pranksound.utils.KeyClass.is_record;
-import static com.wa.pranksound.utils.KeyClass.music_name;
-import static com.wa.pranksound.utils.KeyClass.sound_path;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.wa.pranksound.R;
-import com.wa.pranksound.ui.component.activity.SoundDetailActivity;
-import com.wa.pranksound.model.Record;
-
-import java.util.List;
-
-public class RecordAdapter extends RecyclerView.Adapter<RecordAdapter.ViewHolder> {
-
-    private List<Record> recordList;
-
-    public RecordAdapter(List<Record> recordList) {
-        this.recordList = recordList;
+class RecordAdapter(private val recordList: List<Record>, private val callBack:() -> Unit) :
+    RecyclerView.Adapter<RecordAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_record, parent, false)
+        return ViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_record, parent, false);
-        return new ViewHolder(view);
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val record = recordList[position]
+        holder.textViewName.text = record.name
+        holder.textViewTime.text = record.time
+        val context = holder.itemView.context
+        Glide.with(context).load(record.image).into(holder.imageView)
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Record record = recordList.get(position);
-        holder.textViewName.setText(record.getName());
-        holder.textViewTime.setText(record.getTime());
-        Context context = holder.itemView.getContext();
-        Glide.with(context).load(record.getImage()).into( holder.imageView);
-
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, SoundDetailActivity.class);
-            intent.putExtra(is_record, true);
-            intent.putExtra(is_fav, false);
-            intent.putExtra(music_name, record.getName());
-            intent.putExtra(image_sound, record.getImage());
-            intent.putExtra(cate_name, "Record");
-            intent.putExtra(sound_path, record.getFilePath());
-
-            context.startActivity(intent);
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return recordList.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewName, textViewTime;
-        ImageView imageView;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textViewName = itemView.findViewById(R.id.textViewName);
-            textViewTime = itemView.findViewById(R.id.textViewTime);
-            imageView = itemView.findViewById(R.id.imageView);
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, SoundDetailActivity::class.java)
+            intent.putExtra(KeyClass.is_record, true)
+            intent.putExtra(KeyClass.is_fav, false)
+            intent.putExtra(KeyClass.music_name, record.name)
+            intent.putExtra(KeyClass.image_sound, record.image)
+            intent.putExtra(KeyClass.cate_name, "Record")
+            intent.putExtra(KeyClass.sound_path, record.filePath)
+            context.startActivity(intent)
+            callBack.invoke()
         }
     }
 
+    override fun getItemCount(): Int {
+        return recordList.size
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var textViewName: TextView = itemView.findViewById(R.id.textViewName)
+        var textViewTime: TextView = itemView.findViewById(R.id.textViewTime)
+        var imageView: ImageView = itemView.findViewById(R.id.imageView)
+    }
 }

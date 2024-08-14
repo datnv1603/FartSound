@@ -7,7 +7,7 @@ import com.adjust.sdk.Adjust
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.R
-import com.wa.pranksound.ui.component.activity.MainActivity
+import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.databinding.ActivityMultiLangBinding
 import com.wa.pranksound.databinding.AdNativeVideoBinding

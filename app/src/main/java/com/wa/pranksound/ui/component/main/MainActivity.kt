@@ -1,228 +1,533 @@
-package com.wa.pranksound.ui.component.activity;
+package com.wa.pranksound.ui.component.main
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.app.Dialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
+import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustAdRevenue
+import com.adjust.sdk.AdjustConfig
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdValue
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.OnPaidEventListener
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.wa.pranksound.R
+import com.wa.pranksound.common.Constant
+import com.wa.pranksound.data.SharedPreferenceHelper
+import com.wa.pranksound.databinding.ActivityMainBinding
+import com.wa.pranksound.ui.base.BaseBindingActivity
+import com.wa.pranksound.ui.component.fragment.CreateFragment
+import com.wa.pranksound.ui.component.fragment.FavoritesFragment
+import com.wa.pranksound.ui.component.fragment.HomeFragment
+import com.wa.pranksound.ui.component.fragment.LeaderBoardFragment
+import com.wa.pranksound.ui.component.settings.SettingsActivity
+import com.wa.pranksound.utils.Gdpr
+import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.ads.AdsConsentManager
+import com.wa.pranksound.utils.ads.BannerUtils.Companion.instance
+import com.wa.pranksound.utils.extention.isNetworkAvailable
+import com.wa.pranksound.utils.extention.setOnSafeClick
+import java.util.Date
+import java.util.concurrent.atomic.AtomicBoolean
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
 
-import com.wa.pranksound.R;
-import com.wa.pranksound.ui.component.fragment.CreateFragment;
-import com.wa.pranksound.ui.component.fragment.FavoritesFragment;
-import com.wa.pranksound.ui.component.fragment.HomeFragment;
-import com.wa.pranksound.ui.component.fragment.LeaderBoardFragment;
-import com.wa.pranksound.ui.component.settings.SettingsActivity;
-import com.wa.pranksound.utils.BaseActivity;
-import com.wa.pranksound.utils.Gdpr;
+    private var adsConsentManager: AdsConsentManager? = null
+    private val isAdsInitializeCalled = AtomicBoolean(false)
+    private val mFirebaseAnalytics: FirebaseAnalytics? = null
+    private var mInterstitialAd: InterstitialAd? = null
 
-import java.util.Objects;
+    private var retryAttempt = 0.0
 
-public class MainActivity extends BaseActivity {
-    ImageView imgHome, imgCreate, imgFavorites, imgLeaderboard;
-    RecyclerView rcv_cate;
-    FragmentManager fragmentManager;
+    var bannerReload: Long =
+        FirebaseRemoteConfig.getInstance().getLong(RemoteConfigKey.BANNER_RELOAD)
+    private var keyAdBanner: String =
+        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.BANNER_MAIN)
 
-    LinearLayout ll_home, ll_create, ll_favorites, ll_leaderboard;
-    String navTab = "home";
-    TextView tv_title, tv_home, tv_create, tv_favorites, tv_leaderboard;
-    ImageButton btnSettings;
+    private var fragmentManager: FragmentManager? = null
+    private var navTab: String = "home"
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    override val layoutId: Int
+        get() = R.layout.activity_main
 
-        findView();
+    override fun getViewModel(): Class<MainViewModel> = MainViewModel::class.java
 
-        fragmentManager = getSupportFragmentManager();
-        bottomNavigationClick();
-        String get_record = getIntent().getStringExtra("from_record");
+    override fun setupData() {
+        loadAds()
+    }
 
-        if (get_record != null) {
-            changeFragment("create");
+    override fun setupView(savedInstanceState: Bundle?) {
+        findView()
+
+        fragmentManager = supportFragmentManager
+        bottomNavigationClick()
+        val getRecord = intent.getStringExtra("from_record")
+
+        if (getRecord != null) {
+            changeFragment("create")
         } else {
-            changeFragment("home");
+            changeFragment("home")
         }
 
-        btnSettings.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-        });
-    }
-
-    private void changeFragment(String tab) {
-        switch (tab) {
-            case "home":
-                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new HomeFragment()).commit();
-                tv_title.setText(R.string.home);
-
-                imgHome.setBackgroundResource(R.drawable.ic_home_selected);
-                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-
-                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
-                tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
-                tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
-                tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                break;
-
-            case "create":
-                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new CreateFragment()).commit();
-                tv_title.setText(R.string.create_sound);
-
-                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
-                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgCreate.setBackgroundResource(R.drawable.ic_create_selected);
-                tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-
-                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
-                tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
-                tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-                break;
-
-            case "favorites":
-                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new FavoritesFragment()).commit();
-                tv_title.setText(R.string.favorites);
-
-                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
-                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
-                tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgFavorites.setBackgroundResource(R.drawable.ic_fav_selected);
-                tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
-                tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-                break;
-
-            case "leaderboard":
-                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new LeaderBoardFragment()).commit();
-                tv_title.setText(R.string.leaderboard);
-
-                imgHome.setBackgroundResource(R.drawable.ic_home_unselected);
-                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
-                tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
-                tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_selected);
-                tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-                break;
-            default:
-                fragmentManager.beginTransaction().replace(R.id.fragmentMain, new HomeFragment()).commit();
-                tv_title.setText(R.string.home);
-
-                imgHome.setBackgroundResource(R.drawable.ic_home_selected);
-                tv_home.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color_selected));
-
-                imgCreate.setBackgroundResource(R.drawable.ic_create_unselected);
-                tv_create.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected);
-                tv_favorites.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-
-                imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected);
-                tv_leaderboard.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color));
-                break;
+        binding.btnSettings.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@MainActivity,
+                    SettingsActivity::class.java
+                )
+            )
         }
+        initAdsManager()
+
     }
 
-    private void bottomNavigationClick() {
-        ll_home.setOnClickListener(v -> {
-            navTab = "home";
-            changeFragment(navTab);
-        });
+    private fun changeFragment(tab: String) {
+        when (tab) {
+            "home" -> {
+                fragmentManager!!.beginTransaction().replace(R.id.fragmentMain, HomeFragment())
+                    .commit()
+                binding.tvTitle.setText(R.string.home)
 
-        ll_create.setOnClickListener(v -> {
-            navTab = "create";
-            changeFragment(navTab);
-        });
+                binding.imgHome.setBackgroundResource(R.drawable.ic_home_selected)
+                binding.tvHome.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color_selected
+                    )
+                )
 
-        ll_favorites.setOnClickListener(v -> {
-            navTab = "favorites";
-            changeFragment(navTab);
-        });
+                binding.imgCreate.setBackgroundResource(R.drawable.ic_create_unselected)
+                binding.tvCreate.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
 
-        ll_leaderboard.setOnClickListener(v -> {
-            navTab = "leaderboard";
-            changeFragment(navTab);
-        });
-    }
+                binding.imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected)
+                binding.tvFavorites.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
 
-    private void findView() {
-
-        rcv_cate = findViewById(R.id.rcv_cate);
-
-        ll_home = findViewById(R.id.ll_home);
-        ll_create = findViewById(R.id.ll_create);
-        ll_favorites = findViewById(R.id.ll_favorites);
-        ll_leaderboard = findViewById(R.id.ll_leaderboard);
-
-        tv_title = findViewById(R.id.tv_title);
-
-        imgHome = findViewById(R.id.img_home);
-        imgCreate = findViewById(R.id.img_create);
-        imgFavorites = findViewById(R.id.img_favorites);
-        imgLeaderboard = findViewById(R.id.img_leaderboard);
-
-        tv_home = findViewById(R.id.tv_home);
-        tv_create = findViewById(R.id.tv_create);
-        tv_favorites = findViewById(R.id.tv_favorites);
-        tv_leaderboard = findViewById(R.id.tv_leaderboard);
-        btnSettings = findViewById(R.id.btnSettings);
-
-        new Gdpr().make(this);
-        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                showExitDialog();
+                binding.imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected)
+                binding.tvLeaderboard.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
             }
-        });
+
+            "create" -> {
+                fragmentManager!!.beginTransaction().replace(R.id.fragmentMain, CreateFragment())
+                    .commit()
+                binding.tvTitle.setText(R.string.create_sound)
+
+                binding.imgHome.setBackgroundResource(R.drawable.ic_home_unselected)
+                binding.tvHome.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color))
+
+                binding.imgCreate.setBackgroundResource(R.drawable.ic_create_selected)
+                binding.tvCreate.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color_selected
+                    )
+                )
+
+                binding.imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected)
+                binding.tvFavorites.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+
+                binding.imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected)
+                binding.tvLeaderboard.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+            }
+
+            "favorites" -> {
+                fragmentManager!!.beginTransaction().replace(R.id.fragmentMain, FavoritesFragment())
+                    .commit()
+                binding.tvTitle.setText(R.string.favorites)
+
+                binding.imgHome.setBackgroundResource(R.drawable.ic_home_unselected)
+                binding.tvHome.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color))
+
+                binding.imgCreate.setBackgroundResource(R.drawable.ic_create_unselected)
+                binding.tvCreate.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+
+                binding.imgFavorites.setBackgroundResource(R.drawable.ic_fav_selected)
+                binding.tvFavorites.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color_selected
+                    )
+                )
+
+                binding.imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected)
+                binding.tvLeaderboard.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+            }
+
+            "leaderboard" -> {
+                fragmentManager!!.beginTransaction()
+                    .replace(R.id.fragmentMain, LeaderBoardFragment()).commit()
+                binding.tvTitle.setText(R.string.leaderboard)
+
+                binding.imgHome.setBackgroundResource(R.drawable.ic_home_unselected)
+                binding.tvHome.setTextColor(ContextCompat.getColor(this, R.color.bottom_nav_text_color))
+
+                binding.imgCreate.setBackgroundResource(R.drawable.ic_create_unselected)
+                binding.tvCreate.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+
+                binding.imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected)
+                binding.tvFavorites.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+
+                binding.imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_selected)
+                binding.tvLeaderboard.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color_selected
+                    )
+                )
+            }
+
+            else -> {
+                fragmentManager!!.beginTransaction().replace(R.id.fragmentMain, HomeFragment())
+                    .commit()
+                binding.tvTitle.setText(R.string.home)
+
+                binding.imgHome.setBackgroundResource(R.drawable.ic_home_selected)
+                binding.tvHome.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color_selected
+                    )
+                )
+
+                binding.imgCreate.setBackgroundResource(R.drawable.ic_create_unselected)
+                binding.tvCreate.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+
+                binding.imgFavorites.setBackgroundResource(R.drawable.ic_fav_unselected)
+                binding.tvFavorites.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+
+                binding.imgLeaderboard.setBackgroundResource(R.drawable.ic_leader_board_unselected)
+                binding.tvLeaderboard.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.bottom_nav_text_color
+                    )
+                )
+            }
+        }
     }
 
-    public void showExitDialog() {
-        Dialog dialogCustomExit = new Dialog(MainActivity.this);
-        dialogCustomExit.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Objects.requireNonNull(dialogCustomExit.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialogCustomExit.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-        dialogCustomExit.setContentView(R.layout.exit_dialog_layout);
-        dialogCustomExit.setCancelable(true);
-        dialogCustomExit.show();
-        dialogCustomExit.getWindow().setAttributes(lp);
+    private fun bottomNavigationClick() {
+        binding.apply {
+            llHome.setOnSafeClick {
+                navTab = "home"
+                changeFragment(navTab)
+            }
 
-        TextView btnNegative = dialogCustomExit.findViewById(R.id.btnNegative);
-        TextView btnPositive = dialogCustomExit.findViewById(R.id.btnPositive);
+            llCreate.setOnSafeClick {
+                navTab = "create"
+                changeFragment(navTab)
+            }
 
-        btnPositive.setOnClickListener(v -> {
-            dialogCustomExit.dismiss();
-            finishAffinity();
+            llFavorites.setOnSafeClick {
+                navTab = "favorites"
+                changeFragment(navTab)
+            }
 
-        });
-        btnNegative.setOnClickListener(v -> dialogCustomExit.dismiss());
+            llLeaderboard.setOnSafeClick {
+                navTab = "leaderboard"
+                changeFragment(navTab)
+            }
+        }
+    }
+
+    private fun findView() {
+        Gdpr().make(this)
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitDialog()
+            }
+        })
+    }
+
+    fun showExitDialog() {
+        val dialogCustomExit = Dialog(this@MainActivity)
+        dialogCustomExit.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogCustomExit.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialogCustomExit.window!!.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT
+        dialogCustomExit.setContentView(R.layout.exit_dialog_layout)
+        dialogCustomExit.setCancelable(true)
+        dialogCustomExit.show()
+        dialogCustomExit.window!!.attributes = lp
+
+        val btnNegative = dialogCustomExit.findViewById<TextView>(R.id.btnNegative)
+        val btnPositive = dialogCustomExit.findViewById<TextView>(R.id.btnPositive)
+
+        btnPositive.setOnSafeClick {
+            dialogCustomExit.dismiss()
+            finishAffinity()
+        }
+        btnNegative.setOnSafeClick { dialogCustomExit.dismiss() }
+    }
+
+
+    private fun loadAds() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_BANNER_MAIN)
+        ) {
+            loadBanner()
+        } else {
+            binding.rlBanner.visibility = View.GONE
+        }
+    }
+
+    private fun loadBanner() {
+        instance?.loadCollapsibleBanner(this, keyAdBanner) { }
+    }
+
+    private fun initAdsManager() {
+        adsConsentManager = AdsConsentManager.getInstance(this)
+        adsConsentManager?.gatherConsent(this) { consentError ->
+            if (consentError != null) {
+
+                initializeMobileAdsSdk()
+            }
+
+            if (adsConsentManager?.canRequestAds == true) {
+                initializeMobileAdsSdk()
+            }
+        }
+
+        if (adsConsentManager?.canRequestAds == true) {
+            initializeMobileAdsSdk()
+        }
+    }
+
+    private fun initializeMobileAdsSdk() {
+        if (isAdsInitializeCalled.getAndSet(true)) {
+            return
+        }
+        try {
+            MobileAds.initialize(this) { }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        loadInterAd()
+    }
+
+    private fun loadInterAd() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_INTER_HOME)
+        ) {
+            val keyAdInterAllPrice = FirebaseRemoteConfig.getInstance()
+                .getString(RemoteConfigKey.INTER_HOME)
+            loadInterAdsMain(keyAdInterAllPrice)
+        }
+    }
+
+    private fun loadInterAdsMain(keyAdInter: String) {
+        InterstitialAd.load(
+            this,
+            keyAdInter,
+            AdRequest.Builder().build(),
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mFirebaseAnalytics?.logEvent("e_load_inter_splash", null)
+                    mInterstitialAd = null
+
+                    Handler(Looper.getMainLooper()).postDelayed({ loadInterAdsMain(keyAdInter) }, 2000)
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    mFirebaseAnalytics?.logEvent("d_load_inter_splash", null)
+                    mInterstitialAd = ad
+                    retryAttempt = 0.0
+                    mInterstitialAd!!.onPaidEventListener =
+                        OnPaidEventListener { adValue: AdValue ->
+                            val loadedAdapterResponseInfo =
+                                mInterstitialAd!!.responseInfo.loadedAdapterResponseInfo
+                            val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
+                            val revenue = adValue.valueMicros / 1000000.0
+                            adRevenue.setRevenue(revenue, adValue.currencyCode)
+                            adRevenue.adRevenueNetwork = loadedAdapterResponseInfo?.adSourceName
+                            Adjust.trackAdRevenue(adRevenue)
+
+                            val analytics = FirebaseAnalytics.getInstance(this@MainActivity)
+                            val params = Bundle()
+                            params.putString(FirebaseAnalytics.Param.AD_PLATFORM, "admob mediation")
+                            params.putString(FirebaseAnalytics.Param.AD_SOURCE, "AdMob")
+                            params.putString(FirebaseAnalytics.Param.AD_FORMAT, "Interstitial")
+                            params.putDouble(FirebaseAnalytics.Param.VALUE, revenue)
+                            params.putString(FirebaseAnalytics.Param.CURRENCY, "USD")
+                            analytics.logEvent("ad_impression_2", params)
+                        }
+                }
+            }
+        )
+    }
+
+    fun showInterstitial(onAdDismissedAction: () -> Unit) {
+        if (!isNetworkAvailable()) {
+            onAdDismissedAction.invoke()
+            return
+        }
+        val timeLoad = FirebaseRemoteConfig.getInstance()
+            .getLong(RemoteConfigKey.INTER_DELAY)
+
+        val timeSubtraction =
+            Date().time - SharedPreferenceHelper.getLong(Constant.TIME_LOAD_NEW_INTER_ADS)
+        if (timeSubtraction <= timeLoad) {
+            onAdDismissedAction.invoke()
+            return
+        }
+
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            loadInterAd()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
+                loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
+        if (!isNetworkAvailable()) {
+            onAdDismissedAction.invoke()
+            return
+        }
+
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            loadInterAd()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
+                loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
     }
 }

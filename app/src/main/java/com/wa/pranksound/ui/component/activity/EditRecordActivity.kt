@@ -12,7 +12,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.format.DateUtils
 import android.util.Log
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -27,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.wa.pranksound.R
 import com.wa.pranksound.databinding.ActivityEditRecordBinding
 import com.wa.pranksound.model.Record
+import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.invisible

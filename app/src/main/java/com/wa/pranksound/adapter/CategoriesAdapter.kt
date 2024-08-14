@@ -1,102 +1,76 @@
-package com.wa.pranksound.adapter;
+package com.wa.pranksound.adapter
 
-import static com.wa.pranksound.utils.KeyClass.air_horn;
-import static com.wa.pranksound.utils.KeyClass.cate_name;
-import static com.wa.pranksound.utils.KeyClass.count_down;
-import static com.wa.pranksound.utils.KeyClass.fart;
-import static com.wa.pranksound.utils.KeyClass.ghost;
-import static com.wa.pranksound.utils.KeyClass.gun;
-import static com.wa.pranksound.utils.KeyClass.hair_clipper;
-import static com.wa.pranksound.utils.KeyClass.halloween;
-import static com.wa.pranksound.utils.KeyClass.snore;
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.wa.pranksound.R
+import com.wa.pranksound.adapter.CategoriesAdapter.CategoriesViewHolder
+import com.wa.pranksound.ui.component.activity.SoundListActivity
+import com.wa.pranksound.utils.KeyClass
+import java.util.Locale
 
-import android.app.Activity;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.wa.pranksound.R;
-import com.wa.pranksound.ui.component.activity.SoundListActivity;
-
-import java.util.List;
-
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder> {
-    private List<String> folderNames;
-    private Activity context;
-
-    public CategoriesAdapter(Activity context, List<String> folderNames) {
-        this.context = context;
-        this.folderNames = folderNames;
+class CategoriesAdapter(private val folderNames: List<String>, private val callBack:() -> Unit) :
+    RecyclerView.Adapter<CategoriesViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_folder, parent, false)
+        return CategoriesViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public CategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_folder, parent, false);
-        return new CategoriesViewHolder(view);
-    }
+    override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
+        val folderName = folderNames[position]
+        holder.bind(folderName)
+        val context = holder.itemView.context
 
-    @Override
-    public void onBindViewHolder(@NonNull CategoriesViewHolder holder, int position) {
-        String folderName = folderNames.get(position);
-        holder.bind(folderName);
-
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, SoundListActivity.class);
-            intent.putExtra(cate_name, folderName);
-            context.startActivity(intent);
-        });
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return folderNames.size();
-    }
-
-    public static class CategoriesViewHolder extends RecyclerView.ViewHolder {
-        ImageView folderImage;
-        TextView folderNameText;
-
-
-        public CategoriesViewHolder(@NonNull View itemView) {
-            super(itemView);
-            folderImage = itemView.findViewById(R.id.folder_image);
-            folderNameText = itemView.findViewById(R.id.folder_name);
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, SoundListActivity::class.java)
+            intent.putExtra(KeyClass.cate_name, folderName)
+            context.startActivity(intent)
+            callBack.invoke()
         }
+    }
 
-        public void bind(String folderName) {
+    override fun getItemCount(): Int {
+        return folderNames.size
+    }
+
+    class CategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var folderImage: ImageView = itemView.findViewById(R.id.folder_image)
+        var folderNameText: TextView = itemView.findViewById(R.id.folder_name)
+
+        fun bind(folderName: String) {
             // Load image based on folderName
 
-            if (folderName.equals(air_horn)) {
-                folderImage.setImageResource(R.drawable.img_air_horn);
-            } else if (folderName.equals(hair_clipper)) {
-                folderImage.setImageResource(R.drawable.img_hair_clipper);
-            } else if (folderName.equals(fart)) {
-                folderImage.setImageResource(R.drawable.img_fart);
-            } else if (folderName.equals(count_down)) {
-                folderImage.setImageResource(R.drawable.img_count_down);
-            } else if (folderName.equals(ghost)) {
-                folderImage.setImageResource(R.drawable.img_ghost);
-            } else if (folderName.equals(halloween)) {
-                folderImage.setImageResource(R.drawable.img_halloween);
-            } else if (folderName.equals(snore)) {
-                folderImage.setImageResource(R.drawable.img_snore);
-            } else if (folderName.equals(gun)) {
-                folderImage.setImageResource(R.drawable.img_gun);
+            var folderName = folderName
+            if (folderName == KeyClass.air_horn) {
+                folderImage.setImageResource(R.drawable.img_air_horn)
+            } else if (folderName == KeyClass.hair_clipper) {
+                folderImage.setImageResource(R.drawable.img_hair_clipper)
+            } else if (folderName == KeyClass.fart) {
+                folderImage.setImageResource(R.drawable.img_fart)
+            } else if (folderName == KeyClass.count_down) {
+                folderImage.setImageResource(R.drawable.img_count_down)
+            } else if (folderName == KeyClass.ghost) {
+                folderImage.setImageResource(R.drawable.img_ghost)
+            } else if (folderName == KeyClass.halloween) {
+                folderImage.setImageResource(R.drawable.img_halloween)
+            } else if (folderName == KeyClass.snore) {
+                folderImage.setImageResource(R.drawable.img_snore)
+            } else if (folderName == KeyClass.gun) {
+                folderImage.setImageResource(R.drawable.img_gun)
             }
             // Set folder name
-            folderName = folderName.replace("_", " ");
-            String capitalizedText = folderName.substring(0, 1).toUpperCase() + folderName.substring(1).toLowerCase();
-            folderNameText.setText(capitalizedText);
+            folderName = folderName.replace("_", " ")
+            val capitalizedText =
+                folderName.substring(0, 1).uppercase(Locale.getDefault()) + folderName.substring(1)
+                    .lowercase(
+                        Locale.getDefault()
+                    )
+            folderNameText.text = capitalizedText
         }
     }
-
 }
 

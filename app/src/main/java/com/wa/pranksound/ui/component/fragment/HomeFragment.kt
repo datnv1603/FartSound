@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.adapter.CategoriesAdapter
 import com.wa.pranksound.databinding.AdNativeContentBinding
 import com.wa.pranksound.databinding.FragmentHomeBinding
 import com.wa.pranksound.ui.component.activity.RecordActivity
+import com.wa.pranksound.ui.component.main.MainActivity
+import com.wa.pranksound.ui.component.main.MainViewModel
 import com.wa.pranksound.ui.component.splash.SplashActivity
 import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.NativeAdsUtils
@@ -21,6 +24,9 @@ import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
 
 class HomeFragment : Fragment() {
+
+    private lateinit var mMainActivity: MainActivity
+    private lateinit var mMainViewModel: MainViewModel
 
     private val keyNative =
         FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_HOME)
@@ -41,22 +47,33 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         try {
-             cate = requireActivity().assets.list("prank_sound")?.toList()
+        mMainActivity = activity as MainActivity
+        mMainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
+        try {
+            cate = requireActivity().assets.list("prank_sound")?.toList()
         } catch (e: IOException) {
             throw RuntimeException(e)
         }
-
-        categoriesAdapter = CategoriesAdapter(requireActivity(), cate)
-        binding.rcvCate.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.rcvCate.setAdapter(categoriesAdapter)
-        binding.btnCreateEffect.setOnSafeClick {
-            val intent = Intent(requireActivity(), RecordActivity::class.java)
-            startActivity(intent)
+        cate?.let {
+            categoriesAdapter = CategoriesAdapter(it) {
+                mMainActivity.showInterstitial { }
+            }
         }
 
-        loadAds()
+        binding.rcvCate.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rcvCate.setAdapter(categoriesAdapter)
 
+        initAction()
+        loadAds()
+    }
+
+    private fun initAction() {
+        binding.btnCreateEffect.setOnSafeClick {
+            val intent = Intent(requireActivity(), RecordActivity::class.java)
+            mMainActivity.forceShowInterstitial {}
+            startActivity(intent)
+        }
     }
 
     private fun loadAds() {

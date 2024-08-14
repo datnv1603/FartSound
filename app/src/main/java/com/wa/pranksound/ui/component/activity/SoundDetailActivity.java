@@ -36,7 +36,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,11 +55,10 @@ import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.room.AppDatabase;
 import com.wa.pranksound.room.InsertPrankSound;
 import com.wa.pranksound.room.QueryClass;
+import com.wa.pranksound.ui.component.main.MainActivity;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.ImageLoader;
 import com.wa.pranksound.utils.Utils;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;

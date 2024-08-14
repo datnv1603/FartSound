@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.wa.pranksound.databinding.ActivitySplashBinding
+import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.utils.BaseActivity
 
 @SuppressLint("CustomSplashScreen")
