@@ -5,17 +5,27 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import com.adjust.sdk.Adjust
+import com.adjust.sdk.AdjustAdRevenue
+import com.adjust.sdk.AdjustConfig
 import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdapterResponseInfo
 import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.R
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivitySplashBinding
 import com.wa.pranksound.ui.base.BaseBindingActivity
 import com.wa.pranksound.ui.component.multilang.MultiLangActivity
+import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setStatusBarColor
@@ -46,7 +56,6 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     }
 
     private fun init() {
-        viewModel.starTimeCount(3000)
         viewModel.isCompleteLiveData.observe(this) {
             openChooseLanguageActivity()
             kotlin.runCatching {
@@ -88,8 +97,11 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         if (isAdsInitializeCalled.getAndSet(true)) {
             return
         }
-        MobileAds.initialize(this) {}
-        //loadInterAd()
+        kotlin.runCatching {
+            MobileAds.initialize(this) {}
+        }
+
+        loadInterAd()
     }
 
     private fun showInterstitial(onAdDismissedAction: () -> Unit) {
@@ -135,19 +147,19 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     }
 
     override fun setupData() {
-//        viewModel.loadAds(baseContext)
-//        viewModel.nativeAdHome.observe(this) {
-//            adNativeHome = it
-//        }
-//        viewModel.nativeAdLanguage.observe(this) {
-//            adNativeLanguage = it
-//        }
-//        viewModel.nativeAdIntro.observe(this) {
-//            adNativeIntro = it
-//        }
-//        viewModel.nativeAdDialog.observe(this) {
-//            adNativeDialog = it
-//        }
+        viewModel.loadAds(baseContext)
+        viewModel.nativeAdHome.observe(this) {
+            adNativeHome = it
+        }
+        viewModel.nativeAdLanguage.observe(this) {
+            adNativeLanguage = it
+        }
+        viewModel.nativeAdIntro.observe(this) {
+            adNativeIntro = it
+        }
+        viewModel.nativeAdDialog.observe(this) {
+            adNativeDialog = it
+        }
     }
 
     override fun onResume() {
@@ -166,20 +178,14 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         startActivity(intent)
         finish()
     }
-/*
 
     private fun loadInterAd() {
         if (FirebaseRemoteConfig.getInstance()
                 .getBoolean(RemoteConfigKey.IS_SHOW_ADS_INTER_SPLASH)
         ) {
-            val keyAdInterHigh = FirebaseRemoteConfig.getInstance()
-                .getString(RemoteConfigKey.KEY_ADS_INTER_SPLASH_HIGH)
-            val keyAdInterMedium = FirebaseRemoteConfig.getInstance()
-                .getString(RemoteConfigKey.KEY_ADS_INTER_SPLASH_MEDIUM)
             val keyAdInterAllPrice =
-                FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.KEY_ADS_INTER_SPLASH)
-            val listKeyAds = listOf(keyAdInterHigh, keyAdInterMedium, keyAdInterAllPrice)
-            loadInterAdsSplashSequence(listKeyAds)
+                FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.INTER_SPLASH)
+            loadInterAdsSplash(keyAdInterAllPrice)
         }
     }
 
@@ -233,66 +239,11 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         )
     }
 
-    private fun loadInterAdsSplashSequence(listKeyAds: List<String>) {
-
-        fun loadInterAds(adIndex: Int) {
-            if (adIndex == listKeyAds.size - 1) {
-                loadInterAdsSplash(listKeyAds.last())
-                return
-            }
-            InterstitialAd.load(
-                this,
-                listKeyAds[adIndex],
-                AdRequest.Builder().build(),
-                object : InterstitialAdLoadCallback() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        mFirebaseAnalytics?.logEvent("e_load_inter_splash", null)
-                        mInterstitialAd = null
-                        loadInterAds(adIndex + 1)
-                    }
-
-                    override fun onAdLoaded(ad: InterstitialAd) {
-                        mFirebaseAnalytics?.logEvent("d_load_inter_splash", null)
-                        mInterstitialAd = ad
-                        viewModel.starTimeCount(5000)
-                        mInterstitialAd?.onPaidEventListener =
-                            OnPaidEventListener { adValue ->
-                                val loadedAdapterResponseInfo: AdapterResponseInfo? =
-                                    mInterstitialAd?.responseInfo?.loadedAdapterResponseInfo
-                                val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
-                                val revenue = adValue.valueMicros.toDouble() / 1000000.0
-                                adRevenue.setRevenue(revenue, adValue.currencyCode)
-                                adRevenue.adRevenueNetwork = loadedAdapterResponseInfo?.adSourceName
-                                Adjust.trackAdRevenue(adRevenue)
-
-                                val analytics = FirebaseAnalytics.getInstance(this@SplashActivity)
-                                val params = Bundle().apply {
-                                    putString(
-                                        FirebaseAnalytics.Param.AD_PLATFORM,
-                                        "admob mediation"
-                                    )
-                                    putString(FirebaseAnalytics.Param.AD_SOURCE, "AdMob")
-                                    putString(FirebaseAnalytics.Param.AD_FORMAT, "Interstitial")
-                                    putDouble(FirebaseAnalytics.Param.VALUE, revenue)
-                                    putString(FirebaseAnalytics.Param.CURRENCY, "USD")
-                                }
-                                analytics.logEvent("ad_impression_2", params)
-                            }
-                    }
-                }
-            )
-        }
-
-        loadInterAds(0)
-    }
-*/
-
     @SuppressLint("StaticFieldLeak")
     companion object {
-//        var isUseMonet = FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_USE_MONET)
-//        var adNativeHome: NativeAdView? = null
-//        var adNativeLanguage: NativeAdView? = null
-//        var adNativeIntro: NativeAdView? = null
-//        var adNativeDialog: NativeAdView? = null
+        var adNativeHome: NativeAdView? = null
+        var adNativeLanguage: NativeAdView? = null
+        var adNativeIntro: NativeAdView? = null
+        var adNativeDialog: NativeAdView? = null
     }
 }

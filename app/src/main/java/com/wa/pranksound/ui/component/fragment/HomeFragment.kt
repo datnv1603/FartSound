@@ -2,23 +2,30 @@ package com.wa.pranksound.ui.component.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.adapter.CategoriesAdapter
+import com.wa.pranksound.databinding.AdNativeContentBinding
 import com.wa.pranksound.databinding.FragmentHomeBinding
 import com.wa.pranksound.ui.component.activity.RecordActivity
+import com.wa.pranksound.ui.component.splash.SplashActivity
+import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.ads.NativeAdsUtils
+import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.setOnSafeClick
+import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
 
 class HomeFragment : Fragment() {
 
+    private val keyNative =
+        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_HOME)
+
     private lateinit var binding: FragmentHomeBinding
-    private var rcv_cate: RecyclerView? = null
     private var cate: List<String>? = null
 
     private lateinit var categoriesAdapter: CategoriesAdapter
@@ -27,7 +34,6 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -41,8 +47,6 @@ class HomeFragment : Fragment() {
             throw RuntimeException(e)
         }
 
-
-
         categoriesAdapter = CategoriesAdapter(requireActivity(), cate)
         binding.rcvCate.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rcvCate.setAdapter(categoriesAdapter)
@@ -50,5 +54,57 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireActivity(), RecordActivity::class.java)
             startActivity(intent)
         }
+
+        loadAds()
+
+    }
+
+    private fun loadAds() {
+        addNativeAd()
+    }
+
+    private fun addNativeAd() {
+        SplashActivity.adNativeHome?.let {
+            val adContainer = binding.frNativeAds
+            if (it.parent != null) {
+                (it.parent as ViewGroup).removeView(it)
+            }
+            adContainer.removeAllViews()
+            adContainer.addView(it)
+        } ?: run {
+            binding.rlNative.gone()
+            loadNativeAd()
+        }
+    }
+
+    private fun loadNativeAd() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_HOME)
+        ) {
+            loadNativeAds(keyNative)
+        } else {
+            binding.rlNative.gone()
+        }
+    }
+
+    private fun loadNativeAds(keyAds: String) {
+        this.let {
+            NativeAdsUtils.instance.loadNativeAds(
+                requireContext(),
+                keyAds
+            ) { nativeAds ->
+                if (nativeAds != null && isAdded && isVisible) {
+                    val adNativeVideoBinding = AdNativeContentBinding.inflate(layoutInflater)
+                    NativeAdsUtils.instance.populateNativeAdVideoView(
+                        nativeAds,
+                        adNativeVideoBinding.root
+                    )
+                    binding.rlNative.visible()
+                    binding.frNativeAds.removeAllViews()
+                    binding.frNativeAds.addView(adNativeVideoBinding.root)
+                }
+            }
+        }
+
     }
 }

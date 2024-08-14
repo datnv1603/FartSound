@@ -1,6 +1,5 @@
 package com.wa.pranksound.ui.component.activity;
 
-
 import static com.wa.pranksound.utils.KeyClass.air_horn;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.count_down;
@@ -12,37 +11,43 @@ import static com.wa.pranksound.utils.KeyClass.halloween;
 import static com.wa.pranksound.utils.KeyClass.snore;
 import static com.wa.pranksound.utils.KeyClass.test_sound;
 
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.nativead.NativeAdView;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.VerticalSoundAdapterTest;
+import com.wa.pranksound.databinding.AdNativeVideoBinding;
 import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.ImageLoader;
+import com.wa.pranksound.utils.RemoteConfigKey;
+import com.wa.pranksound.utils.ads.NativeAdsUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SoundListActivity extends BaseActivity {
+
+    String keyNative = FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_SOUND);
+
     ImageView imgBack;
     RecyclerView rvSound;
 
     TextView txtTitle;
 
-    List<String> imageList;
-
-    FrameLayout fl_banner;
     View view_line;
+    RelativeLayout rlNative;
+    FrameLayout frNativeAds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +55,16 @@ public class SoundListActivity extends BaseActivity {
         setContentView(R.layout.activity_sound_list);
 
         findView();
-
+        setUpData();
     }
 
     private void findView() {
         imgBack = findViewById(R.id.imgBack);
         rvSound = findViewById(R.id.rvSound);
         txtTitle = findViewById(R.id.txtTitle);
+
+        rlNative = findViewById(R.id.rl_native);
+        frNativeAds = findViewById(R.id.fr_native_ads);
 
         view_line = findViewById(R.id.line);
 
@@ -118,4 +126,37 @@ public class SoundListActivity extends BaseActivity {
                 v -> getOnBackPressedDispatcher().onBackPressed()
         );
     }
+
+    private void setUpData() {
+        loadNativeAd();
+    }
+
+    private void loadNativeAd() {
+        if (FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_SOUND)) {
+            loadNativeAds(keyNative);
+        } else {
+            rlNative.setVisibility(View.GONE);
+        }
+    }
+
+    private void loadNativeAds(String keyAds) {
+        NativeAdsUtils.Companion.getInstance().loadNativeAds(
+                getApplicationContext(),
+                keyAds,
+                nativeAds -> {
+                    if (nativeAds != null) {
+                        AdNativeVideoBinding adNativeVideoBinding = AdNativeVideoBinding.inflate(getLayoutInflater());
+                        NativeAdsUtils.Companion.getInstance().populateNativeAdVideoView(
+                                nativeAds,
+                                (NativeAdView) adNativeVideoBinding.getRoot(),
+                                true
+                        );
+                        frNativeAds.removeAllViews();
+                        frNativeAds.addView(adNativeVideoBinding.getRoot());
+                    }
+                    return null;
+                }
+        );
+    }
+
 }

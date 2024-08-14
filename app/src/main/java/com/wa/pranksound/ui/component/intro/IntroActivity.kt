@@ -2,22 +2,33 @@ package com.wa.pranksound.ui.component.intro
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.adjust.sdk.Adjust
+import com.google.android.gms.ads.nativead.NativeAdView
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.R
 import com.wa.pranksound.ui.component.activity.MainActivity
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityIntroBinding
+import com.wa.pranksound.databinding.AdNativeVideoBinding
 import com.wa.pranksound.ui.adapter.IntroAdapter
 import com.wa.pranksound.ui.base.BaseBindingActivity
+import com.wa.pranksound.ui.component.splash.SplashActivity
+import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.ads.NativeAdsUtils
+import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>() {
+
+    private val keyNative =
+        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_INTRO)
 
     private val introAdapter: IntroAdapter by lazy { IntroAdapter() }
     override val layoutId: Int
@@ -100,7 +111,7 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
         }
     }
 
-/*    private fun loadAds() {
+    private fun loadAds() {
         SplashActivity.adNativeLanguage?.let {
             val adContainer = binding.frNativeAds
             if (it.parent != null) {
@@ -109,7 +120,36 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
             adContainer.removeAllViews()
             adContainer.addView(it)
         } ?: run {
-            binding.frNativeAds.gone()
+            loadNativeAd()
         }
-    }*/
+    }
+
+    private fun loadNativeAd() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_INTRO)
+        ) {
+            loadNativeAds(keyNative)
+        } else {
+            binding.rlNative.gone()
+        }
+    }
+
+    private fun loadNativeAds(keyAds: String) {
+        this.let {
+            NativeAdsUtils.instance.loadNativeAds(
+                applicationContext,
+                keyAds
+            ) { nativeAds ->
+                if (nativeAds != null) {
+                    val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
+                    NativeAdsUtils.instance.populateNativeAdVideoView(
+                        nativeAds,
+                        adNativeVideoBinding.root as NativeAdView
+                    )
+                    binding.frNativeAds.removeAllViews()
+                    binding.frNativeAds.addView(adNativeVideoBinding.root)
+                }
+            }
+        }
+    }
 }

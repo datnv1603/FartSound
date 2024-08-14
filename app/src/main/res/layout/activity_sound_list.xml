@@ -64,6 +64,7 @@
         android:padding="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rlLet">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvSound"
             android:layout_width="match_parent"
@@ -73,7 +74,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/rl_native"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_native"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+            <FrameLayout
+                android:id="@+id/fr_native_ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/ads_native_shimmer" />
+            </FrameLayout>
+        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -1,18 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
+
     <entry>
-        <key>inter_frequency</key>
-        <value>10000</value>
+        <key>is_show_ads_inter_splash</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_inter_home</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_inter_record</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_inter_sound</key>
+        <value>true</value>
     </entry>
 
     <entry>
-        <key>active_collapsible</key>
-        <value>false</value>
+        <key>is_show_ads_native_intro</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_native_language</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_native_home</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_native_sound</key>
+        <value>true</value>
     </entry>
 
     <entry>
-        <key>active_app_open</key>
-        <value>false</value>
+        <key>is_show_ads_banner_main</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_banner_record</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>is_show_ads_banner_sound</key>
+        <value>true</value>
+    </entry>
+
+
+    <entry>
+        <key>inter_splash</key>
+        <value>ca-app-pub-3940256099942544/1033173712</value>
+    </entry>
+
+    <entry>
+        <key>inter_home</key>
+        <value>ca-app-pub-3940256099942544/1033173712</value>
+    </entry>
+
+    <entry>
+        <key>inter_record</key>
+        <value>ca-app-pub-3940256099942544/1033173712</value>
+    </entry>
+
+    <entry>
+        <key>inter_sound</key>
+        <value>ca-app-pub-3940256099942544/1033173712</value>
+    </entry>
+
+    <entry>
+        <key>native_intro</key>
+        <value>ca-app-pub-3940256099942544/2247696110</value>
+    </entry>
+
+    <entry>
+        <key>native_language</key>
+        <value>ca-app-pub-3940256099942544/2247696110</value>
+    </entry>
+
+    <entry>
+        <key>native_home</key>
+        <value>ca-app-pub-3940256099942544/2247696110</value>
+    </entry>
+
+    <entry>
+        <key>native_sound</key>
+        <value>ca-app-pub-3940256099942544/2247696110</value>
+    </entry>
+
+    <entry>
+        <key>banner_main</key>
+        <value>ca-app-pub-3940256099942544/2014213617</value>
+    </entry>
+
+    <entry>
+        <key>banner_record</key>
+        <value>ca-app-pub-3940256099942544/2014213617</value>
+    </entry>
+
+    <entry>
+        <key>banner_sound</key>
+        <value>ca-app-pub-3940256099942544/2014213617</value>
     </entry>
 
 </defaultsMap>

@@ -6,13 +6,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/_12sdp"
         tools:context=".ui.component.fragment.HomeFragment">
 
         <ImageView
             android:id="@+id/btnCreateEffect"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:contentDescription="@string/create_effect"
             android:scaleType="centerCrop"
             android:src="@drawable/bg_button_create_effect"
@@ -20,6 +21,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/rl_native"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@id/btnCreateEffect">
+
+            <FrameLayout
+                android:id="@+id/fr_native_ads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/ad_native_content" />
+            </FrameLayout>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCreateEffect">
+            app:layout_constraintTop_toBottomOf="@id/rl_native">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_cate"

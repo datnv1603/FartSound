@@ -8,17 +8,23 @@
     <!--    open app-->
     <string name="open_app" translatable="false">ca-app-pub-3621741958408545/1013252974</string>
 
-    //banner
-    <string name="key_ads_banner_home" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
-    <string name="key_ads_banner_cate" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
+
 
     //inter
-    <string name="key_ads_inter_splash" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="key_ads_inter_main" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="inter_splash" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="inter_home" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="inter_record" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="inter_sound" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 
     //native
-    <string name="key_ads_native_home" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="key_ads_native_language" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
-    <string name="key_ads_native_intro" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="native_intro" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="native_language" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="native_home" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="native_sound" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
+
+    //banner
+    <string name="banner_main" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
+    <string name="banner_record" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
+    <string name="banner_sound" translatable="false">ca-app-pub-3940256099942544/2014213617</string>
 
 </resources>
