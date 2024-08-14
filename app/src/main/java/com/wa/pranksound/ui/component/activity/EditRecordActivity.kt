@@ -257,9 +257,18 @@ class EditRecordActivity : AppCompatActivity() {
     }
 
     private fun showSaveDialog(context: Context) {
-
-        val dialog = Dialog(context)
+        val dialog = Dialog(this@EditRecordActivity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window!!.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT
         dialog.setContentView(R.layout.dialog_save_file)
+        dialog.setCancelable(true)
+        dialog.show()
+        dialog.window!!.setAttributes(lp)
+
         val editTextFileName = dialog.findViewById<TextInputEditText>(R.id.editTextFileName)
         val textInputLayoutFileName =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayoutFileName)
@@ -267,8 +276,9 @@ class EditRecordActivity : AppCompatActivity() {
         recordName = "$recordName-$timestamp"
         editTextFileName.setText(recordName)
 
-        // Set up the buttons
-        dialog.findViewById<TextView>(R.id.btnSave)?.setOnClickListener {
+        val btnNegative = dialog.findViewById<TextView>(R.id.btnCancel)
+        val btnPositive = dialog.findViewById<TextView>(R.id.btnSave)
+        btnPositive.setOnClickListener {
             val fileName = editTextFileName.text.toString()
             if (fileName.isNotEmpty()) {
 
@@ -280,11 +290,13 @@ class EditRecordActivity : AppCompatActivity() {
                 textInputLayoutFileName.error = "Please enter file name"
             }
         }
-        dialog.findViewById<TextView>(R.id.btnCancel)?.setOnClickListener {
+        btnNegative.setOnClickListener {
             dialog.dismiss()
         }
         dialog.show()
     }
+
+
 
     /**
      * Function to execute FFMPEG Query
