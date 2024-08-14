@@ -32,7 +32,7 @@ class RecordActivity : BaseActivity() {
     private var playerBackground: MediaPlayer? = null
     private var playerEffects: MediaPlayer? = null
     private var recorder: MediaRecorder? = null
-    private lateinit var countDownTimer: CountDownTimer
+    private var countDownTimer: CountDownTimer? = null
 
     private var timeRecord = 0
 
@@ -73,7 +73,7 @@ class RecordActivity : BaseActivity() {
 
         binding.btnPause.setOnSafeClick {
             pauseRecording()
-            countDownTimer.cancel()
+            countDownTimer?.cancel()
         }
 
         binding.btnStart.setOnSafeClick {
@@ -160,7 +160,6 @@ class RecordActivity : BaseActivity() {
 
             override fun onFinish() {
                 stopRecording()
-                countDownTimer.cancel()
                 val intent = Intent(this@RecordActivity, EditRecordActivity::class.java)
                 startActivity(intent)
             }
@@ -171,7 +170,7 @@ class RecordActivity : BaseActivity() {
     private fun startRecording() {
         onRecording()
         countDownTimer = createCountDownTimer(30000 - timeRecord.toLong())
-        countDownTimer.start()
+        countDownTimer?.start()
 
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -199,7 +198,7 @@ class RecordActivity : BaseActivity() {
     private fun resumeRecording() {
         onResumeRecording()
         countDownTimer = createCountDownTimer(30000 - timeRecord.toLong())
-        countDownTimer.start()
+        countDownTimer?.start()
         playerEffects?.start()
         playerBackground?.start()
         recorder?.apply {
@@ -218,7 +217,7 @@ class RecordActivity : BaseActivity() {
             release()
         }
         recorder = null
-        countDownTimer.cancel()
+        countDownTimer?.cancel()
         binding.txtCountTime.text = getString(R.string.time_record)
     }
 
@@ -228,11 +227,18 @@ class RecordActivity : BaseActivity() {
         recorder = null
         playerBackground?.release()
         playerEffects?.release()
-        if (::countDownTimer.isInitialized) {
-            countDownTimer.cancel()
-        }
+            countDownTimer?.cancel()
         playerBackground = null
         playerEffects = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopRecording()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun finish() {
@@ -243,6 +249,18 @@ class RecordActivity : BaseActivity() {
         } ?: run {
             super.finish()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("timeRecord", timeRecord)
+        outState.putString("fileName", fileName)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        timeRecord = savedInstanceState.getInt("timeRecord")
+        fileName = savedInstanceState.getString("fileName")!!
     }
 
     private fun onPrepareRecording() {

@@ -217,8 +217,28 @@ class EditRecordActivity : AppCompatActivity() {
             pauseAudio()
             showExitDialog()
         }
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean("isPlaying", isPlaying)
+        outState.putString("recordName", recordName)
+        outState.putInt("recordImage", recordImage)
+        outState.putString("fileName", fileName)
+        outState.putString("fileNameNew", fileNameNew)
+        outState.putString("fileNameSave", fileNameSave)
+        outState.putBoolean("isEffectAddedOnce", isEffectAddedOnce)
+    }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        isPlaying = savedInstanceState.getBoolean("isPlaying")
+        recordName = savedInstanceState.getString("recordName")!!
+        recordImage = savedInstanceState.getInt("recordImage")
+        fileName = savedInstanceState.getString("fileName")!!
+        fileNameNew = savedInstanceState.getString("fileNameNew")!!
+        fileNameSave = savedInstanceState.getString("fileNameSave")!!
+        isEffectAddedOnce = savedInstanceState.getBoolean("isEffectAddedOnce")
     }
 
     private fun start() {
@@ -295,7 +315,6 @@ class EditRecordActivity : AppCompatActivity() {
         }
         dialog.show()
     }
-
 
 
     /**
@@ -426,14 +445,16 @@ class EditRecordActivity : AppCompatActivity() {
         exceuteFFMPEG(cmd)
     }
 
+    override fun onPause() {
+        super.onPause()
+        pauseAudio()
+        isPlaying = false
+    }
 
-    override fun onStop() {
-        super.onStop()
-        stopAudio()
-        recorder?.release()
-        recorder = null
-        player?.release()
-        player = null
+    override fun onResume() {
+        super.onResume()
+        resumeAudio()
+        isPlaying = true
     }
 
     private fun showProgress() {
@@ -550,6 +571,11 @@ class EditRecordActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        stopAudio()
+        recorder?.release()
+        recorder = null
+        player?.release()
+        player = null
         handler.removeCallbacks(runnable!!)
     }
 

@@ -428,39 +428,39 @@ public class SoundDetailActivity extends BaseActivity {
         });
 
         //set playing when click item
-        imgItem.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    if (mediaPlayer != null) {
-                        if (!mediaPlayer.isPlaying()) {
-                            imgAnimation.setVisibility(View.VISIBLE);
-                            imgAnimation.playAnimation();
-                            mediaPlayer.seekTo(0);
-                            mediaPlayer.setLooping(true);
-                            mediaPlayer.start();
-                            startVibrate();
-                        } else {
-                            if (isLoop) {
-                                mediaPlayer.pause();
-                                stopVibrate();
-                                imgAnimation.setVisibility(View.INVISIBLE);
-                            }
+        imgItem.setOnTouchListener((v, event) -> switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN -> {
+                if (mediaPlayer != null) {
+                    if (!mediaPlayer.isPlaying()) {
+                        imgAnimation.setVisibility(View.VISIBLE);
+                        imgAnimation.playAnimation();
+                        mediaPlayer.seekTo(0);
+                        mediaPlayer.setLooping(true);
+                        mediaPlayer.start();
+                        startVibrate();
+                    } else {
+                        if (isLoop) {
+                            mediaPlayer.pause();
+                            stopVibrate();
+                            imgAnimation.setVisibility(View.INVISIBLE);
                         }
                     }
-                    return true;
-                case MotionEvent.ACTION_UP:
-                    if (!isLoop) {
-                        if (mediaPlayer != null) {
-                            if (mediaPlayer.isPlaying()) {
-                                mediaPlayer.pause();
-                                stopVibrate();
-                                imgAnimation.setVisibility(View.INVISIBLE);
-                            }
-                        }
-                    }
-                    return false;
+                }
+                yield true;
             }
-            return false;
+            case MotionEvent.ACTION_UP -> {
+                if (!isLoop) {
+                    if (mediaPlayer != null) {
+                        if (mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                            stopVibrate();
+                            imgAnimation.setVisibility(View.INVISIBLE);
+                        }
+                    }
+                }
+                yield false;
+            }
+            default -> false;
         });
 
         //test favories
@@ -525,23 +525,15 @@ public class SoundDetailActivity extends BaseActivity {
         handler.removeCallbacks(runnable);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
 
     @Override
     protected void onPause() {
         super.onPause();
         if (mediaPlayer != null) {
             if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
                 stopVibrate();
-                mediaPlayer.reset();
-                mediaPlayer.stop();
-                mediaPlayer.release();
-                mediaPlayer = null;
-
+                imgAnimation.setVisibility(View.INVISIBLE);
             }
         }
         if (countDownTimer != null) {
@@ -550,6 +542,8 @@ public class SoundDetailActivity extends BaseActivity {
         handler.removeCallbacksAndMessages(null);
         handler.removeCallbacks(runnable);
     }
+
+
 
     public final void startVibrate() {
         if (Utils.INSTANCE.getVibration(this)) {
