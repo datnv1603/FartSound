@@ -260,10 +260,6 @@ class EditRecordActivity : AppCompatActivity() {
 
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialog_save_file)
-        dialog.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT
-        )
-        dialog.window?.setBackgroundDrawableResource(R.drawable.bg_item_language)
         val editTextFileName = dialog.findViewById<TextInputEditText>(R.id.editTextFileName)
         val textInputLayoutFileName =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayoutFileName)

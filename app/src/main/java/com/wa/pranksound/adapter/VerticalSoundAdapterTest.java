@@ -45,7 +45,6 @@ public class VerticalSoundAdapterTest extends RecyclerView.Adapter<VerticalSound
     public void onBindViewHolder(VerticalSoundAdapterTest.MyViewHolder myViewHolder, int position) {
 
         Sound sound = listSound.get(position);
-        sound.getTypeSound();
         Context context = myViewHolder.imgCate.getRootView().getContext();
         myViewHolder.txtSoundName.setText(soundName(sound.getName()));
         myViewHolder.cvBG.setBackgroundResource(BackGround.INSTANCE.getBackground(position));

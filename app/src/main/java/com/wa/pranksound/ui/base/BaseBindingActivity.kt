@@ -35,7 +35,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding, VM : BaseViewModel> : Ba
     override fun onCreate(savedInstanceState: Bundle?) {
         lockPortraitOrientation(this)
         super.onCreate(savedInstanceState)
-        setFullScreen()
+        //setFullScreen()
         binding = DataBindingUtil.setContentView(this, layoutId)
         viewModel = ViewModelProvider(this)[getViewModel()]
         window.setLightStatusBars(false)

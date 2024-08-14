@@ -26,6 +26,7 @@ object Constant {
     const val KEY_CLICK_GO = "KEY_CLICK_GO"
 
     const val TYPE_LANG = "MultiLangAct_Lang"
+    const val KEY_IS_FIRST_OPEN_SOUND = "is_first_open_sound"
 
     const val TYPE_LANGUAGE_SPLASH = 1
     const val TYPE_LANGUAGE_SETTING = 2

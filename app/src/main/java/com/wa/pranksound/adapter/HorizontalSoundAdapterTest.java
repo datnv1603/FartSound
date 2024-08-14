@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.data.BackGround;
 import com.wa.pranksound.model.Sound;
+import com.wa.pranksound.ui.OnSoundItemClickListener;
 import com.wa.pranksound.ui.component.activity.SoundDetailActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -29,10 +30,11 @@ import java.util.List;
 public class HorizontalSoundAdapterTest extends RecyclerView.Adapter<HorizontalSoundAdapterTest.MyViewHolder> {
 
     List<Sound> listSound;
+    private OnSoundItemClickListener listener;
 
-
-    public HorizontalSoundAdapterTest(List<Sound> listSound) {
+    public HorizontalSoundAdapterTest(List<Sound> listSound, OnSoundItemClickListener listener) {
         this.listSound = listSound;
+        this.listener = listener;
     }
 
     @Override
@@ -52,7 +54,10 @@ public class HorizontalSoundAdapterTest extends RecyclerView.Adapter<HorizontalS
         Glide.with(context).load("file:///android_asset/" + sound.getImage()).into(myViewHolder.imgCate);
 
         myViewHolder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, SoundDetailActivity.class);
+            if (listener != null) {
+                listener.onSoundItemClick(myViewHolder.getAdapterPosition());
+            }
+            /*Intent intent = new Intent(context, SoundDetailActivity.class);
             intent.putExtra(is_fav, false);
             intent.putExtra(music_name, soundName(sound.getName()));
             intent.putExtra(cate_name, sound.getTypeSound());
@@ -61,10 +66,8 @@ public class HorizontalSoundAdapterTest extends RecyclerView.Adapter<HorizontalS
             context.startActivity(intent);
             if (context instanceof SoundDetailActivity) {
                 ((SoundDetailActivity) context).finish();
-            }
+            }*/
         });
-
-
     }
 
     public String soundName(String sound) {

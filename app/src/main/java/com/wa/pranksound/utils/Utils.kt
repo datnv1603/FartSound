@@ -34,4 +34,11 @@ object Utils {
         val type = object : TypeToken<List<Record>>() {}.type
         return Gson().fromJson(json, type) ?: emptyList()
     }
+
+    fun removeAfterDot(input: String): String {
+        if (!input.contains(".")) {
+            return input
+        }
+        return input.substring(0, input.indexOf('.'))
+    }
 }

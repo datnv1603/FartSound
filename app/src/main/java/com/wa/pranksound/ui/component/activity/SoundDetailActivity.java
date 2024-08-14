@@ -1,5 +1,6 @@
 package com.wa.pranksound.ui.component.activity;
 
+import static com.wa.pranksound.common.Constant.KEY_IS_FIRST_OPEN_SOUND;
 import static com.wa.pranksound.utils.KeyClass.cate_name;
 import static com.wa.pranksound.utils.KeyClass.image_sound;
 import static com.wa.pranksound.utils.KeyClass.is_fav;
@@ -49,6 +50,7 @@ import com.bumptech.glide.Glide;
 import com.wa.pranksound.R;
 import com.wa.pranksound.adapter.HorizontalFavoriteSoundAdapter;
 import com.wa.pranksound.adapter.HorizontalSoundAdapterTest;
+import com.wa.pranksound.data.SharedPreferenceHelper;
 import com.wa.pranksound.model.Record;
 import com.wa.pranksound.model.Sound;
 import com.wa.pranksound.room.AppDatabase;
@@ -57,6 +59,8 @@ import com.wa.pranksound.room.QueryClass;
 import com.wa.pranksound.utils.BaseActivity;
 import com.wa.pranksound.utils.ImageLoader;
 import com.wa.pranksound.utils.Utils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,6 +99,8 @@ public class SoundDetailActivity extends BaseActivity {
     LinearLayout llMoreSound;
     FrameLayout fl_banner;
     View view_line;
+    LottieAnimationView animGuide;
+    View viewBlur;
 
     ImageButton btnVolumeLoud, btnVolumeSmall, btnDelete;
     SeekBar volume;
@@ -108,7 +114,9 @@ public class SoundDetailActivity extends BaseActivity {
         AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "prank_sound").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         queryClass = db.queryClass();
 
+
         findView();
+        getData();
         clickEvent();
 
         setUpVolume();
@@ -144,28 +152,10 @@ public class SoundDetailActivity extends BaseActivity {
         });
     }
 
-    private void findView() {
-        imgBack = findViewById(R.id.btnBack);
-        imgItem = findViewById(R.id.imgItem);
-        txtTitle = findViewById(R.id.tvTitle);
-        imgPlayPause = findViewById(R.id.imgPlayPause);
-        endTime = findViewById(R.id.endTime);
-        seekBar = findViewById(R.id.seekBar);
-        swLoop = findViewById(R.id.swLoop);
-        rvSound = findViewById(R.id.rvSound);
-        imgHeart = findViewById(R.id.imgHeart);
-        txtCountTime = findViewById(R.id.txtCountTime);
-        tvOff = findViewById(R.id.tvOff);
-        volume = findViewById(R.id.volumeSeekBar);
-        btnVolumeLoud = findViewById(R.id.btnVolumeLoud);
-        btnVolumeSmall = findViewById(R.id.btnVolumeSmall);
-        btnDelete = findViewById(R.id.btnDelete);
+    private void getData() {
+        Intent intent = getIntent();
+        soundName = intent.getStringExtra("sound_name");
 
-        imgAnimation = findViewById(R.id.animation);
-
-        view_line = findViewById(R.id.line);
-        llBtnOff = findViewById(R.id.llBtnOff);
-        llMoreSound = findViewById(R.id.llMoreSounds);
         systemService = (Vibrator) getSystemService(VIBRATOR_SERVICE);
 
         strMusicName = getIntent().getStringExtra(music_name);
@@ -179,6 +169,52 @@ public class SoundDetailActivity extends BaseActivity {
         isRecord = getIntent().getBooleanExtra(is_record, false);
 
         soundPath = getIntent().getStringExtra(sound_path);
+
+        setUpSound();
+
+        try {
+            cate = Arrays.asList(Objects.requireNonNull(getAssets().list("prank_sound")));
+            images = getAssets().list("prank_sound/" + strCateName);
+
+            // lấy hình ảnh từ file asset
+            String[] images = getAssets().list("prank_sound/" + strCateName);
+            List<Sound> listSound = new ArrayList<>();
+            assert images != null;
+
+            //list đường dẫn đến hình ảnh ở list asset
+            List<String> imageList = ImageLoader.getImageListFromAssets(this, "prank_image/" + strCateName);
+
+            for (int i = 0; i < images.length; i++) {
+                Sound sound;
+                String imageName = Utils.INSTANCE.removeAfterDot(images[i]);
+                sound = new Sound(strCateName, imageList.get(i), imageName, 0, true, false);
+                listSound.add(sound);
+            }
+            HorizontalSoundAdapterTest verticalSoundAdapter = new HorizontalSoundAdapterTest(listSound, position -> {
+                Sound sound = listSound.get(position);
+                getData(sound);
+            });
+            rvSound.setAdapter(verticalSoundAdapter);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void getData(Sound sound) {
+        if (sound != null) {
+            soundName = sound.getName();
+            strMusicName = sound.getName();
+            strCateName = sound.getTypeSound();
+            string_img_sound = sound.getImage();
+            int_img_sound = 0;
+            isRecord = false;
+            soundPath = null;
+            setUpSound();
+        }
+    }
+
+    private void setUpSound() {
+
         InsertPrankSound insertPrankSound1 = queryClass.getFavSound(strCateName, strMusicName);
         if (isRecord) {
             llMoreSound.setVisibility(View.GONE);
@@ -197,28 +233,6 @@ public class SoundDetailActivity extends BaseActivity {
         }
 
         if (strCateName != null) {
-            try {
-                cate = Arrays.asList(Objects.requireNonNull(getAssets().list("prank_sound")));
-                images = getAssets().list("prank_sound/" + strCateName);
-
-                // lấy hình ảnh từ file asset
-                String[] images = getAssets().list("prank_sound/" + strCateName);
-                List<Sound> listSound = new ArrayList<>();
-                assert images != null;
-
-                //list đường dẫn đến hình ảnh ở list asset
-                List<String> imageList = ImageLoader.getImageListFromAssets(this, "prank_image/" + strCateName);
-
-                for (int i = 0; i < images.length; i++) {
-                    Sound sound;
-                    sound = new Sound(strCateName, imageList.get(i), images[i], 0, true, false);
-                    listSound.add(sound);
-                }
-                HorizontalSoundAdapterTest verticalSoundAdapter = new HorizontalSoundAdapterTest(listSound);
-                rvSound.setAdapter(verticalSoundAdapter);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
 
             //load ảnh từ file asset
             if (int_img_sound != 0) {
@@ -234,6 +248,10 @@ public class SoundDetailActivity extends BaseActivity {
             }
 
             try {
+                if (mediaPlayer != null) {
+                    mediaPlayer.release();
+                }
+                mediaPlayer = new MediaPlayer();
                 if (strCateName.equals("record")) {
                     soundPath = strMusicName;
                 }
@@ -272,25 +290,46 @@ public class SoundDetailActivity extends BaseActivity {
                             seekBar.setProgress(mediaPlayer.getDuration());
                         }
                         isPlaying = false;
-                        imgPlayPause.setImageResource(R.drawable.play);
                         //set anim
                         imgAnimation.setVisibility(View.INVISIBLE);
+                        stopVibrate();
                     } else {
                         seekBar.setProgress(0);
                         mediaPlayer.start();
                         startVibrate();
                     }
                 });
-
             } catch (Exception e) {
                 Log.d("check_file", "error " + e);
                 e.printStackTrace();
             }
-            swLoop.setOnClickListener(v -> {
-                swLoop.setSelected(!swLoop.isSelected());
-                isLoop = swLoop.isSelected();
-            });
         }
+    }
+
+    private void findView() {
+        imgBack = findViewById(R.id.btnBack);
+        imgItem = findViewById(R.id.imgItem);
+        txtTitle = findViewById(R.id.tvTitle);
+        imgPlayPause = findViewById(R.id.imgPlayPause);
+        endTime = findViewById(R.id.endTime);
+        seekBar = findViewById(R.id.seekBar);
+        swLoop = findViewById(R.id.swLoop);
+        rvSound = findViewById(R.id.rvSound);
+        imgHeart = findViewById(R.id.imgHeart);
+        txtCountTime = findViewById(R.id.txtCountTime);
+        tvOff = findViewById(R.id.tvOff);
+        volume = findViewById(R.id.volumeSeekBar);
+        btnVolumeLoud = findViewById(R.id.btnVolumeLoud);
+        btnVolumeSmall = findViewById(R.id.btnVolumeSmall);
+        btnDelete = findViewById(R.id.btnDelete);
+
+        imgAnimation = findViewById(R.id.animation);
+        viewBlur = findViewById(R.id.viewBlur);
+
+        view_line = findViewById(R.id.line);
+        llBtnOff = findViewById(R.id.llBtnOff);
+        llMoreSound = findViewById(R.id.llMoreSounds);
+        animGuide = findViewById(R.id.animGuide);
     }
 
     private void startCountDownTimer(int i, TextView txtCountTime) {
@@ -306,7 +345,7 @@ public class SoundDetailActivity extends BaseActivity {
                 long j3 = (long) 60;
                 long j4 = j2 / j3;
                 long j5 = j2 % j3;
-                String format = String.format("%02d:%02d", Arrays.copyOf(new Object[]{Long.valueOf(j4), Long.valueOf(j5)}, 2));
+                @SuppressLint("DefaultLocale") String format = String.format("%02d:%02d", Arrays.copyOf(new Object[]{j4, j5}, 2));
                 txtCountTime.setText(format);
             }
 
@@ -319,6 +358,7 @@ public class SoundDetailActivity extends BaseActivity {
                 if (mediaPlayer != null) {
                     if (!mediaPlayer.isPlaying()) {
                         mediaPlayer.start();
+                        mediaPlayer.setLooping(false);
                         startVibrate();
                         handler.postDelayed(runnable, 5);
                     }
@@ -330,6 +370,22 @@ public class SoundDetailActivity extends BaseActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void clickEvent() {
+        boolean isFirsTime = SharedPreferenceHelper.Companion.getBoolean(KEY_IS_FIRST_OPEN_SOUND, true);
+        if (isFirsTime) {
+            animGuide.setVisibility(View.VISIBLE);
+            viewBlur.setVisibility(View.VISIBLE);
+        } else {
+            animGuide.setVisibility(View.GONE);
+            viewBlur.setVisibility(View.GONE);
+        }
+
+        animGuide.setOnTouchListener((v, event) -> {
+            SharedPreferenceHelper.Companion.storeBoolean(KEY_IS_FIRST_OPEN_SOUND, false);
+            animGuide.setVisibility(View.GONE);
+            viewBlur.setVisibility(View.GONE);
+            return true;
+        });
+
         imgBack.setOnClickListener(v -> getOnBackPressedDispatcher().onBackPressed());
 
         llBtnOff.setOnClickListener(v -> {
@@ -437,6 +493,11 @@ public class SoundDetailActivity extends BaseActivity {
             }
         });
 
+        swLoop.setOnClickListener(v -> {
+            swLoop.setSelected(!swLoop.isSelected());
+            isLoop = swLoop.isSelected();
+        });
+
         btnDelete.setOnClickListener(v -> {
             showDiscardDialog(() -> {
                 deleteRecord(strMusicName);
@@ -494,7 +555,7 @@ public class SoundDetailActivity extends BaseActivity {
         if (Utils.INSTANCE.getVibration(this)) {
             if (systemService != null) {
                 if (Build.VERSION.SDK_INT < 26 || !systemService.hasVibrator()) {
-                    systemService.vibrate((long) mediaPlayer.getDuration());
+                    systemService.vibrate(mediaPlayer.getDuration());
                 } else {
                     systemService.vibrate(VibrationEffect.createWaveform(new long[]{0, 1000}, 0));
                 }
