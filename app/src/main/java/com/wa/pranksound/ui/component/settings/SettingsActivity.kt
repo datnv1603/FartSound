@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import com.adjust.sdk.Adjust
 import com.wa.pranksound.R
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
@@ -119,6 +120,16 @@ class SettingsActivity : BaseBindingActivity<ActivitySettingsBinding, SettingsVi
                 )
             )
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
     }
 
 

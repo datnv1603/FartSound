@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.adjust.sdk.Adjust
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.adapter.CategoriesAdapter
 import com.wa.pranksound.databinding.AdNativeContentBinding
@@ -76,6 +77,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
+    }
+
     private fun loadAds() {
         addNativeAd()
     }
@@ -89,7 +100,6 @@ class HomeFragment : Fragment() {
             adContainer.removeAllViews()
             adContainer.addView(it)
         } ?: run {
-            binding.rlNative.gone()
             loadNativeAd()
         }
     }

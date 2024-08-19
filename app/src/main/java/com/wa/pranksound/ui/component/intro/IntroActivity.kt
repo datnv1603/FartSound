@@ -49,18 +49,6 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Adjust.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Adjust.onPause()
-    }
-
-
-
     private fun startMainActivity() {
         SharedPreferenceHelper.storeBoolean("isFirstRun", false)
         Intent(this@IntroActivity, MainActivity::class.java).apply {
@@ -109,6 +97,16 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
             })
             binding.dotsIndicator.attachTo(this)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
     }
 
     private fun loadAds() {

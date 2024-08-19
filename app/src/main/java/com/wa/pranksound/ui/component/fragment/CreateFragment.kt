@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.adjust.sdk.Adjust
 import com.wa.pranksound.ui.component.record.RecordActivity
 import com.wa.pranksound.adapter.RecordAdapter
 import com.wa.pranksound.databinding.FragmentCreateBinding
@@ -62,7 +63,14 @@ class CreateFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
 
-
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
+    }
 
 }

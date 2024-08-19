@@ -74,8 +74,6 @@ class MultiLangActivity : BaseBindingActivity<ActivityMultiLangBinding, MultiLan
         Adjust.onPause()
     }
 
-
-
     private fun updateUIForType(type: Int) {
 
         when (type) {

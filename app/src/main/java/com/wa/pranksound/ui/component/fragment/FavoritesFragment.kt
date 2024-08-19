@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
+import com.adjust.sdk.Adjust
 import com.wa.pranksound.adapter.VerticalFavoriteSoundAdapter
 import com.wa.pranksound.room.AppDatabase
 import com.wa.pranksound.room.InsertPrankSound
@@ -70,5 +71,12 @@ class FavoritesFragment : Fragment() {
             binding.rvSound.gone()
             binding.tvNotFound.visible()
         }
+
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
     }
 }

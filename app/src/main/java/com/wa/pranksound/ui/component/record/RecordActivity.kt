@@ -277,10 +277,14 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
     override fun onPause() {
         super.onPause()
         stopRecording()
+
+        Adjust.onPause()
     }
 
     override fun onResume() {
         super.onResume()
+
+        Adjust.onResume()
     }
 
     override fun finish() {

@@ -128,6 +128,16 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
         binding.imgBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
+    }
+
     private fun loadAds() {
         loadNativeAd()
     }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.adjust.sdk.Adjust
 import com.wa.pranksound.databinding.FragmentLeaderBoardBinding
 import com.wa.pranksound.ui.component.sound.SoundListActivity
 import com.wa.pranksound.ui.component.main.MainActivity
@@ -91,6 +92,16 @@ class LeaderBoardFragment : Fragment() {
             requireContext().startActivity(intent)
             mMainActivity.showInterstitial { }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
     }
 
     companion object {

@@ -348,6 +348,16 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
         btnNegative.setOnSafeClick { dialogCustomExit.dismiss() }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Adjust.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Adjust.onPause()
+    }
+
     private fun loadAds() {
         if (FirebaseRemoteConfig.getInstance()
                 .getBoolean(RemoteConfigKey.IS_SHOW_ADS_BANNER_MAIN)

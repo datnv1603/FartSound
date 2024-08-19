@@ -2,6 +2,7 @@ package com.wa.pranksound.ui.component.dialog
 
 import android.os.Bundle
 import android.view.View
+import com.adjust.sdk.Adjust
 import com.wa.pranksound.R
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.data.SharedPreferenceHelper
@@ -98,5 +99,17 @@ class DialogRating : BaseBindingDialogFragment<DialogRatingBinding>() {
 		binding.tvExit.setOnSafeClick {
 			dismiss()
 		}
+	}
+
+	override fun onResume() {
+		super.onResume()
+
+		Adjust.onResume()
+	}
+
+	override fun onPause() {
+		super.onPause()
+
+		Adjust.onPause()
 	}
 }

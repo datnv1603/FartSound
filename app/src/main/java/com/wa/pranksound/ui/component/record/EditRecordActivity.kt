@@ -492,12 +492,16 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         super.onPause()
         pauseAudio()
         isPlaying = false
+
+        Adjust.onPause()
     }
 
     override fun onResume() {
         super.onResume()
         resumeAudio()
         isPlaying = true
+
+        Adjust.onResume()
     }
 
     private fun showProgress() {

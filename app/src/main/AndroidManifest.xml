@@ -44,9 +44,6 @@
             android:value="true" />
 
         <activity
-            android:name=".ui.component.activity.FeedbackActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.component.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait">

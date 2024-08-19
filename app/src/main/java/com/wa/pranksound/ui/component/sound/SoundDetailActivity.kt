@@ -595,8 +595,15 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
         }
         handler.removeCallbacksAndMessages(null)
         handler.removeCallbacks(runnable!!)
+
+        Adjust.onPause()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        Adjust.onResume()
+    }
 
     fun startVibrate() {
         if (getVibration(this)) {
