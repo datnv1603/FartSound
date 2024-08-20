@@ -429,11 +429,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
                     mFirebaseAnalytics.logEvent("e_load_inter_splash", null)
                     mInterstitialAd = null
                     retryAttempt++
-                    val delayMillis = TimeUnit.SECONDS.toMillis(
-                        2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
-                    )
-                    Handler(Looper.getMainLooper()).postDelayed({ loadInterAd() }, delayMillis)
-
+                    if (retryAttempt < 3) {
+                        val delayMillis = TimeUnit.SECONDS.toMillis(
+                            2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
+                        )
+                        Handler(Looper.getMainLooper()).postDelayed({ loadInterAd() }, delayMillis)
+                    }
                 }
 
                 override fun onAdLoaded(ad: InterstitialAd) {

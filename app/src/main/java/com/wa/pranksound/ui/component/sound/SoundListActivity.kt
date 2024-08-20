@@ -228,10 +228,12 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                     mInterstitialAd = null
 
                     retryAttempt++
-                    val delayMillis = TimeUnit.SECONDS.toMillis(
-                        2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
-                    )
-                    Handler(Looper.getMainLooper()).postDelayed({ loadInterAd() }, delayMillis)
+                    if (retryAttempt < 4) {
+                        val delayMillis = TimeUnit.SECONDS.toMillis(
+                            2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
+                        )
+                        Handler(Looper.getMainLooper()).postDelayed({ loadInterAd() }, delayMillis)
+                    }
                 }
 
                 override fun onAdLoaded(ad: InterstitialAd) {

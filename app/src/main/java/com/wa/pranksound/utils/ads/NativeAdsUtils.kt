@@ -62,7 +62,7 @@ class NativeAdsUtils {
                 override fun onAdFailedToLoad(p0: LoadAdError) {
                     super.onAdFailedToLoad(p0)
                     loadNativeCount++
-                    if (loadNativeCount <= 10) {
+                    if (loadNativeCount <= 5) {
                         retryAttempt++
                         val delayMillis = TimeUnit.SECONDS.toMillis(
                             2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
@@ -71,6 +71,7 @@ class NativeAdsUtils {
                             { loadNativeAds(context, keyAds, adsLoadCallBack) },
                             delayMillis
                         )
+
                     } else {
                         adsLoadCallBack(null)
                     }
@@ -85,7 +86,11 @@ class NativeAdsUtils {
         adLoader.loadAd(AdRequest.Builder().build())
     }
 
-    fun populateNativeAdVideoView(nativeAd: NativeAd, nativeAdView: NativeAdView, isShowMedia: Boolean = true) {
+    fun populateNativeAdVideoView(
+        nativeAd: NativeAd,
+        nativeAdView: NativeAdView,
+        isShowMedia: Boolean = true
+    ) {
         kotlin.runCatching {
             val adHeadline: TextView? = nativeAdView.findViewById(R.id.ad_headline)
             val adBody: TextView? = nativeAdView.findViewById(R.id.ad_body)
@@ -108,7 +113,7 @@ class NativeAdsUtils {
             // The headline and media content are guaranteed to be in every NativeAd.
             adHeadline?.text = nativeAd.headline
 
-            if (isShowMedia){
+            if (isShowMedia) {
                 nativeAd.mediaContent?.let {
                     adMedia?.mediaContent = it
                 }

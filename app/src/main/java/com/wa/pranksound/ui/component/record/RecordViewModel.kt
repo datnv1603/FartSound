@@ -13,6 +13,10 @@ class RecordViewModel: BaseViewModel() {
 
     private var timerReloadBanner : CountDownTimer? = null
 
+    override fun onCleared() {
+        super.onCleared()
+        timerReloadBanner?.cancel()
+    }
     private fun createCountDownTimerReloadBanner(time: Long): CountDownTimer {
         return object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {

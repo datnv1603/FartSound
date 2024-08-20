@@ -3,7 +3,9 @@ package com.wa.pranksound.ui.component.main
 import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.wa.pranksound.ui.base.BaseViewModel
+import kotlinx.coroutines.cancel
 
 class MainViewModel : BaseViewModel() {
     private val _loadBanner: MutableLiveData<Boolean> = MutableLiveData()
@@ -11,6 +13,11 @@ class MainViewModel : BaseViewModel() {
         get() = _loadBanner
 
     private var timerReloadBanner : CountDownTimer? = null
+
+    override fun onCleared() {
+        super.onCleared()
+        timerReloadBanner?.cancel()
+    }
 
     private fun createCountDownTimerReloadBanner(time: Long): CountDownTimer {
         return object : CountDownTimer(time, 1000) {
