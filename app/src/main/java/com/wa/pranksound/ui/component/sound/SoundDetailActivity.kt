@@ -85,14 +85,18 @@ import java.util.Arrays
 import java.util.Collections
 import java.util.Date
 import java.util.Objects
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.math.pow
 
 class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, SoundDetailViewModel>() {
 
     private var adsConsentManager: AdsConsentManager? = null
     private val isAdsInitializeCalled = AtomicBoolean(false)
-    private val mFirebaseAnalytics: FirebaseAnalytics? = null
+    private val mFirebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
     private var mInterstitialAd: InterstitialAd? = null
+
+    private var retryAttempt = 0.0
 
     private var bannerReload: Long =
         FirebaseRemoteConfig.getInstance().getLong(RemoteConfigKey.BANNER_RELOAD)
@@ -728,18 +732,20 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             AdRequest.Builder().build(),
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    mFirebaseAnalytics?.logEvent("e_load_inter_splash", null)
+                    mFirebaseAnalytics.logEvent("e_load_inter_splash", null)
                     mInterstitialAd = null
 
-                    Handler(Looper.getMainLooper()).postDelayed(
-                        { loadInterAdsMain(keyAdInter) },
-                        2000
+                    retryAttempt++
+                    val delayMillis = TimeUnit.SECONDS.toMillis(
+                        2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
                     )
+                    Handler(Looper.getMainLooper()).postDelayed({ loadInterAd() }, delayMillis)
                 }
 
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    mFirebaseAnalytics?.logEvent("d_load_inter_splash", null)
+                    mFirebaseAnalytics.logEvent("d_load_inter_splash", null)
                     mInterstitialAd = ad
+                    retryAttempt = 0.0
                     mInterstitialAd!!.onPaidEventListener =
                         OnPaidEventListener { adValue: AdValue ->
                             val loadedAdapterResponseInfo =

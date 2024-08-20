@@ -43,14 +43,10 @@ class SplashViewModel : BaseViewModel() {
     }
     fun loadAds(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            loadNativeLanguage(context)
             loadNativeIntro(context)
             loadNativeHome(context)
         }
     }
-    private val _nativeAdLanguage: MutableLiveData<NativeAdView> = MutableLiveData()
-    val nativeAdLanguage: LiveData<NativeAdView>
-        get() = _nativeAdLanguage
 
     private val _nativeAdIntro: MutableLiveData<NativeAdView> = MutableLiveData()
     val nativeAdIntro: LiveData<NativeAdView>
@@ -68,13 +64,6 @@ class SplashViewModel : BaseViewModel() {
         if (FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_HOME)) {
             val keyAdNativeAllPrice = FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_HOME)
             loadNativeContent(context = context, keyAdNativeAllPrice, _nativeAdHome)
-        }
-    }
-
-    private fun loadNativeLanguage(context: Context) {
-        if (FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_LANGUAGE)) {
-            val keyAdNativeAllPrice = FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_LANGUAGE)
-            loadNativeVideo(context = context, keyAdNativeAllPrice, _nativeAdLanguage)
         }
     }
 

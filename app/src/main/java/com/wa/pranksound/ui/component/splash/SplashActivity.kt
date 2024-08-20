@@ -38,7 +38,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     private val isAdsInitializeCalled = AtomicBoolean(false)
     private var mInterstitialAd: InterstitialAd? = null
     private var adsConsentManager: AdsConsentManager? = null
-    private var mFirebaseAnalytics: FirebaseAnalytics? = null
+    private val mFirebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     val bundle = Bundle()
     override val layoutId: Int
@@ -151,14 +151,9 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         viewModel.nativeAdHome.observe(this) {
             adNativeHome = it
         }
-        viewModel.nativeAdLanguage.observe(this) {
-            adNativeLanguage = it
-        }
+
         viewModel.nativeAdIntro.observe(this) {
             adNativeIntro = it
-        }
-        viewModel.nativeAdDialog.observe(this) {
-            adNativeDialog = it
         }
     }
 
@@ -196,7 +191,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
             AdRequest.Builder().build(),
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
-                    mFirebaseAnalytics?.logEvent("e_load_inter_splash", null)
+                    mFirebaseAnalytics.logEvent("e_load_inter_splash", null)
                     mInterstitialAd = null
                     loadInterCount++
                     if (loadInterCount >= 3) {
@@ -207,7 +202,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
                 }
 
                 override fun onAdLoaded(ad: InterstitialAd) {
-                    mFirebaseAnalytics?.logEvent("d_load_inter_splash", null)
+                    mFirebaseAnalytics.logEvent("d_load_inter_splash", null)
                     mInterstitialAd = ad
                     loadInterCount = 0
                     viewModel.starTimeCount(5000)
@@ -242,8 +237,6 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     @SuppressLint("StaticFieldLeak")
     companion object {
         var adNativeHome: NativeAdView? = null
-        var adNativeLanguage: NativeAdView? = null
         var adNativeIntro: NativeAdView? = null
-        var adNativeDialog: NativeAdView? = null
     }
 }

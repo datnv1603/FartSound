@@ -51,6 +51,7 @@ abstract class BaseBindingActivity<B : ViewDataBinding, VM : BaseViewModel> : Ba
 
     override fun onResume() {
         super.onResume()
+//        setFullScreen()
         Adjust.onResume()
     }
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

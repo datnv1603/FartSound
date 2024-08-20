@@ -120,16 +120,7 @@ class MultiLangActivity : BaseBindingActivity<ActivityMultiLangBinding, MultiLan
     }
 
     private fun loadAds() {
-        SplashActivity.adNativeLanguage?.let {
-            val adContainer = binding.frNativeAds
-            if (it.parent != null) {
-                (it.parent as ViewGroup).removeView(it)
-            }
-            adContainer.removeAllViews()
-            adContainer.addView(it)
-        } ?: run {
-            loadNativeAd()
-        }
+        loadNativeAd()
     }
     private fun loadNativeAd() {
         if (FirebaseRemoteConfig.getInstance()
