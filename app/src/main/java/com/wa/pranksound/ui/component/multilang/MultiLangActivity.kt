@@ -10,6 +10,7 @@ import com.wa.pranksound.R
 import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.common.Constant
 import com.wa.pranksound.databinding.ActivityMultiLangBinding
+import com.wa.pranksound.databinding.AdNativeContentBinding
 import com.wa.pranksound.databinding.AdNativeVideoBinding
 import com.wa.pranksound.ui.adapter.MultiLangAdapter
 import com.wa.pranksound.ui.base.BaseBindingActivity
@@ -126,26 +127,38 @@ class MultiLangActivity : BaseBindingActivity<ActivityMultiLangBinding, MultiLan
         if (FirebaseRemoteConfig.getInstance()
                 .getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_LANGUAGE)
         ) {
-            loadNativeAds(keyNative)
+            val isSmallSize = FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_INTRO_SMALL)
+            loadNativeAds(keyNative, isSmallSize)
         } else {
             binding.rlNative.gone()
         }
     }
 
-    private fun loadNativeAds(keyAds: String) {
+    private fun loadNativeAds(keyAds: String, smallSize: Boolean = true) {
         this.let {
             NativeAdsUtils.instance.loadNativeAds(
                 applicationContext,
                 keyAds
             ) { nativeAds ->
                 if (nativeAds != null) {
-                    val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
-                    NativeAdsUtils.instance.populateNativeAdVideoView(
-                        nativeAds,
-                        adNativeVideoBinding.root as NativeAdView
-                    )
-                    binding.frNativeAds.removeAllViews()
-                    binding.frNativeAds.addView(adNativeVideoBinding.root)
+                    if (smallSize) {
+                        val adNativeVideoBinding = AdNativeContentBinding.inflate(layoutInflater)
+                        NativeAdsUtils.instance.populateNativeAdVideoView(
+                            nativeAds,
+                            adNativeVideoBinding.root
+                        )
+                        binding.frNativeAds.removeAllViews()
+                        binding.frNativeAds.addView(adNativeVideoBinding.root)
+                    } else {
+                        val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
+                        NativeAdsUtils.instance.populateNativeAdVideoView(
+                            nativeAds,
+                            adNativeVideoBinding.root as NativeAdView
+                        )
+                        binding.frNativeAds.removeAllViews()
+                        binding.frNativeAds.addView(adNativeVideoBinding.root)
+                    }
                 }
             }
         }

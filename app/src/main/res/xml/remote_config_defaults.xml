@@ -23,6 +23,10 @@
         <value>true</value>
     </entry>
     <entry>
+        <key>is_show_ads_native_intro_small</key>
+        <value>true</value>
+    </entry>
+    <entry>
         <key>is_show_ads_native_language</key>
         <value>true</value>
     </entry>

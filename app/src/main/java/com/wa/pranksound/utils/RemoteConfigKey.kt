@@ -16,6 +16,7 @@ object RemoteConfigKey {
     const val IS_SHOW_ADS_INTER_SOUND= "is_show_ads_inter_sound"
 
     const val IS_SHOW_ADS_NATIVE_INTRO = "is_show_ads_native_intro"
+    const val IS_SHOW_ADS_NATIVE_INTRO_SMALL = "is_show_ads_native_intro_small"
     const val IS_SHOW_ADS_NATIVE_LANGUAGE = "is_show_ads_native_language"
     const val IS_SHOW_ADS_NATIVE_HOME = "is_show_ads_native_home"
     const val IS_SHOW_ADS_NATIVE_SOUND = "is_show_ads_native_sound"

@@ -13,6 +13,7 @@ import com.wa.pranksound.ui.base.BaseViewModel
 import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.NativeAdsUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class SplashViewModel : BaseViewModel() {
@@ -21,6 +22,11 @@ class SplashViewModel : BaseViewModel() {
     val isCompleteLiveData: LiveData<Boolean>
         get() = _isCompleteMutableLiveData
 
+    override fun onCleared() {
+        super.onCleared()
+        timer?.cancel()
+        viewModelScope.cancel()
+    }
     private fun createCountDownTimer(time : Long): CountDownTimer {
         return object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {

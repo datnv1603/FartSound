@@ -181,6 +181,8 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
             val keyAdInterAllPrice =
                 FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.INTER_SPLASH)
             loadInterAdsSplash(keyAdInterAllPrice)
+        } else {
+            viewModel.starTimeCount(5000)
         }
     }
 
