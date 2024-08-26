@@ -60,7 +60,8 @@
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/backward"/>
 
             <com.wa.pranksound.utils.customview.StrokeTextView
                 android:id="@+id/tvTitle"
@@ -190,7 +191,8 @@
                     android:src="@drawable/ic_checkbox_selector"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/loop"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.airbnb.lottie.LottieAnimationView
@@ -219,7 +221,7 @@
 
 
             <TextView
-                android:id="@+id/txtCountTime"
+                android:id="@+id/tvCountTime"
                 style="@style/TextAppearance.AppCompat.Display1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -237,7 +239,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/txtCountTime">
+                app:layout_constraintTop_toBottomOf="@id/tvCountTime">
 
                 <ImageButton
                     android:id="@+id/btnVolumeSmall"

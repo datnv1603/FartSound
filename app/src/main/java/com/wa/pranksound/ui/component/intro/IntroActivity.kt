@@ -2,7 +2,6 @@ package com.wa.pranksound.ui.component.intro
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.adjust.sdk.Adjust
@@ -17,7 +16,6 @@ import com.wa.pranksound.databinding.AdNativeContentBinding
 import com.wa.pranksound.databinding.AdNativeVideoBinding
 import com.wa.pranksound.ui.adapter.IntroAdapter
 import com.wa.pranksound.ui.base.BaseBindingActivity
-import com.wa.pranksound.ui.component.splash.SplashActivity
 import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.NativeAdsUtils
 import com.wa.pranksound.utils.extention.gone
@@ -111,16 +109,7 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
     }
 
     private fun loadAds() {
-        SplashActivity.adNativeIntro?.let {
-            val adContainer = binding.frNativeAds
-            if (it.parent != null) {
-                (it.parent as ViewGroup).removeView(it)
-            }
-            adContainer.removeAllViews()
-            adContainer.addView(it)
-        } ?: run {
-            loadNativeAd()
-        }
+        loadNativeAd()
     }
 
     private fun loadNativeAd() {

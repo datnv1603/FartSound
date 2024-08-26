@@ -49,59 +49,22 @@ class SplashViewModel : BaseViewModel() {
     }
     fun loadAds(context: Context) {
         viewModelScope.launch(Dispatchers.IO) {
-            loadNativeIntro(context)
             loadNativeHome(context)
         }
     }
-
-    private val _nativeAdIntro: MutableLiveData<NativeAdView> = MutableLiveData()
-    val nativeAdIntro: LiveData<NativeAdView>
-        get() = _nativeAdIntro
 
     private val _nativeAdHome: MutableLiveData<NativeAdView> = MutableLiveData()
     val nativeAdHome: LiveData<NativeAdView>
         get() = _nativeAdHome
 
-    private val _nativeAdDialog: MutableLiveData<NativeAdView> = MutableLiveData()
-    val nativeAdDialog: LiveData<NativeAdView>
-        get() = _nativeAdDialog
-
     private fun loadNativeHome(context: Context) {
         if (FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_HOME)) {
             val keyAdNativeAllPrice = FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_HOME)
-            loadNativeContent(context = context, keyAdNativeAllPrice, _nativeAdHome)
+            loadNativeContent(context = context, keyAdNativeAllPrice)
         }
     }
 
-    private fun loadNativeIntro(context: Context) {
-        if (FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_INTRO)) {
-            val keyAdNativeAllPrice = FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_INTRO)
-            loadNativeVideo(context = context, keyAdNativeAllPrice, _nativeAdIntro)
-        }
-    }
-
-    private fun loadNativeVideo(context: Context, keyAd : String, nativeAd: MutableLiveData<NativeAdView>) {
-        val adView = NativeAdView(context)
-        NativeAdsUtils.instance.loadNativeAds(
-            context,
-            keyAd
-        ) { nativeAds ->
-            if (nativeAds != null) {
-                val adLayoutView =
-                    LayoutInflater.from(context)
-                        .inflate(R.layout.ad_native_video, adView, false) as NativeAdView
-                NativeAdsUtils.instance.populateNativeAdVideoView(
-                    nativeAds,
-                    adLayoutView
-                )
-                adView.removeAllViews()
-                adView.addView(adLayoutView)
-                nativeAd.postValue(adView)
-            }
-        }
-    }
-
-    private fun loadNativeContent(context: Context, keyAd : String, nativeAd: MutableLiveData<NativeAdView>) {
+    private fun loadNativeContent(context: Context, keyAd : String) {
         val adView = NativeAdView(context)
         NativeAdsUtils.instance.loadNativeAds(
             context,
@@ -117,7 +80,7 @@ class SplashViewModel : BaseViewModel() {
                 )
                 adView.removeAllViews()
                 adView.addView(adLayoutView)
-                nativeAd.postValue(adView)
+                _nativeAdHome.postValue(adView)
             }
         }
     }

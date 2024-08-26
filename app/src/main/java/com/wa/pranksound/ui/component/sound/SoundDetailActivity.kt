@@ -18,28 +18,20 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
-import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room.databaseBuilder
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
 import com.adjust.sdk.AdjustConfig
-import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
@@ -67,7 +59,6 @@ import com.wa.pranksound.room.InsertPrankSound
 import com.wa.pranksound.room.QueryClass
 import com.wa.pranksound.ui.base.BaseBindingActivity
 import com.wa.pranksound.ui.component.main.MainActivity
-import com.wa.pranksound.utils.BaseActivity
 import com.wa.pranksound.utils.ImageLoader
 import com.wa.pranksound.utils.KeyClass
 import com.wa.pranksound.utils.RemoteConfigKey
@@ -80,16 +71,16 @@ import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setOnSafeClick
+import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
-import java.util.Arrays
-import java.util.Collections
 import java.util.Date
 import java.util.Objects
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.pow
 
-class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, SoundDetailViewModel>() {
+class SoundDetailActivity :
+    BaseBindingActivity<ActivitySoundDetailBinding, SoundDetailViewModel>() {
 
     private var adsConsentManager: AdsConsentManager? = null
     private val isAdsInitializeCalled = AtomicBoolean(false)
@@ -103,52 +94,29 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
     private var keyAdBanner: String =
         FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.BANNER_SOUND)
 
-
-    var imgBack: ImageView? = null
-    var imgItem: ImageView? = null
-    var imgPlayPause: ImageView? = null
-    var imgHeart: ImageView? = null
-    var imgAnimation: LottieAnimationView? = null
-
     var isPlaying: Boolean = false
-    var isLoop: Boolean = false
-    var strMusicName: String? = null
-    var txtTitle: TextView? = null
-    var endTime: TextView? = null
-    var txtCountTime: TextView? = null
-    var tvOff: TextView? = null
-    var systemService: Vibrator? = null
+    private var isLoop: Boolean = false
+    private var strMusicName: String? = null
+    private var systemService: Vibrator? = null
     var mediaPlayer: MediaPlayer? = MediaPlayer()
-    var seekBar: ProgressBar? = null
-    var handler: Handler = Handler()
-    var runnable: Runnable? = null
-    var swLoop: ImageButton? = null
-    var rvSound: RecyclerView? = null
-    var queryClass: QueryClass? = null
-    var strCateName: String? = null
-    var arrFavPrankSound: List<InsertPrankSound?> = ArrayList()
-    var horizontalSoundAdapter: HorizontalFavoriteSoundAdapter? = null
-    var isFav: Boolean = false
-    var countDownTimer: CountDownTimer? = null
-    var cate: List<String>? = null
-    var images: Array<String>? = null
-    var string_img_sound: String? = null
-    var int_img_sound: Int? = null
-    var soundName: String? = null
-    var soundPath: String? = null
-    var llBtnOff: LinearLayout? = null
-    var llMoreSound: LinearLayout? = null
-    var fl_banner: FrameLayout? = null
-    var view_line: View? = null
-    var animGuide: LottieAnimationView? = null
-    var viewBlur: View? = null
 
-    var btnVolumeLoud: ImageButton? = null
-    var btnVolumeSmall: ImageButton? = null
-    var btnDelete: ImageButton? = null
-    var volume: SeekBar? = null
+    var handler: Handler = Handler(Looper.getMainLooper())
+    var runnable: Runnable? = null
+    private var queryClass: QueryClass? = null
+    private var strCateName: String? = null
+    private var arrFavPrankSound: List<InsertPrankSound?> = ArrayList()
+    private var horizontalSoundAdapter: HorizontalFavoriteSoundAdapter? = null
+    private var isFav: Boolean = false
+    private var countDownTimer: CountDownTimer? = null
+    private var cate: List<String>? = null
+    private var images: Array<String>? = null
+    private var string_img_sound: String? = null
+    private var int_img_sound: Int? = null
+    private var soundName: String? = null
+    private var soundPath: String? = null
+
     private var audioManager: AudioManager? = null
-    var isRecord: Boolean? = null
+    private var isRecord: Boolean = false
 
     override val layoutId: Int
         get() = R.layout.activity_sound_detail
@@ -159,8 +127,6 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             databaseBuilder(this, AppDatabase::class.java, "prank_sound").allowMainThreadQueries()
                 .fallbackToDestructiveMigration().build()
         queryClass = db.queryClass()
-
-        findView()
         data
         clickEvent()
 
@@ -172,20 +138,21 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
         initAdsManager()
         binding.btnBack.setOnSafeClick {
             finish()
-            showInterstitial {  }
+            showInterstitial { }
         }
     }
+
     private fun setUpVolume() {
         audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
 
         val maxVolume = audioManager!!.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         val currentVolume = audioManager!!.getStreamVolume(AudioManager.STREAM_MUSIC)
 
-        volume!!.max = maxVolume
-        volume!!.progress = currentVolume
-        btnVolumeSmall!!.setOnClickListener { v: View? -> volume!!.progress = maxVolume / 5 }
-        btnVolumeLoud!!.setOnClickListener { v: View? -> volume!!.progress = 4 * maxVolume / 5 }
-        volume!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        binding.volumeSeekBar.max = maxVolume
+        binding.volumeSeekBar.progress = currentVolume
+        binding.btnVolumeSmall.setOnClickListener { binding.volumeSeekBar.progress = maxVolume / 5 }
+        binding.btnVolumeLoud.setOnClickListener { binding.volumeSeekBar.progress = 4 * maxVolume / 5 }
+        binding.volumeSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 audioManager!!.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0)
             }
@@ -204,7 +171,8 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             soundName = intent.getStringExtra("sound_name")
 
             systemService = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+                val vibratorManager =
+                    getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
                 vibratorManager.defaultVibrator
             } else {
                 getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -247,9 +215,9 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
                 val verticalSoundAdapter = HorizontalSoundAdapterTest(listSound) { position: Int ->
                     val sound = listSound[position]
                     getData(sound)
-                    showInterstitial {  }
+                    showInterstitial { }
                 }
-                rvSound!!.adapter = verticalSoundAdapter
+                binding.rvSound.adapter = verticalSoundAdapter
             } catch (e: IOException) {
                 throw RuntimeException(e)
             }
@@ -270,34 +238,33 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
 
     private fun setUpSound() {
         val insertPrankSound1 = queryClass!!.getFavSound(strCateName, strMusicName)
-        if (isRecord!!) {
-            llMoreSound!!.visibility = View.GONE
-            btnDelete!!.visibility = View.VISIBLE
-            imgHeart!!.visibility = View.GONE
+        if (isRecord) {
+            binding.llMoreSounds.gone()
+            binding.btnDelete.visible()
+            binding.imgHeart.gone()
         } else {
-            btnDelete!!.visibility = View.GONE
-            imgHeart!!.visibility = View.VISIBLE
-            imgHeart!!.isSelected = insertPrankSound1 != null
+            binding.btnDelete.gone()
+            binding.imgHeart.visible()
+            binding.imgHeart.isSelected = insertPrankSound1 != null
         }
 
 
         if (strMusicName != null) {
-            txtTitle!!.text = strMusicName
+            binding.tvTitle.text = strMusicName
         }
 
         if (strCateName != null) {
             //load ảnh từ file asset
 
             if (int_img_sound != 0) {
-                //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), int_img_sound);
-                Glide.with(this).load(int_img_sound).into(imgItem!!)
+                Glide.with(this).load(int_img_sound).into(binding.imgItem)
             } else {
                 if (!string_img_sound!!.contains("png")) {
                     val bitmap = BitmapFactory.decodeResource(resources, string_img_sound!!.toInt())
-                    Glide.with(this).load(bitmap).into(imgItem!!)
+                    Glide.with(this).load(bitmap).into(binding.imgItem)
                 } else {
                     Glide.with(this).load("file:///android_asset/$string_img_sound").into(
-                        imgItem!!
+                        binding.imgItem
                     )
                 }
             }
@@ -313,7 +280,6 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
                 //set sound from asset or record
                 if (soundPath != null) {
                     try {
-                        // Đặt nguồn dữ liệu cho MediaPlayer từ File
                         mediaPlayer!!.setDataSource(soundPath)
                     } catch (ignored: IOException) {
                     }
@@ -327,31 +293,31 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
                     descriptor.close()
                 }
                 mediaPlayer!!.prepare()
-                val length = mediaPlayer!!.duration // lấy giá trị độ dài của sound
+                val length = mediaPlayer!!.duration
 
                 val durationText =
                     DateUtils.formatElapsedTime((length / 1000).toLong()) // converting time in millis to minutes:second format eg 14:15 min
-                endTime!!.text = durationText
-                seekBar!!.max = length
+                binding.endTime.text = durationText
+                binding.seekBar.max = length
 
                 runnable = Runnable {
                     if (mediaPlayer != null) {
-                        seekBar!!.progress = mediaPlayer!!.currentPosition
+                        binding.seekBar.progress = mediaPlayer!!.currentPosition
                         handler.postDelayed(runnable!!, 5)
                     }
                 }
 
-                mediaPlayer!!.setOnCompletionListener { mp: MediaPlayer? ->
+                mediaPlayer!!.setOnCompletionListener {
                     if (!isLoop) {
                         if (mediaPlayer != null) {
-                            seekBar!!.progress = mediaPlayer!!.duration
+                            binding.seekBar.progress = mediaPlayer!!.duration
                         }
                         isPlaying = false
                         //set anim
-                        imgAnimation!!.visibility = View.INVISIBLE
+                        binding.animation.visibility = View.INVISIBLE
                         stopVibrate()
                     } else {
-                        seekBar!!.progress = 0
+                        binding.seekBar.progress = 0
                         mediaPlayer!!.start()
                         startVibrate()
                     }
@@ -362,35 +328,9 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
         }
     }
 
-    private fun findView() {
-        imgBack = findViewById(R.id.btnBack)
-        imgItem = findViewById(R.id.imgItem)
-        txtTitle = findViewById(R.id.tvTitle)
-        imgPlayPause = findViewById(R.id.imgPlayPause)
-        endTime = findViewById(R.id.endTime)
-        seekBar = findViewById(R.id.seekBar)
-        swLoop = findViewById(R.id.swLoop)
-        rvSound = findViewById(R.id.rvSound)
-        imgHeart = findViewById(R.id.imgHeart)
-        txtCountTime = findViewById(R.id.txtCountTime)
-        tvOff = findViewById(R.id.tvOff)
-        volume = findViewById(R.id.volumeSeekBar)
-        btnVolumeLoud = findViewById(R.id.btnVolumeLoud)
-        btnVolumeSmall = findViewById(R.id.btnVolumeSmall)
-        btnDelete = findViewById(R.id.btnDelete)
-
-        imgAnimation = findViewById(R.id.animation)
-        viewBlur = findViewById(R.id.viewBlur)
-
-        view_line = findViewById(R.id.line)
-        llBtnOff = findViewById(R.id.llBtnOff)
-        llMoreSound = findViewById(R.id.llMoreSounds)
-        animGuide = findViewById(R.id.animGuide)
-    }
-
     private fun startCountDownTimer(i: Int, txtCountTime: TextView?) {
-        imgPlayPause!!.isEnabled = false
-        imgAnimation!!.visibility = View.INVISIBLE
+        binding.imgPlayPause.isEnabled = false
+        binding.animation.visibility = View.INVISIBLE
         if (countDownTimer != null) {
             countDownTimer!!.cancel()
         }
@@ -406,10 +346,11 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             }
 
             override fun onFinish() {
-                tvOff!!.setText(R.string._off)
-                txtCountTime!!.text = ""
+                binding.tvOff.setText(R.string._off)
+                val text = ""
+                txtCountTime!!.text = text
                 isPlaying = true
-                imgAnimation!!.visibility = View.VISIBLE
+                binding.animation.visibility = View.VISIBLE
                 if (mediaPlayer != null) {
                     if (!mediaPlayer!!.isPlaying) {
                         mediaPlayer!!.start()
@@ -426,23 +367,23 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
     private fun clickEvent() {
         val isFirsTime = getBoolean(KEY_IS_FIRST_OPEN_SOUND, true)
         if (isFirsTime) {
-            animGuide!!.visibility = View.VISIBLE
-            viewBlur!!.visibility = View.VISIBLE
+            binding.animGuide.visible()
+            binding.viewBlur.visible()
         } else {
-            animGuide!!.visibility = View.GONE
-            viewBlur!!.visibility = View.GONE
+            binding.animGuide.gone()
+            binding.viewBlur.gone()
         }
 
-        animGuide!!.setOnTouchListener { _: View?, _: MotionEvent? ->
+        binding.animGuide.setOnTouchListener { _: View?, _: MotionEvent? ->
             storeBoolean(KEY_IS_FIRST_OPEN_SOUND, false)
-            animGuide!!.visibility = View.GONE
-            viewBlur!!.visibility = View.GONE
+            binding.animGuide.gone()
+            binding.viewBlur.gone()
             true
         }
 
-        imgBack!!.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        binding.btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
-        llBtnOff!!.setOnClickListener { v: View? ->
+        binding.llBtnOff.setOnClickListener { v: View? ->
             val popupMenu = PopupMenu(
                 ContextThemeWrapper(
                     this@SoundDetailActivity, R.style.myPopupMenu
@@ -450,57 +391,76 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             )
             popupMenu.menuInflater.inflate(R.menu.set_time, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-                if (item.itemId == R.id.five) {
-                    startCountDownTimer(5000, txtCountTime)
-                    tvOff!!.setText(R.string._5s)
-                    return@setOnMenuItemClickListener true
-                } else if (item.itemId == R.id.fiveMinute) {
-                    startCountDownTimer(300000, txtCountTime)
-                    tvOff!!.setText(R.string._5m)
-                    return@setOnMenuItemClickListener true
-                } else if (item.itemId == R.id.off) {
-                    if (countDownTimer != null) {
-                        countDownTimer!!.cancel()
+                when (item.itemId) {
+                    R.id.five -> {
+                        startCountDownTimer(5000, binding.tvCountTime)
+                        binding.tvOff.setText(R.string._5s)
+                        return@setOnMenuItemClickListener true
                     }
-                    imgPlayPause!!.isEnabled = true
-                    txtCountTime!!.text = ""
-                    tvOff!!.setText(R.string._off)
-                    return@setOnMenuItemClickListener true
-                } else if (item.itemId == R.id.oneMinute) {
-                    startCountDownTimer(60000, txtCountTime)
-                    tvOff!!.setText(R.string._1m)
-                    return@setOnMenuItemClickListener true
-                } else if (item.itemId == R.id.ten) {
-                    startCountDownTimer(10000, txtCountTime)
-                    tvOff!!.setText(R.string._10s)
-                    return@setOnMenuItemClickListener true
-                } else if (item.itemId == R.id.thirty) {
-                    startCountDownTimer(30000, txtCountTime)
-                    tvOff!!.setText(R.string._30s)
-                    return@setOnMenuItemClickListener true
-                } else {
-                    return@setOnMenuItemClickListener false
+
+                    R.id.fiveMinute -> {
+                        startCountDownTimer(300000, binding.tvCountTime)
+                        binding.tvOff.setText(R.string._5m)
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    R.id.off -> {
+                        if (countDownTimer != null) {
+                            countDownTimer!!.cancel()
+                        }
+                        binding.imgPlayPause.isEnabled = true
+                        val text = ""
+                        binding.tvCountTime.text = text
+                        binding.tvOff.setText(R.string._off)
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    R.id.oneMinute -> {
+                        startCountDownTimer(60000, binding.tvCountTime)
+                        binding.tvOff.setText(R.string._1m)
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    R.id.ten -> {
+                        startCountDownTimer(10000, binding.tvCountTime)
+                        binding.tvOff.setText(R.string._10s)
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    R.id.thirty -> {
+                        startCountDownTimer(30000, binding.tvCountTime)
+                        binding.tvOff.setText(R.string._30s)
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    else -> {
+                        return@setOnMenuItemClickListener false
+                    }
                 }
             }
             popupMenu.show()
         }
 
-        imgItem!!.setOnTouchListener { _: View?, event: MotionEvent ->
+        binding.imgItem.setOnTouchListener { _: View?, event: MotionEvent ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     if (mediaPlayer != null) {
                         if (!mediaPlayer!!.isPlaying) {
-                            imgAnimation!!.visibility = View.VISIBLE
-                            imgAnimation!!.playAnimation()
+                            binding.animation.visibility = View.VISIBLE
+                            binding.animation.playAnimation()
                             mediaPlayer!!.seekTo(0)
                             mediaPlayer!!.isLooping = true
                             mediaPlayer!!.start()
                             startVibrate()
+                            val params = Bundle()
+                            if (isRecord) params.putString("Sound_name", "record")
+                            else params.putString("Sound_name", soundName)
+                            mFirebaseAnalytics.logEvent("e_play_sound", params)
                         } else {
                             if (isLoop) {
                                 mediaPlayer!!.pause()
                                 stopVibrate()
-                                imgAnimation!!.visibility = View.INVISIBLE
+                                binding.animation.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -513,7 +473,7 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
                             if (mediaPlayer!!.isPlaying) {
                                 mediaPlayer!!.pause()
                                 stopVibrate()
-                                imgAnimation!!.visibility = View.INVISIBLE
+                                binding.animation.visibility = View.INVISIBLE
                             }
                         }
                     }
@@ -524,12 +484,12 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             }
         }
 
-        //test favories
-        imgHeart!!.setOnClickListener { v: View? ->
+        //test favourite
+        binding.imgHeart.setOnClickListener {
             val insertPrankSound1 = queryClass!!.getFavSound(strCateName, strMusicName)
             if (insertPrankSound1 != null) {
                 queryClass!!.getUnFavSound(strCateName, strMusicName)
-                imgHeart!!.isSelected = false
+                binding.imgHeart.isSelected = false
             } else {
                 val insertPrankSound = InsertPrankSound()
                 insertPrankSound.folder_name = strCateName
@@ -542,7 +502,7 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
                     insertPrankSound.image_path = string_img_sound
                 }
                 queryClass!!.insertPrankSound(insertPrankSound)
-                imgHeart!!.isSelected = true
+                binding.imgHeart.isSelected = true
             }
             if (isFav) {
                 arrFavPrankSound = queryClass!!.allFavSound
@@ -553,12 +513,12 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             }
         }
 
-        swLoop!!.setOnClickListener {
-            swLoop!!.isSelected = !swLoop!!.isSelected
-            isLoop = swLoop!!.isSelected
+        binding.swLoop.setOnClickListener {
+            binding.swLoop.isSelected = !binding.swLoop.isSelected
+            isLoop = binding.swLoop.isSelected
         }
 
-        btnDelete!!.setOnClickListener {
+        binding.btnDelete.setOnClickListener {
             showDiscardDialog {
                 deleteRecord(strMusicName)
                 startActivity(Intent(this@SoundDetailActivity, MainActivity::class.java))
@@ -591,7 +551,7 @@ class SoundDetailActivity : BaseBindingActivity<ActivitySoundDetailBinding, Soun
             if (mediaPlayer!!.isPlaying) {
                 mediaPlayer!!.pause()
                 stopVibrate()
-                imgAnimation!!.visibility = View.INVISIBLE
+                binding.animation.visibility = View.INVISIBLE
             }
         }
         if (countDownTimer != null) {

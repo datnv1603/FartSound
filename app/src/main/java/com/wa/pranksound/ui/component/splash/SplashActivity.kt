@@ -151,10 +151,6 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         viewModel.nativeAdHome.observe(this) {
             adNativeHome = it
         }
-
-        viewModel.nativeAdIntro.observe(this) {
-            adNativeIntro = it
-        }
     }
 
     override fun onResume() {
@@ -239,6 +235,5 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     @SuppressLint("StaticFieldLeak")
     companion object {
         var adNativeHome: NativeAdView? = null
-        var adNativeIntro: NativeAdView? = null
     }
 }
