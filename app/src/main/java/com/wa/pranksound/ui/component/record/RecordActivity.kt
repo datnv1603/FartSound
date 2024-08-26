@@ -38,11 +38,11 @@ import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.databinding.ActivityRecordBinding
 import com.wa.pranksound.ui.base.BaseBindingActivity
 import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.invisible
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
 import java.io.File
@@ -473,7 +473,7 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
     }
 
     fun showInterstitial(isReload: Boolean = true, onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }

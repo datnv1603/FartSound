@@ -1,6 +1,7 @@
 package com.wa.pranksound.utils
 
 import android.content.Context
+import android.net.ConnectivityManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.wa.pranksound.model.Record
@@ -41,5 +42,16 @@ object Utils {
             return input
         }
         return input.substring(0, input.indexOf('.'))
+    }
+
+    fun checkInternetConnection(ctx: Context): Boolean {
+        val conMgr = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        return try {
+            (conMgr.activeNetworkInfo?.isAvailable == true
+                    && conMgr.activeNetworkInfo?.isConnected == true)
+        } catch (e: NullPointerException) {
+            false
+        }
     }
 }

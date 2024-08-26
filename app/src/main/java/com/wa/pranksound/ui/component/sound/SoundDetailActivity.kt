@@ -62,6 +62,7 @@ import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.utils.ImageLoader
 import com.wa.pranksound.utils.KeyClass
 import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.Utils.getAudioList
 import com.wa.pranksound.utils.Utils.getVibration
 import com.wa.pranksound.utils.Utils.removeAfterDot
@@ -69,7 +70,6 @@ import com.wa.pranksound.utils.Utils.saveAudioList
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
@@ -733,7 +733,7 @@ class SoundDetailActivity :
     }
 
     fun showInterstitial(isReload: Boolean = true, onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }

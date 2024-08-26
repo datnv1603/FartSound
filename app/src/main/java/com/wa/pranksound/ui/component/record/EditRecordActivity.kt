@@ -50,7 +50,6 @@ import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.invisible
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.visible
 import java.io.File
 import java.io.FileInputStream
@@ -762,7 +761,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
     }
 
     fun showInterstitial(isReload: Boolean = true, onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }

@@ -26,8 +26,8 @@ import com.wa.pranksound.databinding.ActivitySplashBinding
 import com.wa.pranksound.ui.base.BaseBindingActivity
 import com.wa.pranksound.ui.component.multilang.MultiLangActivity
 import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setStatusBarColor
 import java.util.Date
 import java.util.concurrent.atomic.AtomicBoolean
@@ -50,7 +50,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         super.onCreate(savedInstanceState)
         initAdsManager()
         init()
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             viewModel.starTimeCount(5000)
         }
     }
@@ -105,7 +105,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     }
 
     private fun showInterstitial(onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }

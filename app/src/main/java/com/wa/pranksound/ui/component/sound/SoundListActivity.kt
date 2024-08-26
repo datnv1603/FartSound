@@ -4,11 +4,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
 import com.adjust.sdk.AdjustConfig
@@ -36,9 +31,9 @@ import com.wa.pranksound.ui.base.BaseBindingActivity
 import com.wa.pranksound.utils.ImageLoader
 import com.wa.pranksound.utils.KeyClass
 import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.NativeAdsUtils.Companion.instance
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import java.io.IOException
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -265,7 +260,7 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
     }
 
     fun showInterstitial(isReload: Boolean = true, onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }

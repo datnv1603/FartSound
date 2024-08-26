@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import com.adjust.sdk.Adjust
@@ -22,8 +21,8 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.wa.pranksound.R
+import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.extention.gone
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.visible
 
 class BannerUtils {
@@ -49,7 +48,7 @@ class BannerUtils {
         val adContainer = mActivity.findViewById<FrameLayout>(R.id.banner_container)
         val containerShimmer =
             mActivity.findViewById<ShimmerFrameLayout>(R.id.shimmer_container_banner)
-        if (!mActivity.isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(mActivity)) {
             adContainer.gone()
             containerShimmer.gone()
             adsLoadCallBack(false)
@@ -153,13 +152,12 @@ class BannerUtils {
         }
     }
 
-
     //Load CollapsibleBanner in activity
     fun loadCollapsibleBanner(mActivity: Activity, id: String, adsLoadCallBack: (Boolean) -> Unit) {
         val adContainer = mActivity.findViewById<FrameLayout>(R.id.banner_container)
         val containerShimmer =
             mActivity.findViewById<ShimmerFrameLayout>(R.id.shimmer_container_banner)
-        if (!mActivity.isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(mActivity)) {
             adContainer.gone()
             containerShimmer.gone()
             adsLoadCallBack(false)
@@ -218,7 +216,6 @@ class BannerUtils {
                     adContainer.gone()
                     containerShimmer.gone()
                     adsLoadCallBack(false)
-                    Log.d("datnv", "onAdFailedToLoad: " + loadAdError.message)
                 }
 
                 override fun onAdLoaded() {
@@ -245,7 +242,7 @@ class BannerUtils {
                         )
                         params.putString(FirebaseAnalytics.Param.AD_SOURCE, "AdMob")
                         params.putString(FirebaseAnalytics.Param.AD_FORMAT, "Banner")
-                        params.putDouble(FirebaseAnalytics.Param.VALUE, revenue)
+                        params.putDouble(FirebaseAnalytics.Param.VALUE, revenue )
                         params.putString(FirebaseAnalytics.Param.CURRENCY, "USD")
                         analytics.logEvent("ad_impression_2", params)
                     }

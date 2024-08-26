@@ -39,10 +39,10 @@ import com.wa.pranksound.ui.component.fragment.LeaderBoardFragment
 import com.wa.pranksound.ui.component.settings.SettingsActivity
 import com.wa.pranksound.utils.Gdpr
 import com.wa.pranksound.utils.RemoteConfigKey
+import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
-import com.wa.pranksound.utils.extention.isNetworkAvailable
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -466,7 +466,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     fun showInterstitial(onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }
@@ -521,7 +521,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
-        if (!isNetworkAvailable()) {
+        if (!Utils.checkInternetConnection(this)) {
             onAdDismissedAction.invoke()
             return
         }
