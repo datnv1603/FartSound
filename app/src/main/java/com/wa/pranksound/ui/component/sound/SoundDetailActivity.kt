@@ -70,6 +70,7 @@ import com.wa.pranksound.utils.Utils.saveAudioList
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
+import com.wa.pranksound.utils.extention.invisible
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
@@ -272,6 +273,8 @@ class SoundDetailActivity :
             try {
                 if (mediaPlayer != null) {
                     mediaPlayer!!.release()
+                    stopVibrate()
+                    binding.animation.invisible()
                 }
                 mediaPlayer = MediaPlayer()
                 if (strCateName == "record") {
@@ -314,7 +317,7 @@ class SoundDetailActivity :
                         }
                         isPlaying = false
                         //set anim
-                        binding.animation.visibility = View.INVISIBLE
+                        binding.animation.invisible()
                         stopVibrate()
                     } else {
                         binding.seekBar.progress = 0
@@ -627,7 +630,7 @@ class SoundDetailActivity :
     }
 
     private fun loadAds() {
-        if (FirebaseRemoteConfig.getInstance()
+        if (Utils.checkInternetConnection(this) && FirebaseRemoteConfig.getInstance()
                 .getBoolean(RemoteConfigKey.IS_SHOW_ADS_BANNER_SOUND)
         ) {
             loadBanner()

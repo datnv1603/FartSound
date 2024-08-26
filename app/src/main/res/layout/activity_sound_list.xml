@@ -57,6 +57,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imgOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@color/transparent"
+                android:contentDescription="@string/backward"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/_10sdp"
+                android:src="@drawable/ic_tick_rounded"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

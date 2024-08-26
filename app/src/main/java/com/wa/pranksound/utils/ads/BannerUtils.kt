@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
 import com.adjust.sdk.Adjust
@@ -216,6 +217,9 @@ class BannerUtils {
                     adContainer.gone()
                     containerShimmer.gone()
                     adsLoadCallBack(false)
+                    Log.d("datnv", "onAdFailedToLoad: ${loadAdError.message}")
+                    Log.d("datnv", "onAdFailedToLoad: ${loadAdError.responseInfo}")
+                    Log.d("datnv", "onAdFailedToLoad: ${loadAdError.cause}")
                 }
 
                 override fun onAdLoaded() {
@@ -223,6 +227,7 @@ class BannerUtils {
                     containerShimmer.gone()
                     adContainer.visible()
                     adsLoadCallBack(true)
+                    Log.d("datnv", "onAdLoaded: ")
                     adView.onPaidEventListener = OnPaidEventListener { adValue: AdValue ->
                         val loadedAdapterResponseInfo: AdapterResponseInfo? =
                             adView.responseInfo?.loadedAdapterResponseInfo

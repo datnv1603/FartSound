@@ -1,5 +1,6 @@
 package com.wa.pranksound.ui.component.sound
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -34,6 +35,8 @@ import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.NativeAdsUtils.Companion.instance
+import com.wa.pranksound.utils.extention.setOnSafeClick
+import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -45,11 +48,12 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
     private val isAdsInitializeCalled = AtomicBoolean(false)
     private val mFirebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
     private var mInterstitialAd: InterstitialAd? = null
-
     private var retryAttempt = 0.0
 
     private var keyNative: String =
         FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_SOUND)
+
+    private var sound: Sound? = null
 
     override val layoutId: Int
         get() = R.layout.activity_sound_list
@@ -115,16 +119,33 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                     }
                     listSound.add(sound)
                 }
-                val verticalSoundAdapter = VerticalSoundAdapterTest(listSound) {
-                    showInterstitial {  }
+                val verticalSoundAdapter = VerticalSoundAdapterTest(listSound) { sound ->
+                    binding.imgOK.visible()
+                    this.sound = sound
                 }
                 binding.rvSound.setAdapter(verticalSoundAdapter)
+                binding.imgOK.setOnSafeClick {
+                    this.sound?.let {
+                        intent = Intent(this, SoundDetailActivity::class.java)
+                        intent.putExtra(KeyClass.is_fav, false)
+                        intent.putExtra(KeyClass.music_name, soundName(it.name))
+                        intent.putExtra(KeyClass.cate_name, it.typeSound)
+                        intent.putExtra(KeyClass.image_sound, it.image)
+                        this.startActivity(intent)
+                        showInterstitial {  }
+                    }
+                }
             }
         } catch (e: IOException) {
             throw RuntimeException(e)
         }
 
         binding.imgBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+    }
+
+    private fun soundName(sound: String): String {
+        val soundName = sound.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        return soundName[0]
     }
 
     override fun onResume() {
