@@ -16,7 +16,6 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.OnPaidEventListener
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.wa.pranksound.R
@@ -63,7 +62,7 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
             }
             finish()
         }
-        val countDownTimer = object : CountDownTimer(60000, 1000) {
+        val countDownTimer = object : CountDownTimer(90000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
 
             }
@@ -79,7 +78,6 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         adsConsentManager = AdsConsentManager.getInstance(applicationContext)
         adsConsentManager?.gatherConsent(this) { consentError ->
             if (consentError != null) {
-
                 initializeMobileAdsSdk()
             }
 
@@ -147,10 +145,6 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
     }
 
     override fun setupData() {
-        viewModel.loadAds(baseContext)
-        viewModel.nativeAdHome.observe(this) {
-            adNativeHome = it
-        }
     }
 
     override fun onResume() {
@@ -232,8 +226,4 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         )
     }
 
-    @SuppressLint("StaticFieldLeak")
-    companion object {
-        var adNativeHome: NativeAdView? = null
-    }
 }

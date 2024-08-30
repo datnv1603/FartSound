@@ -16,7 +16,6 @@ import com.wa.pranksound.databinding.FragmentHomeBinding
 import com.wa.pranksound.ui.component.record.RecordActivity
 import com.wa.pranksound.ui.component.main.MainActivity
 import com.wa.pranksound.ui.component.main.MainViewModel
-import com.wa.pranksound.ui.component.splash.SplashActivity
 import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.NativeAdsUtils
 import com.wa.pranksound.utils.extention.gone
@@ -88,20 +87,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadAds() {
-        addNativeAd()
-    }
-
-    private fun addNativeAd() {
-        SplashActivity.adNativeHome?.let {
-            val adContainer = binding.frNativeAds
-            if (it.parent != null) {
-                (it.parent as ViewGroup).removeView(it)
-            }
-            adContainer.removeAllViews()
-            adContainer.addView(it)
-        } ?: run {
-            loadNativeAd()
-        }
+        loadNativeAd()
     }
 
     private fun loadNativeAd() {

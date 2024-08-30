@@ -227,7 +227,6 @@ class BannerUtils {
                     containerShimmer.gone()
                     adContainer.visible()
                     adsLoadCallBack(true)
-                    Log.d("datnv", "onAdLoaded: ")
                     adView.onPaidEventListener = OnPaidEventListener { adValue: AdValue ->
                         val loadedAdapterResponseInfo: AdapterResponseInfo? =
                             adView.responseInfo?.loadedAdapterResponseInfo

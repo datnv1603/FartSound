@@ -59,6 +59,9 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
     private val mFirebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
     private var mInterstitialAd: InterstitialAd? = null
 
+    private val keyAdInterAllPrice = FirebaseRemoteConfig.getInstance()
+        .getString(RemoteConfigKey.INTER_RECORD)
+
     private var retryAttempt = 0.0
 
     private var bannerReload: Long =
@@ -131,7 +134,7 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
             stopRecording()
             val intent = Intent(this@RecordActivity, EditRecordActivity::class.java)
             startActivity(intent)
-            showInterstitial {}
+            showInterstitial(false) {}
         }
     }
 
@@ -417,10 +420,9 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
 
     private fun loadInterAd() {
         if (FirebaseRemoteConfig.getInstance()
-                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_INTER_HOME)
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_INTER_RECORD)
         ) {
-            val keyAdInterAllPrice = FirebaseRemoteConfig.getInstance()
-                .getString(RemoteConfigKey.INTER_HOME)
+
             loadInterAdsMain(keyAdInterAllPrice)
         }
     }

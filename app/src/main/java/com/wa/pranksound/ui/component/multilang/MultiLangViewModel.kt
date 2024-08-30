@@ -57,8 +57,8 @@ class MultiLangViewModel : BaseViewModel() {
         listLanguageDefault.add(language3)
         listLanguageDefault.add(language4)
         listLanguageDefault.add(language5)
-        listLanguageDefault.add(language6)
         listLanguageDefault.add(language1)
+        listLanguageDefault.add(language6)
         _languageLiveData.postValue(listLanguageDefault)
     }
 }

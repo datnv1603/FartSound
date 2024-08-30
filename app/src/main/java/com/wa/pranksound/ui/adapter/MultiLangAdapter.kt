@@ -32,7 +32,6 @@ class MultiLangAdapter : BaseBindingAdapterDiff<LanguageUI, ItemMultiLangBinding
             notifyItemChanged(value)
         }
 
-    fun getCurrentLanguage() = currentList[newPosition]
     var callBack: (Int, LanguageUI) -> Unit = { _, _ -> }
     override fun onBindViewHolderBase(holder: BaseHolder<ItemMultiLangBinding>, position: Int) {
         with(getItem(holder.adapterPosition)) {

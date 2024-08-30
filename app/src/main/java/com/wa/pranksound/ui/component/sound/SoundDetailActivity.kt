@@ -18,6 +18,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -138,8 +139,9 @@ class SoundDetailActivity :
         loadAds()
         initAdsManager()
         binding.btnBack.setOnSafeClick {
-            finish()
-            showInterstitial { }
+            showInterstitial(false) {
+                finish()
+            }
         }
     }
 
@@ -151,8 +153,14 @@ class SoundDetailActivity :
 
         binding.volumeSeekBar.max = maxVolume
         binding.volumeSeekBar.progress = currentVolume
-        binding.btnVolumeSmall.setOnClickListener { binding.volumeSeekBar.progress = maxVolume / 5 }
-        binding.btnVolumeLoud.setOnClickListener { binding.volumeSeekBar.progress = 4 * maxVolume / 5 }
+        binding.btnVolumeSmall.setOnClickListener {
+            binding.volumeSeekBar.progress = maxVolume / 5
+            showInterstitial {  }
+        }
+        binding.btnVolumeLoud.setOnClickListener {
+            binding.volumeSeekBar.progress = 4 * maxVolume / 5
+            showInterstitial {  }
+        }
         binding.volumeSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 audioManager!!.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0)
@@ -697,7 +705,7 @@ class SoundDetailActivity :
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     mFirebaseAnalytics.logEvent("e_load_inter_splash", null)
                     mInterstitialAd = null
-
+                    Log.e("TAG", "onAdFailedToLoad: " + adError.message)
                     retryAttempt++
                     if (retryAttempt < 4) {
                         val delayMillis = TimeUnit.SECONDS.toMillis(

@@ -16,7 +16,6 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
 import com.adjust.sdk.AdjustConfig
@@ -355,7 +354,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
             } else {
                 textInputLayoutFileName.error = "Please enter file name"
             }
-            showInterstitial {  }
+            showInterstitial(false) {  }
         }
         btnNegative.setOnClickListener {
             dialog.dismiss()

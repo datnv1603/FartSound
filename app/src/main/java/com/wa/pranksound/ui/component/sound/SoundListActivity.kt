@@ -79,27 +79,35 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                     KeyClass.air_horn -> {
                         binding.tvTitle.text = getString(R.string.air_horn)
                     }
+
                     KeyClass.hair_clipper -> {
                         binding.tvTitle.text = getString(R.string.hair_clipper)
                     }
+
                     KeyClass.fart -> {
                         binding.tvTitle.text = getString(R.string.fart)
                     }
+
                     KeyClass.count_down -> {
                         binding.tvTitle.text = getString(R.string.count_down)
                     }
+
                     KeyClass.gun -> {
                         binding.tvTitle.text = getString(R.string.gun)
                     }
+
                     KeyClass.ghost -> {
                         binding.tvTitle.text = getString(R.string.ghost)
                     }
+
                     KeyClass.halloween -> {
                         binding.tvTitle.text = getString(R.string.halloween)
                     }
+
                     KeyClass.snore -> {
                         binding.tvTitle.text = getString(R.string.snore)
                     }
+
                     KeyClass.test_sound -> {
                         binding.tvTitle.text = getString(R.string.test_sound)
                     }
@@ -132,7 +140,7 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                         intent.putExtra(KeyClass.cate_name, it.typeSound)
                         intent.putExtra(KeyClass.image_sound, it.image)
                         this.startActivity(intent)
-                        showInterstitial {  }
+                        showInterstitial { }
                     }
                 }
             }
@@ -140,7 +148,10 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
             throw RuntimeException(e)
         }
 
-        binding.imgBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        binding.imgBack.setOnSafeClick {
+            onBackPressedDispatcher.onBackPressed()
+            showInterstitial(false) { }
+        }
     }
 
     private fun soundName(sound: String): String {

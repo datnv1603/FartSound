@@ -20,6 +20,7 @@ import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.ads.NativeAdsUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.setOnSafeClick
+import com.wa.pranksound.utils.extention.visible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -132,6 +133,7 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
                 keyAds
             ) { nativeAds ->
                 if (nativeAds != null) {
+                    binding.rlNative.visible()
                     if (smallSize) {
                         val adNativeVideoBinding = AdNativeContentBinding.inflate(layoutInflater)
                         NativeAdsUtils.instance.populateNativeAdVideoView(

@@ -6,9 +6,6 @@ object RemoteConfigKey {
     const val INTER_DELAY = "inter_delay"
 
     const val BANNER_RELOAD = "banner_reload"
-    const val IS_USE_NATIVE_MONET = "is_use_native_monet"
-    const val IS_USE_INTER_MONET = "is_use_inter_monet"
-    const val IS_USE_BANNER_MONET = "is_use_banner_monet"
 
     const val IS_SHOW_ADS_INTER_SPLASH= "is_show_ads_inter_splash"
     const val IS_SHOW_ADS_INTER_HOME= "is_show_ads_inter_home"
