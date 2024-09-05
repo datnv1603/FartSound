@@ -14,7 +14,7 @@ android {
         applicationId "com.wa.pranksound"
         minSdk 24
         targetSdk 34
-        versionCode 500
+        versionCode 600
         versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
