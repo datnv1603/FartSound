@@ -1,5 +1,6 @@
 package com.wa.pranksound.ui.component.record
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -11,7 +12,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.format.DateUtils
-import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
@@ -50,6 +50,7 @@ import com.wa.pranksound.utils.ads.BannerUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.invisible
 import com.wa.pranksound.utils.extention.visible
+import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -71,7 +72,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
 
     private var retryAttempt = 0.0
 
-    var bannerReload: Long =
+    private var bannerReload: Long =
         FirebaseRemoteConfig.getInstance().getLong(RemoteConfigKey.BANNER_RELOAD)
     private var keyAdBanner: String =
         FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.BANNER_RECORD)
@@ -112,7 +113,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         playOriginal(fileName, fileNameNew)
 
         //setting seekbar
-        var length: Int = 0
+        var length = 0
         player?.apply {
             length = duration
         }
@@ -142,7 +143,6 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
                 binding.seekBar.progress = player!!.duration
             }
             player!!.start()
-            Log.d("Check_sound_replay", "sound in main:")
         }
 
         binding.original.setOnClickListener {
@@ -235,7 +235,6 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         binding.imgReplay.setOnClickListener {
             //  fileName = fileNameNew
             rePlayAudio()
-            Log.d("play_record", "replay")
         }
         binding.imgCut.setOnClickListener {
             Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
@@ -298,11 +297,9 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
                         binding.seekBar.progress = player!!.duration
                     }
                     start() // Bắt đầu phát lại từ đầu
-                    Log.d("Check_sound_replay", "sound in effect:")
                 }
-                Log.d("Check_file", "File name New: $fileNameNew")
             } catch (e: IOException) {
-                Log.e("tag", "prepare() failed")
+                Timber.tag("tag").e("prepare() failed")
             }
         }
     }
@@ -312,11 +309,10 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         player = MediaPlayer().apply {
             try {
                 setDataSource(fileName)
-                Log.d("Check_file", "File name in start record: $fileName")
                 prepare()
                 start()
             } catch (e: IOException) {
-                Log.e("tag", "prepare() failed")
+                Timber.tag("tag").e("prepare() failed")
             }
         }
     }
@@ -371,19 +367,16 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         val output = Config.getLastCommandOutput()
         when (rc) {
             RETURN_CODE_SUCCESS -> {
-                Log.i("GetInfo", "Command execution completed successfully.")
                 hideProgress()
                 isEffectAddedOnce = true
                 start()
             }
 
             RETURN_CODE_CANCEL -> {
-                Log.i("GetInfo", "Command execution cancelled by user.")
             }
 
             else -> {
-                Log.i(
-                    "GetInfo",
+                Timber.tag("GetInfo").i(
                     String.format(
                         "Command execution failed with rc=%d and output=%s.",
                         rc,
@@ -457,7 +450,6 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
             "aecho=0.8:0.9:1000:0.3",
             fileName2
         )//Cave
-        Log.d("Check_file", "CMD cave : ${cmd.joinToString()}")
         exceuteFFMPEG(cmd)
     }
 
@@ -470,8 +462,6 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
             fileName1,
             fileName2
         )
-
-        Log.d("Check_file", "CMD original : ${cmd.joinToString()}")
 
         exceuteFFMPEG(cmd)
     }
@@ -515,6 +505,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         binding.progressCircular.gone()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun saveAudio(file: String, fileName: String) {
         //convert time
         val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
@@ -525,7 +516,6 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         val formattedDate = dateFormatter.format(date!!)
         val formattedTime = timeFormatter.format(date)
 
-        Log.d("List_record", "$formattedDate | $formattedTime")
 
         val strDateTime = "$formattedDate | $formattedTime"
         fileNameSave = "audio_$timestamp.mp3" // create new file with recent time
@@ -544,14 +534,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         )
 
         audioFileList.add(record)
-        Log.d("List_record", "size: " + audioFileList.size.toString())
         Utils.saveAudioList(this, audioFileList)
-
-        val list = Utils.getAudioList(this)
-        Log.d("List_record", "size sau khi get: " + list.size.toString())
-        Log.d("List_record", "input_Stream: $fileName")
-        Log.d("List_record", "output_stream: $newFile")
-        Log.d("List_record", "file_path: ${record.filePath}")
 
         val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
         intent.putExtra("from_record", "record")
@@ -564,11 +547,10 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         player = MediaPlayer().apply {
             try {
                 setDataSource(fileName)
-                Log.d("Check_file", "File name in play audio: $fileName")
                 prepare()
                 start()
             } catch (e: IOException) {
-                Log.e("tag", "prepare() failed")
+                Timber.tag("tag").e("prepare() failed")
             }
         }
     }
@@ -578,7 +560,6 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         player = MediaPlayer().apply {
             try {
                 setDataSource(fileNameNew)
-                Log.d("Check_file", "File name in Replay audio: $fileNameNew")
                 prepare()
                 start()
                 setOnCompletionListener {
@@ -587,10 +568,9 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
                         binding.seekBar.progress = player!!.duration
                     }
                     start() // Bắt đầu phát lại từ đầu
-                    Log.d("Check_sound_replay", "sound in replay:")
                 }
             } catch (e: IOException) {
-                Log.e("tag", "prepare() failed")
+                Timber.tag("tag").e("prepare() failed")
             }
         }
     }

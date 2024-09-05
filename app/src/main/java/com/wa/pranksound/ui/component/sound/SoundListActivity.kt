@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
 import com.adjust.sdk.AdjustConfig
@@ -35,6 +34,7 @@ import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.NativeAdsUtils.Companion.instance
+import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
@@ -54,6 +54,9 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
         FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_SOUND)
 
     private var sound: Sound? = null
+
+    private var isChooseSound: Boolean = false
+    private var isLoadedAd: Boolean = false
 
     override val layoutId: Int
         get() = R.layout.activity_sound_list
@@ -130,18 +133,14 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                 val verticalSoundAdapter = VerticalSoundAdapterTest(listSound) { sound ->
                     binding.imgOK.visible()
                     this.sound = sound
+                    isChooseSound = true
+                    if (isLoadedAd)
+                        binding.rlNative.visible()
                 }
                 binding.rvSound.setAdapter(verticalSoundAdapter)
                 binding.imgOK.setOnSafeClick {
-                    this.sound?.let {
-                        intent = Intent(this, SoundDetailActivity::class.java)
-                        intent.putExtra(KeyClass.is_fav, false)
-                        intent.putExtra(KeyClass.music_name, soundName(it.name))
-                        intent.putExtra(KeyClass.cate_name, it.typeSound)
-                        intent.putExtra(KeyClass.image_sound, it.image)
-                        this.startActivity(intent)
-                        showInterstitial { }
-                    }
+                    openSound()
+                    showInterstitial { }
                 }
             }
         } catch (e: IOException) {
@@ -151,6 +150,17 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
         binding.imgBack.setOnSafeClick {
             onBackPressedDispatcher.onBackPressed()
             showInterstitial(false) { }
+        }
+    }
+
+    private fun openSound() {
+        this.sound?.let {
+            intent = Intent(this, SoundDetailActivity::class.java)
+            intent.putExtra(KeyClass.is_fav, false)
+            intent.putExtra(KeyClass.music_name, soundName(it.name))
+            intent.putExtra(KeyClass.cate_name, it.typeSound)
+            intent.putExtra(KeyClass.image_sound, it.image)
+            this.startActivity(intent)
         }
     }
 
@@ -179,7 +189,7 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
         ) {
             loadNativeAds(keyNative)
         } else {
-            binding.rlNative.visibility = View.GONE
+            binding.rlNative.gone()
         }
     }
 
@@ -189,6 +199,10 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
             keyAds,
             { nativeAds: NativeAd? ->
                 if (nativeAds != null) {
+                    isLoadedAd = true
+                    if (isChooseSound) {
+                        binding.rlNative.visible()
+                    }
                     val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
                     instance.populateNativeAdVideoView(
                         nativeAds,
@@ -201,6 +215,7 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
             },
             {
                 // On native ad clicked
+                openSound()
             }
         )
     }
