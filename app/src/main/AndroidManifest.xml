@@ -82,6 +82,7 @@
         <activity
             android:name=".ui.component.sound.SoundListActivity"
             android:exported="false"
+            android:largeHeap="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.component.main.MainActivity"
