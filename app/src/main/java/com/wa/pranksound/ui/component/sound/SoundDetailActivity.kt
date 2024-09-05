@@ -652,6 +652,7 @@ class SoundDetailActivity :
 
     private fun loadBanner() {
         viewModel.starTimeCountReloadBanner(bannerReload)
+        BannerUtils.instance?.loadCollapsibleBannerTop(this, keyAdBanner) {}
         BannerUtils.instance?.loadCollapsibleBanner(this, keyAdBanner) {}
     }
 

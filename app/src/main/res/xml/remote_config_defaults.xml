@@ -2,6 +2,11 @@
 <defaultsMap>
 
     <entry>
+        <key>is_use_banner_sound_monet</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
         <key>is_show_ads_inter_splash</key>
         <value>true</value>
     </entry>

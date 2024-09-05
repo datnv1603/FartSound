@@ -195,6 +195,19 @@
                     android:contentDescription="@string/loop"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <FrameLayout
+                android:id="@+id/rlBannerTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:layout_constraintTop_toBottomOf="@id/rlFunction">
+                <include
+                    android:id="@+id/ads_banner_top"
+                    layout="@layout/ads_banner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </FrameLayout>
+
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation"
                 android:layout_width="@dimen/_250sdp"
@@ -217,7 +230,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rlFunction" />
+                app:layout_constraintTop_toBottomOf="@id/rlBannerTop" />
 
 
             <TextView
@@ -279,7 +292,7 @@
                 android:id="@+id/llMoreSounds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_18sdp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

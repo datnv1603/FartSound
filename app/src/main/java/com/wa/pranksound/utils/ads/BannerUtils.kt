@@ -174,6 +174,31 @@ class BannerUtils {
         }
     }
 
+    fun loadCollapsibleBannerTop(
+        mActivity: Activity,
+        id: String,
+        adsLoadCallBack: (Boolean) -> Unit
+    ) {
+        val adContainer = mActivity.findViewById<FrameLayout>(R.id.banner_container2)
+        val containerShimmer =
+            mActivity.findViewById<ShimmerFrameLayout>(R.id.shimmer_container_banner)
+        if (!Utils.checkInternetConnection(mActivity)) {
+            adContainer.gone()
+            containerShimmer.gone()
+            adsLoadCallBack(false)
+        } else {
+            loadCollapsibleBanner(
+                mActivity,
+                id,
+                adContainer,
+                containerShimmer,
+                false, BANNER_INLINE_LARGE_STYLE,
+                adsLoadCallBack,
+                top = true
+            )
+        }
+    }
+
     private fun loadCollapsibleBanner(
         mActivity: Activity,
         id: String,
@@ -182,6 +207,7 @@ class BannerUtils {
         useInlineAdaptive: Boolean,
         inlineStyle: String,
         adsLoadCallBack: (Boolean) -> Unit,
+        top: Boolean = false
     ) {
         containerShimmer.visible()
         containerShimmer.startShimmer()
@@ -204,7 +230,10 @@ class BannerUtils {
             adView.setAdSize(adSize)
 
             val extras = Bundle()
-            extras.putString("collapsible", "bottom")
+            if (top)
+                extras.putString("collapsible", "top")
+            else
+                extras.putString("collapsible", "bottom")
 
             val adRequest = AdRequest.Builder()
                 .addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
@@ -246,7 +275,7 @@ class BannerUtils {
                         )
                         params.putString(FirebaseAnalytics.Param.AD_SOURCE, "AdMob")
                         params.putString(FirebaseAnalytics.Param.AD_FORMAT, "Banner")
-                        params.putDouble(FirebaseAnalytics.Param.VALUE, revenue )
+                        params.putDouble(FirebaseAnalytics.Param.VALUE, revenue)
                         params.putString(FirebaseAnalytics.Param.CURRENCY, "USD")
                         analytics.logEvent("ad_impression_2", params)
                     }

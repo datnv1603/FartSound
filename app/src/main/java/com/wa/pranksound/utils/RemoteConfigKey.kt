@@ -7,6 +7,8 @@ object RemoteConfigKey {
 
     const val BANNER_RELOAD = "banner_reload"
 
+    const val IS_USE_BANNER_SOUND_MONET = "is_use_banner_sound_monet"
+
     const val IS_SHOW_ADS_INTER_SPLASH= "is_show_ads_inter_splash"
     const val IS_SHOW_ADS_INTER_HOME= "is_show_ads_inter_home"
     const val IS_SHOW_ADS_INTER_RECORD= "is_show_ads_inter_record"

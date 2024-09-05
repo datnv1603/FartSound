@@ -72,7 +72,6 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
 
                             withContext(Dispatchers.Main) {
                                 startMainActivity()
-                                finish()
                             }
                         }
 
@@ -130,29 +129,34 @@ class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>(
         this.let {
             NativeAdsUtils.instance.loadNativeAds(
                 applicationContext,
-                keyAds
-            ) { nativeAds ->
-                if (nativeAds != null) {
-                    binding.rlNative.visible()
-                    if (smallSize) {
-                        val adNativeVideoBinding = AdNativeContentBinding.inflate(layoutInflater)
-                        NativeAdsUtils.instance.populateNativeAdVideoView(
-                            nativeAds,
-                            adNativeVideoBinding.root
-                        )
-                        binding.frNativeAds.removeAllViews()
-                        binding.frNativeAds.addView(adNativeVideoBinding.root)
-                    } else {
-                        val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
-                        NativeAdsUtils.instance.populateNativeAdVideoView(
-                            nativeAds,
-                            adNativeVideoBinding.root as NativeAdView
-                        )
-                        binding.frNativeAds.removeAllViews()
-                        binding.frNativeAds.addView(adNativeVideoBinding.root)
+                keyAds,
+                { nativeAds ->
+                    if (nativeAds != null) {
+                        binding.rlNative.visible()
+                        if (smallSize) {
+                            val adNativeVideoBinding = AdNativeContentBinding.inflate(layoutInflater)
+                            NativeAdsUtils.instance.populateNativeAdVideoView(
+                                nativeAds,
+                                adNativeVideoBinding.root
+                            )
+                            binding.frNativeAds.removeAllViews()
+                            binding.frNativeAds.addView(adNativeVideoBinding.root)
+                        } else {
+                            val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
+                            NativeAdsUtils.instance.populateNativeAdVideoView(
+                                nativeAds,
+                                adNativeVideoBinding.root as NativeAdView
+                            )
+                            binding.frNativeAds.removeAllViews()
+                            binding.frNativeAds.addView(adNativeVideoBinding.root)
+                        }
                     }
+                },
+                {
+                    //On native ad clicked
+                    startMainActivity()
                 }
-            }
+            )
         }
     }
 }

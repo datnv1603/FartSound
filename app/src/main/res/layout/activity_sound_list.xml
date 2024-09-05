@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_sub_main"
-            android:padding="@dimen/_12sdp"
+            android:paddingTop="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rlLet">
 
@@ -86,6 +86,7 @@
                 android:id="@+id/rvSound"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:paddingHorizontal="@dimen/_12sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/rl_native"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -186,21 +186,23 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
     private fun loadNativeAds(keyAds: String) {
         instance.loadNativeAds(
             applicationContext,
-            keyAds
-        ) { nativeAds: NativeAd? ->
-            if (nativeAds != null) {
-                val adNativeVideoBinding = AdNativeVideoBinding.inflate(
-                    layoutInflater
-                )
-                instance.populateNativeAdVideoView(
-                    nativeAds,
-                    (adNativeVideoBinding.root as NativeAdView),
-                    true
-                )
-                binding.frNativeAds.removeAllViews()
-                binding.frNativeAds.addView(adNativeVideoBinding.root)
+            keyAds,
+            { nativeAds: NativeAd? ->
+                if (nativeAds != null) {
+                    val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
+                    instance.populateNativeAdVideoView(
+                        nativeAds,
+                        (adNativeVideoBinding.root as NativeAdView),
+                        true
+                    )
+                    binding.frNativeAds.removeAllViews()
+                    binding.frNativeAds.addView(adNativeVideoBinding.root)
+                }
+            },
+            {
+                // On native ad clicked
             }
-        }
+        )
     }
 
     private fun initAdsManager() {

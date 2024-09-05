@@ -9,13 +9,13 @@
         <RelativeLayout
             android:id="@+id/ad_unit_content"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_145sdp"
+            android:layout_height="wrap_content"
             android:background="@drawable/background_ads"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -50,6 +50,7 @@
                                 android:layout_marginStart="@dimen/_2sdp"
                                 android:ellipsize="end"
                                 android:maxLines="2"
+                                android:textColor="@color/text_color"
                                 android:text=""
                                 android:textSize="@dimen/_10sdp" />
 
@@ -83,6 +84,7 @@
                                     android:layout_height="wrap_content"
                                     android:ellipsize="end"
                                     android:maxLines="2"
+                                    android:textColor="@color/text_color"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -102,14 +104,16 @@
                 <TextView
                     android:id="@+id/ad_call_to_action"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_45sdp"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:fontFamily="@font/nunito_bold"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_18sdp"
+                    android:layout_marginVertical="@dimen/_6sdp"
                     android:background="@drawable/background_round_8"
+                    android:enabled="true"
+                    android:fontFamily="@font/nunito_bold"
                     android:gravity="center"
                     android:includeFontPadding="false"
+                    android:paddingVertical="@dimen/_8sdp"
                     android:text="@string/open"
-                    android:enabled="true"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_14ssp"
                     android:textStyle="bold" />

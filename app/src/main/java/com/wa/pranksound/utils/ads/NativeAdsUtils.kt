@@ -34,7 +34,7 @@ class NativeAdsUtils {
     private var retryAttempt = 0.0
     var loadNativeCount = 0
 
-    fun loadNativeAds(context: Context, keyAds: String, adsLoadCallBack: (NativeAd?) -> Unit) {
+    fun loadNativeAds(context: Context, keyAds: String, adsLoadCallBack: (NativeAd?) -> Unit, adsClicked: () -> Unit) {
         val adLoader = AdLoader.Builder(context, keyAds)
             .forNativeAd { nativeAd ->
                 adsLoadCallBack(nativeAd)
@@ -68,7 +68,7 @@ class NativeAdsUtils {
                             2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
                         )
                         Handler(Looper.getMainLooper()).postDelayed(
-                            { loadNativeAds(context, keyAds, adsLoadCallBack) },
+                            { loadNativeAds(context, keyAds, adsLoadCallBack, adsClicked) },
                             delayMillis
                         )
 
@@ -81,6 +81,11 @@ class NativeAdsUtils {
                     super.onAdLoaded()
                     retryAttempt = 0.0
                     loadNativeCount = 0
+                }
+
+                override fun onAdClicked() {
+                    super.onAdClicked()
+                    adsClicked()
                 }
             }).build()
         adLoader.loadAd(AdRequest.Builder().build())
