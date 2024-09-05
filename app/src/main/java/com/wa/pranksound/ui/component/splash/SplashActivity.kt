@@ -28,6 +28,7 @@ import com.wa.pranksound.utils.RemoteConfigKey
 import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.extention.setStatusBarColor
+import timber.log.Timber
 import java.util.Date
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -95,8 +96,11 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         if (isAdsInitializeCalled.getAndSet(true)) {
             return
         }
-        kotlin.runCatching {
+        try {
             MobileAds.initialize(this) {}
+        }
+        catch (e: Exception) {
+            Timber.e("NoClassDefFoundError")
         }
 
         loadInterAd()
