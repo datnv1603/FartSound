@@ -21,7 +21,7 @@
             android:id="@+id/animGuide"
             android:layout_width="@dimen/_220sdp"
             android:layout_height="@dimen/_220sdp"
-            android:layout_marginTop="@dimen/_90sdp"
+            android:layout_marginTop="@dimen/_100sdp"
             android:elevation="@dimen/_2sdp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,12 +56,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@color/transparent"
+                android:contentDescription="@string/backward"
                 android:padding="@dimen/_20sdp"
                 android:src="@drawable/ic_back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/backward"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.wa.pranksound.utils.customview.StrokeTextView
                 android:id="@+id/tvTitle"
@@ -71,7 +71,7 @@
                 android:fontFamily="@font/nunito_black"
                 android:gravity="center"
                 android:maxLines="1"
-                android:text="1122211"
+                tools:text="1122211"
                 android:textColor="#D85B00"
                 android:textSize="@dimen/_20ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_sub_main"
-            android:padding="@dimen/_12sdp"
+            android:paddingVertical="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rlLet"
             app:layout_constraintVertical_bias="1.0"
@@ -120,6 +120,7 @@
                 android:id="@+id/rlFunction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -188,19 +189,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
+                    android:contentDescription="@string/loop"
                     android:src="@drawable/ic_checkbox_selector"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/loop"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <FrameLayout
                 android:id="@+id/rlBannerTop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:layout_gravity="bottom"
                 app:layout_constraintTop_toBottomOf="@id/rlFunction">
+
                 <include
                     android:id="@+id/ads_banner_top"
                     layout="@layout/ads_banner2"
@@ -223,14 +226,16 @@
 
             <ImageView
                 android:id="@+id/imgItem"
-                android:layout_width="@dimen/_150sdp"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/_20sdp"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rlBannerTop" />
+                app:layout_constraintTop_toBottomOf="@id/rlBannerTop"
+                app:layout_constraintBottom_toTopOf="@id/tvCountTime"
+                android:contentDescription="@string/item_image"/>
 
 
             <TextView
@@ -239,20 +244,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imgItem"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/_6sdp"
                 android:fontFamily="@font/nunito_bold"
                 android:gravity="center"
                 android:textColor="@color/text_color"
                 app:layout_constraintTop_toBottomOf="@id/imgItem"
-                tools:text="ssss" />
+                tools:text="ssss"
+                app:layout_constraintBottom_toTopOf="@id/llVolume"/>
 
             <LinearLayout
                 android:id="@+id/llVolume"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_12sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/tvCountTime">
+                app:layout_constraintTop_toBottomOf="@id/tvCountTime"
+                app:layout_constraintBottom_toTopOf="@id/llMoreSounds">
 
                 <ImageButton
                     android:id="@+id/btnVolumeSmall"
@@ -292,16 +300,18 @@
                 android:id="@+id/llMoreSounds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:paddingHorizontal="@dimen/_12sdp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llVolume">
+                app:layout_constraintTop_toBottomOf="@id/llVolume"
+                app:layout_constraintBottom_toTopOf="@id/rl_native">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_6sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
                     android:fontFamily="@font/nunito_bold"
                     android:text="@string/more_sound"
                     android:textColor="@color/text_color"
@@ -314,65 +324,22 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
-
-
             <RelativeLayout
-                android:id="@+id/rlProgress"
+                android:id="@+id/rl_native"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/rlFunction"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_goneMarginTop="@dimen/_4sdp">
+                <FrameLayout
+                    android:id="@+id/fr_native_ads"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-
-                <ImageView
-                    android:id="@+id/imgPlayPause"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_toStartOf="@+id/seekBar"
-                    android:padding="5dp"
-                    android:src="@drawable/play" />
-
-                <ProgressBar
-                    android:id="@+id/seekBar"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:progressDrawable="@drawable/seekbar_style"
-                    android:thumb="@drawable/custom_thumb" />
-
-                <TextView
-                    android:id="@+id/endTime"
-                    style="@style/TextAppearance.AppCompat.Body1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:layout_toEndOf="@+id/seekBar"
-                    android:text="00:02"
-                    android:textSize="16sp" />
+                    <include layout="@layout/ads_native_shimmer" />
+                </FrameLayout>
             </RelativeLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <FrameLayout
-            android:id="@+id/rl_banner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <include
-                android:id="@+id/ads_banner"
-                layout="@layout/ads_banner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

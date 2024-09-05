@@ -17,18 +17,15 @@ import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
-import android.text.format.DateUtils
-import android.util.Log
-import android.view.ContextThemeWrapper
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.widget.PopupWindow
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
-import androidx.appcompat.widget.PopupMenu
 import androidx.room.Room.databaseBuilder
 import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustAdRevenue
@@ -54,6 +51,8 @@ import com.wa.pranksound.data.SharedPreferenceHelper
 import com.wa.pranksound.data.SharedPreferenceHelper.Companion.getBoolean
 import com.wa.pranksound.data.SharedPreferenceHelper.Companion.storeBoolean
 import com.wa.pranksound.databinding.ActivitySoundDetailBinding
+import com.wa.pranksound.databinding.AdNativeContentBinding
+import com.wa.pranksound.databinding.MenuTimerBinding
 import com.wa.pranksound.model.Sound
 import com.wa.pranksound.room.AppDatabase
 import com.wa.pranksound.room.InsertPrankSound
@@ -70,6 +69,7 @@ import com.wa.pranksound.utils.Utils.removeAfterDot
 import com.wa.pranksound.utils.Utils.saveAudioList
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.BannerUtils
+import com.wa.pranksound.utils.ads.NativeAdsUtils
 import com.wa.pranksound.utils.extention.gone
 import com.wa.pranksound.utils.extention.invisible
 import com.wa.pranksound.utils.extention.setOnSafeClick
@@ -95,6 +95,11 @@ class SoundDetailActivity :
         FirebaseRemoteConfig.getInstance().getLong(RemoteConfigKey.BANNER_RELOAD)
     private var keyAdBanner: String =
         FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.BANNER_SOUND)
+    private var keyAdBannerHigh: String =
+        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.BANNER_SOUND_HIGH)
+    private val keyNative =
+        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_DETAIL_SOUND)
+
 
     var isPlaying: Boolean = false
     private var isLoop: Boolean = false
@@ -138,11 +143,6 @@ class SoundDetailActivity :
     override fun setupData() {
         loadAds()
         initAdsManager()
-        binding.btnBack.setOnSafeClick {
-            showInterstitial(false) {
-                finish()
-            }
-        }
     }
 
     private fun setUpVolume() {
@@ -155,11 +155,11 @@ class SoundDetailActivity :
         binding.volumeSeekBar.progress = currentVolume
         binding.btnVolumeSmall.setOnClickListener {
             binding.volumeSeekBar.progress = maxVolume / 5
-            showInterstitial {  }
+            showInterstitial { }
         }
         binding.btnVolumeLoud.setOnClickListener {
             binding.volumeSeekBar.progress = 4 * maxVolume / 5
-            showInterstitial {  }
+            showInterstitial { }
         }
         binding.volumeSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -304,31 +304,20 @@ class SoundDetailActivity :
                     descriptor.close()
                 }
                 mediaPlayer!!.prepare()
-                val length = mediaPlayer!!.duration
-
-                val durationText =
-                    DateUtils.formatElapsedTime((length / 1000).toLong()) // converting time in millis to minutes:second format eg 14:15 min
-                binding.endTime.text = durationText
-                binding.seekBar.max = length
-
                 runnable = Runnable {
                     if (mediaPlayer != null) {
-                        binding.seekBar.progress = mediaPlayer!!.currentPosition
                         handler.postDelayed(runnable!!, 5)
                     }
                 }
 
                 mediaPlayer!!.setOnCompletionListener {
                     if (!isLoop) {
-                        if (mediaPlayer != null) {
-                            binding.seekBar.progress = mediaPlayer!!.duration
-                        }
                         isPlaying = false
                         //set anim
                         binding.animation.invisible()
                         stopVibrate()
                     } else {
-                        binding.seekBar.progress = 0
+
                         mediaPlayer!!.start()
                         startVibrate()
                     }
@@ -340,7 +329,6 @@ class SoundDetailActivity :
     }
 
     private fun startCountDownTimer(i: Int, txtCountTime: TextView?) {
-        binding.imgPlayPause.isEnabled = false
         binding.animation.visibility = View.INVISIBLE
         if (countDownTimer != null) {
             countDownTimer!!.cancel()
@@ -392,64 +380,59 @@ class SoundDetailActivity :
             true
         }
 
-        binding.btnBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
-
-        binding.llBtnOff.setOnClickListener { v: View? ->
-            val popupMenu = PopupMenu(
-                ContextThemeWrapper(
-                    this@SoundDetailActivity, R.style.myPopupMenu
-                ), v!!
-            )
-            popupMenu.menuInflater.inflate(R.menu.set_time, popupMenu.menu)
-            popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-                when (item.itemId) {
-                    R.id.five -> {
-                        startCountDownTimer(5000, binding.tvCountTime)
-                        binding.tvOff.setText(R.string._5s)
-                        return@setOnMenuItemClickListener true
-                    }
-
-                    R.id.fiveMinute -> {
-                        startCountDownTimer(300000, binding.tvCountTime)
-                        binding.tvOff.setText(R.string._5m)
-                        return@setOnMenuItemClickListener true
-                    }
-
-                    R.id.off -> {
-                        if (countDownTimer != null) {
-                            countDownTimer!!.cancel()
-                        }
-                        binding.imgPlayPause.isEnabled = true
-                        val text = ""
-                        binding.tvCountTime.text = text
-                        binding.tvOff.setText(R.string._off)
-                        return@setOnMenuItemClickListener true
-                    }
-
-                    R.id.oneMinute -> {
-                        startCountDownTimer(60000, binding.tvCountTime)
-                        binding.tvOff.setText(R.string._1m)
-                        return@setOnMenuItemClickListener true
-                    }
-
-                    R.id.ten -> {
-                        startCountDownTimer(10000, binding.tvCountTime)
-                        binding.tvOff.setText(R.string._10s)
-                        return@setOnMenuItemClickListener true
-                    }
-
-                    R.id.thirty -> {
-                        startCountDownTimer(30000, binding.tvCountTime)
-                        binding.tvOff.setText(R.string._30s)
-                        return@setOnMenuItemClickListener true
-                    }
-
-                    else -> {
-                        return@setOnMenuItemClickListener false
-                    }
-                }
+        binding.btnBack.setOnSafeClick {
+            forceShowInterstitial {
+                finish()
             }
-            popupMenu.show()
+        }
+
+        binding.llBtnOff.setOnSafeClick { v: View? ->
+            val view = MenuTimerBinding.inflate(layoutInflater)
+            val popupWindow = PopupWindow(
+                view.root,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+
+            view.btnOff.setOnSafeClick {
+                if (countDownTimer != null) {
+                    countDownTimer!!.cancel()
+                }
+                val text = ""
+                binding.tvCountTime.text = text
+                binding.tvOff.setText(R.string._off)
+                popupWindow.dismiss()
+            }
+            view.btn5s.setOnSafeClick {
+                startCountDownTimer(5000, binding.tvCountTime)
+                binding.tvOff.setText(R.string._5s)
+                popupWindow.dismiss()
+            }
+            view.btn10s.setOnSafeClick {
+                startCountDownTimer(10000, binding.tvCountTime)
+                binding.tvOff.setText(R.string._10s)
+                popupWindow.dismiss()
+            }
+            view.btn30s.setOnSafeClick {
+                startCountDownTimer(30000, binding.tvCountTime)
+                binding.tvOff.setText(R.string._30s)
+                popupWindow.dismiss()
+            }
+            view.btn1m.setOnSafeClick {
+                startCountDownTimer(60000, binding.tvCountTime)
+                binding.tvOff.setText(R.string._1m)
+                popupWindow.dismiss()
+            }
+            view.btn5m.setOnSafeClick {
+                startCountDownTimer(300000, binding.tvCountTime)
+                binding.tvOff.setText(R.string._5m)
+                popupWindow.dismiss()
+            }
+
+            popupWindow.isOutsideTouchable = true
+            popupWindow.isFocusable = true
+            popupWindow.setBackgroundDrawable(null)
+            popupWindow.showAsDropDown(v)
         }
 
         binding.imgItem.setOnTouchListener { _: View?, event: MotionEvent ->
@@ -576,7 +559,6 @@ class SoundDetailActivity :
 
     override fun onResume() {
         super.onResume()
-
         Adjust.onResume()
     }
 
@@ -643,17 +625,57 @@ class SoundDetailActivity :
         ) {
             loadBanner()
         } else {
-            binding.rlBanner.gone()
+            binding.rlBannerTop.gone()
         }
         viewModel.loadBanner.observe(this) {
             loadBanner()
         }
+        loadNativeAd()
     }
 
     private fun loadBanner() {
         viewModel.starTimeCountReloadBanner(bannerReload)
-        BannerUtils.instance?.loadCollapsibleBannerTop(this, keyAdBanner) {}
-        BannerUtils.instance?.loadCollapsibleBanner(this, keyAdBanner) {}
+        if (FirebaseRemoteConfig.getInstance().getBoolean(RemoteConfigKey.IS_USE_BANNER_SOUND_MONET)) {
+            BannerUtils.instance?.loadCollapsibleBannerTop(this, keyAdBannerHigh) { res2 ->
+                if (!res2) {
+                    BannerUtils.instance?.loadCollapsibleBannerTop(this, keyAdBanner) { }
+                }
+            }
+        } else {
+            BannerUtils.instance?.loadCollapsibleBannerTop(this, keyAdBanner) { }
+        }
+
+    }
+
+    private fun loadNativeAd() {
+        if (FirebaseRemoteConfig.getInstance()
+                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_DETAIL_SOUND)
+        ) {
+            loadNativeAds(keyNative)
+        } else {
+            binding.rlNative.gone()
+        }
+    }
+
+    private fun loadNativeAds(keyAds: String) {
+        this.let {
+            NativeAdsUtils.instance.loadNativeAds(
+                this,
+                keyAds, { nativeAds ->
+                    if (nativeAds != null) {
+                        val adNativeVideoBinding = AdNativeContentBinding.inflate(layoutInflater)
+                        NativeAdsUtils.instance.populateNativeAdVideoView(
+                            nativeAds,
+                            adNativeVideoBinding.root
+                        )
+                        binding.frNativeAds.removeAllViews()
+                        binding.frNativeAds.addView(adNativeVideoBinding.root)
+                    }
+                }, {
+
+                }
+            )
+        }
     }
 
     private fun initAdsManager() {
@@ -706,7 +728,6 @@ class SoundDetailActivity :
                 override fun onAdFailedToLoad(adError: LoadAdError) {
                     mFirebaseAnalytics.logEvent("e_load_inter_splash", null)
                     mInterstitialAd = null
-                    Log.e("TAG", "onAdFailedToLoad: " + adError.message)
                     retryAttempt++
                     if (retryAttempt < 4) {
                         val delayMillis = TimeUnit.SECONDS.toMillis(
@@ -774,6 +795,50 @@ class SoundDetailActivity :
             override fun onAdDismissedFullScreenContent() {
                 mInterstitialAd = null
                 if (isReload) loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
+        if (!Utils.checkInternetConnection(this)) {
+            onAdDismissedAction.invoke()
+            return
+        }
+
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
                 SharedPreferenceHelper.storeLong(
                     Constant.TIME_LOAD_NEW_INTER_ADS,
                     Date().time

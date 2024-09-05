@@ -43,6 +43,10 @@
         <key>is_show_ads_native_sound</key>
         <value>true</value>
     </entry>
+    <entry>
+        <key>is_show_ads_native_detail_sound</key>
+        <value>true</value>
+    </entry>
 
     <entry>
         <key>is_show_ads_banner_main</key>
@@ -97,6 +101,10 @@
         <key>native_sound</key>
         <value>ca-app-pub-3621741958408545/5848615367</value>
     </entry>
+    <entry>
+        <key>native_detail_sound</key>
+        <value>ca-app-pub-3621741958408545/3930729154</value>
+    </entry>
 
     <entry>
         <key>banner_main</key>
@@ -111,6 +119,10 @@
     <entry>
         <key>banner_sound</key>
         <value>ca-app-pub-3621741958408545/5169958512</value>
+    </entry>
+    <entry>
+        <key>banner_sound_high</key>
+        <value>ca-app-pub-3621741958408545/8245350430</value>
     </entry>
 
 </defaultsMap>

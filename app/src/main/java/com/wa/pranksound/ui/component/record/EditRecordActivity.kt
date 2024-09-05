@@ -626,7 +626,7 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
         btnPositive.setOnClickListener {
             val intent = Intent(this@EditRecordActivity, MainActivity::class.java)
             startActivity(intent)
-            showInterstitial(false) {  }
+            forceShowInterstitial {  }
         }
         btnNegative.setOnClickListener {
             dialogCustomExit.dismiss()
@@ -769,6 +769,50 @@ class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRe
             override fun onAdDismissedFullScreenContent() {
                 mInterstitialAd = null
                 if (isReload) loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
+        if (!Utils.checkInternetConnection(this)) {
+            onAdDismissedAction.invoke()
+            return
+        }
+
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
                 SharedPreferenceHelper.storeLong(
                     Constant.TIME_LOAD_NEW_INTER_ADS,
                     Date().time

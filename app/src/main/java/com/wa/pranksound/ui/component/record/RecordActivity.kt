@@ -101,7 +101,7 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
 
     private fun initAction() {
         binding.imgBack.setOnSafeClick {
-            showInterstitial(false) {
+            forceShowInterstitial {
                 finish()
             }
         }
@@ -173,14 +173,7 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             REQUEST_RECORD_AUDIO_PERMISSION -> {
-                // Check if the permission is granted
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, proceed with recording
-//                    binding.llRecordHere.visibility = View.GONE
-//                    binding.llStartRecord.visibility = View.VISIBLE
-                } else {
-                    // Permission denied, handle accordingly (e.g., show a message)
-                }
+
             }
         }
     }
@@ -230,6 +223,7 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
             try {
                 prepare()
             } catch (e: IOException) {
+                e.printStackTrace()
             }
             start()
         }
@@ -504,6 +498,49 @@ class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewMode
             override fun onAdDismissedFullScreenContent() {
                 mInterstitialAd = null
                 if (isReload) loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
+        if (!Utils.checkInternetConnection(this)) {
+            onAdDismissedAction.invoke()
+            return
+        }
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
                 SharedPreferenceHelper.storeLong(
                     Constant.TIME_LOAD_NEW_INTER_ADS,
                     Date().time

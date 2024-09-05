@@ -50,8 +50,8 @@
                                 android:layout_marginStart="@dimen/_2sdp"
                                 android:ellipsize="end"
                                 android:maxLines="2"
-                                android:textColor="@color/text_color"
                                 android:text=""
+                                android:textColor="@color/text_color"
                                 android:textSize="@dimen/_10sdp" />
 
                         </LinearLayout>
@@ -95,6 +95,7 @@
                         android:id="@+id/ad_media"
                         android:layout_width="@dimen/_140sdp"
                         android:layout_height="@dimen/_96sdp"
+                        android:layout_marginEnd="@dimen/_18sdp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/_4sdp"
                         tools:ignore="InefficientWeight" />
@@ -112,7 +113,7 @@
                     android:fontFamily="@font/nunito_bold"
                     android:gravity="center"
                     android:includeFontPadding="false"
-                    android:paddingVertical="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_10sdp"
                     android:text="@string/open"
                     android:textColor="#FFFFFF"
                     android:textSize="@dimen/_14ssp"

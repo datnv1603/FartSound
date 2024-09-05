@@ -35,6 +35,7 @@ import com.wa.pranksound.utils.Utils
 import com.wa.pranksound.utils.ads.AdsConsentManager
 import com.wa.pranksound.utils.ads.NativeAdsUtils.Companion.instance
 import com.wa.pranksound.utils.extention.gone
+import com.wa.pranksound.utils.extention.invisible
 import com.wa.pranksound.utils.extention.setOnSafeClick
 import com.wa.pranksound.utils.extention.visible
 import java.io.IOException
@@ -57,6 +58,14 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
 
     private var isChooseSound: Boolean = false
     private var isLoadedAd: Boolean = false
+    private val listSound: MutableList<Sound> = ArrayList()
+    private val verticalSoundAdapter = VerticalSoundAdapterTest(listSound) { sound ->
+        binding.imgOK.visible()
+        this.sound = sound
+        isChooseSound = true
+        if (isLoadedAd)
+            binding.rlNative.visible()
+    }
 
     override val layoutId: Int
         get() = R.layout.activity_sound_list
@@ -117,26 +126,20 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                 }
 
                 val images = assets.list("prank_sound/$strCateName")
-                val listSound: MutableList<Sound> = ArrayList()
-                checkNotNull(images)
+
 
                 val imageList = ImageLoader.getImageListFromAssets(this, "prank_image/$strCateName")
-
-                for (i in images.indices) {
-                    val sound = if (i >= 10) {
-                        Sound(strCateName, imageList[i], images[i], 0, true, isNew = false)
-                    } else {
-                        Sound(strCateName, imageList[i], images[i], 0, false, isNew = false)
+                if (images != null) {
+                    for (i in images.indices) {
+                        val sound = if (i >= 10) {
+                            Sound(strCateName, imageList[i], images[i], 0, true, isNew = false)
+                        } else {
+                            Sound(strCateName, imageList[i], images[i], 0, false, isNew = false)
+                        }
+                        listSound.add(sound)
                     }
-                    listSound.add(sound)
                 }
-                val verticalSoundAdapter = VerticalSoundAdapterTest(listSound) { sound ->
-                    binding.imgOK.visible()
-                    this.sound = sound
-                    isChooseSound = true
-                    if (isLoadedAd)
-                        binding.rlNative.visible()
-                }
+
                 binding.rvSound.setAdapter(verticalSoundAdapter)
                 binding.imgOK.setOnSafeClick {
                     openSound()
@@ -148,8 +151,8 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
         }
 
         binding.imgBack.setOnSafeClick {
-            onBackPressedDispatcher.onBackPressed()
-            showInterstitial(false) { }
+            finish()
+            forceShowInterstitial { }
         }
     }
 
@@ -172,11 +175,18 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
     override fun onResume() {
         super.onResume()
         Adjust.onResume()
+        if (!isLoadedAd) {
+            loadAds()
+        }
     }
 
     override fun onPause() {
         super.onPause()
         Adjust.onPause()
+        verticalSoundAdapter.onItemFocus(-1)
+        binding.imgOK.invisible()
+        binding.rlNative.gone()
+        isChooseSound = false
     }
 
     private fun loadAds() {
@@ -338,6 +348,50 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
             override fun onAdDismissedFullScreenContent() {
                 mInterstitialAd = null
                 if (isReload) loadInterAd()
+                SharedPreferenceHelper.storeLong(
+                    Constant.TIME_LOAD_NEW_INTER_ADS,
+                    Date().time
+                )
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                mInterstitialAd = null
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                kotlin.runCatching {
+                    onAdDismissedAction.invoke()
+                }.onFailure {
+                    it.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
+        if (!Utils.checkInternetConnection(this)) {
+            onAdDismissedAction.invoke()
+            return
+        }
+
+        if (mInterstitialAd == null) {
+            if (adsConsentManager?.canRequestAds == false) {
+                onAdDismissedAction.invoke()
+                return
+            }
+            onAdDismissedAction.invoke()
+            return
+        }
+        mInterstitialAd?.show(this)
+
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd = null
                 SharedPreferenceHelper.storeLong(
                     Constant.TIME_LOAD_NEW_INTER_ADS,
                     Date().time

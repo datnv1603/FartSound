@@ -19,6 +19,7 @@ object RemoteConfigKey {
     const val IS_SHOW_ADS_NATIVE_LANGUAGE = "is_show_ads_native_language"
     const val IS_SHOW_ADS_NATIVE_HOME = "is_show_ads_native_home"
     const val IS_SHOW_ADS_NATIVE_SOUND = "is_show_ads_native_sound"
+    const val IS_SHOW_ADS_NATIVE_DETAIL_SOUND = "is_show_ads_native_detail_sound"
 
     const val IS_SHOW_ADS_BANNER_MAIN = "is_show_ads_banner_main"
     const val IS_SHOW_ADS_BANNER_RECORD = "is_show_ads_banner_record"
@@ -35,8 +36,10 @@ object RemoteConfigKey {
     const val NATIVE_LANGUAGE = "native_language"
     const val NATIVE_HOME = "native_home"
     const val NATIVE_SOUND = "native_sound"
+    const val NATIVE_DETAIL_SOUND = "native_detail_sound"
 
     const val BANNER_MAIN = "banner_main"
     const val BANNER_RECORD = "banner_record"
     const val BANNER_SOUND = "banner_sound"
+    const val BANNER_SOUND_HIGH = "banner_sound_high"
 }

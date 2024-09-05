@@ -80,8 +80,9 @@
             <TextView
                 android:id="@+id/ad_call_to_action"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_36sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
+                android:paddingVertical="@dimen/_10sdp"
                 android:fontFamily="@font/nunito_bold"
                 android:background="@drawable/background_round_8"
                 android:gravity="center"
