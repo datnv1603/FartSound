@@ -59,7 +59,7 @@
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-            <com.wa.pranksound.utils.rate.ScaleRatingBar
+            <com.joya.pranksound.utils.rate.ScaleRatingBar
                 android:id="@+id/rbRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

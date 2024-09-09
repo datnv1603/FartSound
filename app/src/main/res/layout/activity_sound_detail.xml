@@ -63,7 +63,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.wa.pranksound.utils.customview.StrokeTextView
+            <com.joya.pranksound.utils.customview.StrokeTextView
                 android:id="@+id/tvTitle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

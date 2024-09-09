@@ -44,7 +44,7 @@
 -keepattributes Signature
 
 # Keep classes in your package
--keep class com.wa.** { *; }
+-keep class com.joya.** { *; }
 
 # Optional: Keep Gson's reflective fields and methods
 -keep class com.google.gson.reflect.TypeToken { *; }

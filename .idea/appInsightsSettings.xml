@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.wa.pranksound" />
-                  <option name="mobileSdkAppId" value="1:518771486484:android:de424f3186ab51c02bdc01" />
-                  <option name="projectId" value="prank-sound-c6722" />
-                  <option name="projectNumber" value="518771486484" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
