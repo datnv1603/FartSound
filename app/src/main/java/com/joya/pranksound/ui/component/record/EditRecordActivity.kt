@@ -17,33 +17,17 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import com.adjust.sdk.Adjust
-import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
 import com.arthenica.mobileffmpeg.Config
 import com.arthenica.mobileffmpeg.Config.RETURN_CODE_CANCEL
 import com.arthenica.mobileffmpeg.Config.RETURN_CODE_SUCCESS
 import com.arthenica.mobileffmpeg.FFmpeg
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdValue
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.OnPaidEventListener
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.joya.pranksound.R
-import com.joya.pranksound.common.Constant
-import com.joya.pranksound.data.SharedPreferenceHelper
 import com.joya.pranksound.databinding.ActivityEditRecordBinding
 import com.joya.pranksound.model.Record
 import com.joya.pranksound.ui.base.BaseBindingActivity
 import com.joya.pranksound.ui.component.main.MainActivity
-import com.joya.pranksound.utils.RemoteConfigKey
 import com.joya.pranksound.utils.Utils
 import com.joya.pranksound.utils.extention.gone
 import com.joya.pranksound.utils.extention.invisible
@@ -57,9 +41,6 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.math.pow
 
 class EditRecordActivity : BaseBindingActivity<ActivityEditRecordBinding, EditRecordViewModel>() {
 

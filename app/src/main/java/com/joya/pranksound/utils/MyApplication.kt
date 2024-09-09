@@ -2,12 +2,8 @@ package com.joya.pranksound.utils
 
 import android.app.Application
 import android.content.res.Configuration
-import com.adjust.sdk.Adjust
-import com.adjust.sdk.AdjustConfig
-import com.adjust.sdk.LogLevel
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
-import com.joya.pranksound.R
 import com.joya.pranksound.data.SharedPreferenceHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

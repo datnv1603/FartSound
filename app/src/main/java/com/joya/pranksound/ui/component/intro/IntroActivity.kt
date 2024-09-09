@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.joya.pranksound.R
 import com.joya.pranksound.ui.component.main.MainActivity
 import com.joya.pranksound.common.Constant
@@ -12,16 +11,12 @@ import com.joya.pranksound.data.SharedPreferenceHelper
 import com.joya.pranksound.databinding.ActivityIntroBinding
 import com.joya.pranksound.ui.adapter.IntroAdapter
 import com.joya.pranksound.ui.base.BaseBindingActivity
-import com.joya.pranksound.utils.RemoteConfigKey
 import com.joya.pranksound.utils.extention.setOnSafeClick
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class IntroActivity : BaseBindingActivity<ActivityIntroBinding, IntroViewModel>() {
-
-    private val keyNative =
-        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_INTRO)
 
     private val introAdapter: IntroAdapter by lazy { IntroAdapter() }
     override val layoutId: Int

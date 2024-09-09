@@ -11,44 +11,21 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.adjust.sdk.Adjust
-import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdValue
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.OnPaidEventListener
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.joya.pranksound.R
-import com.joya.pranksound.common.Constant
-import com.joya.pranksound.data.SharedPreferenceHelper
 import com.joya.pranksound.databinding.ActivityRecordBinding
 import com.joya.pranksound.ui.base.BaseBindingActivity
-import com.joya.pranksound.utils.RemoteConfigKey
-import com.joya.pranksound.utils.Utils
 import com.joya.pranksound.utils.extention.gone
 import com.joya.pranksound.utils.extention.invisible
 import com.joya.pranksound.utils.extention.setOnSafeClick
 import com.joya.pranksound.utils.extention.visible
 import java.io.File
 import java.io.IOException
-import java.util.Date
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.math.pow
 
 class RecordActivity : BaseBindingActivity<ActivityRecordBinding, RecordViewModel>() {
 

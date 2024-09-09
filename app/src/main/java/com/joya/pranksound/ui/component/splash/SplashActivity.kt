@@ -4,32 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import com.adjust.sdk.Adjust
-import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdapterResponseInfo
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.OnPaidEventListener
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.joya.pranksound.R
 import com.joya.pranksound.common.Constant
-import com.joya.pranksound.data.SharedPreferenceHelper
 import com.joya.pranksound.databinding.ActivitySplashBinding
 import com.joya.pranksound.ui.base.BaseBindingActivity
 import com.joya.pranksound.ui.component.multilang.MultiLangActivity
-import com.joya.pranksound.utils.RemoteConfigKey
-import com.joya.pranksound.utils.Utils
 import com.joya.pranksound.utils.extention.setStatusBarColor
-import timber.log.Timber
-import java.util.Date
-import java.util.concurrent.atomic.AtomicBoolean
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewModel>() {
@@ -44,9 +24,6 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding, SplashViewMode
         super.onCreate(savedInstanceState)
         init()
 
-//        if (!Utils.checkInternetConnection(this)) {
-//            viewModel.starTimeCount(5000)
-//        }
         viewModel.starTimeCount(5000)
     }
 
