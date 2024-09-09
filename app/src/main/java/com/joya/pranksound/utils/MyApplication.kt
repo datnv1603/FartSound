@@ -19,7 +19,6 @@ class MyApplication : Application() {
         super.onCreate()
         SharedPreferenceHelper(this)
         loadConfig()
-        initTrackingAdjust()
     }
 
     private fun loadConfig() {
@@ -31,21 +30,12 @@ class MyApplication : Application() {
                     .setMinimumFetchIntervalInSeconds(60)
                     .build()
                 firebaseRemoteConfig.setConfigSettingsAsync(configSettings).await()
-                firebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults).await()
                 firebaseRemoteConfig.fetchAndActivate().await()
 
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-    }
-
-    private fun initTrackingAdjust() {
-        val appToken = "mrqc3c5bkow0"
-        val environment = AdjustConfig.ENVIRONMENT_PRODUCTION
-        val config = AdjustConfig(this, appToken, environment)
-        config.setLogLevel(LogLevel.WARN)
-        Adjust.onCreate(config)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

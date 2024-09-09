@@ -62,7 +62,7 @@
             android:layout_height="0dp"
             android:background="@drawable/bg_sub_main"
             android:paddingHorizontal="@dimen/_12sdp"
-            app:layout_constraintBottom_toTopOf="@id/rl_banner"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rlLet">
 
             <LinearLayout
@@ -323,21 +323,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="parent" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <FrameLayout
-            android:id="@+id/rl_banner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <include
-                android:id="@+id/ads_banner"
-                layout="@layout/ads_banner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

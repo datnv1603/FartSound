@@ -48,49 +48,41 @@ class LeaderBoardFragment : Fragment() {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "air_horn")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewHairClipper.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "hair_clipper")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewFart.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "fart")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewGhost.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "ghost")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewHalloween.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "halloween")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewSnore.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "snore")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewGun.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "gun")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
         binding.viewCountDown.setOnSafeClick {
             val intent = Intent(context, SoundListActivity::class.java)
             intent.putExtra(KeyClass.cate_name, "count_down")
             requireContext().startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
     }
 

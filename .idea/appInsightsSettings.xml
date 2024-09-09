@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.joya.pranksound" />
+                  <option name="mobileSdkAppId" value="1:751379100606:android:c9ece91f657178e7a6bfef" />
+                  <option name="projectId" value="fart-sound-efed6" />
+                  <option name="projectNumber" value="751379100606" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -22,7 +22,7 @@
             android:layout_margin="@dimen/_12sdp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/rl_native">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                 android:id="@+id/dotsIndicator"
@@ -55,26 +55,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_native"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_40sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_goneMarginTop="@dimen/_4sdp">
-
-            <FrameLayout
-                android:id="@+id/fr_native_ads"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <include layout="@layout/ads_native_shimmer" />
-            </FrameLayout>
-        </RelativeLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

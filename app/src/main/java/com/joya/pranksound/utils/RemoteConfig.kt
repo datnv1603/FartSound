@@ -26,7 +26,6 @@ class RemoteConfig {
             .build()
 
         mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings)
-        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults)
     }
     fun isEnableAOA(): Boolean{
         mFirebaseRemoteConfig.fetchAndActivate().addOnCompleteListener { task ->

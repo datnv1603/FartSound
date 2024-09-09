@@ -88,28 +88,11 @@
                 android:layout_height="0dp"
                 android:paddingHorizontal="@dimen/_12sdp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/rl_native"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:spanCount="3" />
-
-            <RelativeLayout
-                android:id="@+id/rl_native"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="1.0">
-
-                <FrameLayout
-                    android:id="@+id/fr_native_ads"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <include layout="@layout/ads_native_shimmer" />
-                </FrameLayout>
-            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

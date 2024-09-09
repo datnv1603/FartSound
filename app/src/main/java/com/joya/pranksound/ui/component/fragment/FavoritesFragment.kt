@@ -63,7 +63,6 @@ class FavoritesFragment : Fragment() {
             binding.rvSound.visible()
             val verticalSoundAdapter =
                 VerticalFavoriteSoundAdapter(arrFavPrankSound as List<InsertPrankSound>) {
-                    mMainActivity.showInterstitial { }
                 }
             binding.rvSound.setAdapter(verticalSoundAdapter)
         } else {

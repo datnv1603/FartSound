@@ -2,69 +2,27 @@ package com.joya.pranksound.ui.component.sound
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import com.adjust.sdk.Adjust
-import com.adjust.sdk.AdjustAdRevenue
-import com.adjust.sdk.AdjustConfig
-import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdValue
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.OnPaidEventListener
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.google.android.gms.ads.nativead.NativeAd
-import com.google.android.gms.ads.nativead.NativeAdView
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.joya.pranksound.R
 import com.joya.pranksound.adapter.VerticalSoundAdapterTest
-import com.joya.pranksound.common.Constant
-import com.joya.pranksound.data.SharedPreferenceHelper
 import com.joya.pranksound.databinding.ActivitySoundListBinding
-import com.joya.pranksound.databinding.AdNativeVideoBinding
 import com.joya.pranksound.model.Sound
 import com.joya.pranksound.ui.base.BaseBindingActivity
 import com.joya.pranksound.utils.ImageLoader
 import com.joya.pranksound.utils.KeyClass
-import com.joya.pranksound.utils.RemoteConfigKey
-import com.joya.pranksound.utils.Utils
-import com.joya.pranksound.utils.ads.AdsConsentManager
-import com.joya.pranksound.utils.ads.NativeAdsUtils.Companion.instance
-import com.joya.pranksound.utils.extention.gone
 import com.joya.pranksound.utils.extention.invisible
 import com.joya.pranksound.utils.extention.setOnSafeClick
 import com.joya.pranksound.utils.extention.visible
 import java.io.IOException
-import java.util.Date
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.math.pow
 
 class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundListViewModel>() {
-    private var adsConsentManager: AdsConsentManager? = null
-    private val isAdsInitializeCalled = AtomicBoolean(false)
-    private val mFirebaseAnalytics: FirebaseAnalytics = FirebaseAnalytics.getInstance(this)
-    private var mInterstitialAd: InterstitialAd? = null
-    private var retryAttempt = 0.0
-
-    private var keyNative: String =
-        FirebaseRemoteConfig.getInstance().getString(RemoteConfigKey.NATIVE_SOUND)
 
     private var sound: Sound? = null
 
-    private var isChooseSound: Boolean = false
-    private var isLoadedAd: Boolean = false
     private val listSound: MutableList<Sound> = ArrayList()
     private val verticalSoundAdapter = VerticalSoundAdapterTest(listSound) { sound ->
         binding.imgOK.visible()
         this.sound = sound
-        isChooseSound = true
-        if (isLoadedAd)
-            binding.rlNative.visible()
     }
 
     override val layoutId: Int
@@ -77,9 +35,7 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
     }
 
     override fun setupData() {
-        initAdsManager()
         findView()
-        loadAds()
     }
 
     private fun findView() {
@@ -143,7 +99,6 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
                 binding.rvSound.setAdapter(verticalSoundAdapter)
                 binding.imgOK.setOnSafeClick {
                     openSound()
-                    showInterstitial { }
                 }
             }
         } catch (e: IOException) {
@@ -152,7 +107,6 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
 
         binding.imgBack.setOnSafeClick {
             finish()
-            forceShowInterstitial { }
         }
     }
 
@@ -172,248 +126,11 @@ class SoundListActivity : BaseBindingActivity<ActivitySoundListBinding, SoundLis
         return soundName[0]
     }
 
-    override fun onResume() {
-        super.onResume()
-        Adjust.onResume()
-        if (!isLoadedAd) {
-            loadAds()
-        }
-    }
 
     override fun onPause() {
         super.onPause()
         Adjust.onPause()
         verticalSoundAdapter.onItemFocus(-1)
         binding.imgOK.invisible()
-        binding.rlNative.gone()
-        isChooseSound = false
-    }
-
-    private fun loadAds() {
-        loadNativeAd()
-    }
-
-    private fun loadNativeAd() {
-        if (FirebaseRemoteConfig.getInstance()
-                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_NATIVE_SOUND)
-        ) {
-            loadNativeAds(keyNative)
-        } else {
-            binding.rlNative.gone()
-        }
-    }
-
-    private fun loadNativeAds(keyAds: String) {
-        instance.loadNativeAds(
-            applicationContext,
-            keyAds,
-            { nativeAds: NativeAd? ->
-                if (nativeAds != null) {
-                    isLoadedAd = true
-                    if (isChooseSound) {
-                        binding.rlNative.visible()
-                    }
-                    val adNativeVideoBinding = AdNativeVideoBinding.inflate(layoutInflater)
-                    instance.populateNativeAdVideoView(
-                        nativeAds,
-                        (adNativeVideoBinding.root as NativeAdView),
-                        true
-                    )
-                    binding.frNativeAds.removeAllViews()
-                    binding.frNativeAds.addView(adNativeVideoBinding.root)
-                }
-            },
-            {
-                // On native ad clicked
-                openSound()
-            }
-        )
-    }
-
-    private fun initAdsManager() {
-        adsConsentManager = AdsConsentManager.getInstance(this)
-        adsConsentManager?.gatherConsent(this) { consentError ->
-            if (consentError != null) {
-
-                initializeMobileAdsSdk()
-            }
-
-            if (adsConsentManager?.canRequestAds == true) {
-                initializeMobileAdsSdk()
-            }
-        }
-
-        if (adsConsentManager?.canRequestAds == true) {
-            initializeMobileAdsSdk()
-        }
-    }
-
-    private fun initializeMobileAdsSdk() {
-        if (isAdsInitializeCalled.getAndSet(true)) {
-            return
-        }
-        try {
-            MobileAds.initialize(this) { }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-        loadInterAd()
-    }
-
-    private fun loadInterAd() {
-        if (FirebaseRemoteConfig.getInstance()
-                .getBoolean(RemoteConfigKey.IS_SHOW_ADS_INTER_SOUND)
-        ) {
-            val keyAdInterAllPrice = FirebaseRemoteConfig.getInstance()
-                .getString(RemoteConfigKey.INTER_SOUND)
-            loadInterAdsMain(keyAdInterAllPrice)
-        }
-    }
-
-    private fun loadInterAdsMain(keyAdInter: String) {
-        InterstitialAd.load(
-            this,
-            keyAdInter,
-            AdRequest.Builder().build(),
-            object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(adError: LoadAdError) {
-                    mFirebaseAnalytics.logEvent("e_load_inter_splash", null)
-                    mInterstitialAd = null
-
-                    retryAttempt++
-                    if (retryAttempt < 4) {
-                        val delayMillis = TimeUnit.SECONDS.toMillis(
-                            2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong()
-                        )
-                        Handler(Looper.getMainLooper()).postDelayed({ loadInterAd() }, delayMillis)
-                    }
-                }
-
-                override fun onAdLoaded(ad: InterstitialAd) {
-                    mFirebaseAnalytics.logEvent("d_load_inter_splash", null)
-                    mInterstitialAd = ad
-                    retryAttempt = 0.0
-                    mInterstitialAd!!.onPaidEventListener =
-                        OnPaidEventListener { adValue: AdValue ->
-                            val loadedAdapterResponseInfo =
-                                mInterstitialAd!!.responseInfo.loadedAdapterResponseInfo
-                            val adRevenue = AdjustAdRevenue(AdjustConfig.AD_REVENUE_ADMOB)
-                            val revenue = adValue.valueMicros / 1000000.0
-                            adRevenue.setRevenue(revenue, adValue.currencyCode)
-                            adRevenue.adRevenueNetwork = loadedAdapterResponseInfo?.adSourceName
-                            Adjust.trackAdRevenue(adRevenue)
-
-                            val analytics = FirebaseAnalytics.getInstance(this@SoundListActivity)
-                            val params = Bundle()
-                            params.putString(FirebaseAnalytics.Param.AD_PLATFORM, "admob mediation")
-                            params.putString(FirebaseAnalytics.Param.AD_SOURCE, "AdMob")
-                            params.putString(FirebaseAnalytics.Param.AD_FORMAT, "Interstitial")
-                            params.putDouble(FirebaseAnalytics.Param.VALUE, revenue)
-                            params.putString(FirebaseAnalytics.Param.CURRENCY, "USD")
-                            analytics.logEvent("ad_impression_2", params)
-                        }
-                }
-            }
-        )
-    }
-
-    fun showInterstitial(isReload: Boolean = true, onAdDismissedAction: () -> Unit) {
-        if (!Utils.checkInternetConnection(this)) {
-            onAdDismissedAction.invoke()
-            return
-        }
-        val timeLoad = FirebaseRemoteConfig.getInstance()
-            .getLong(RemoteConfigKey.INTER_DELAY)
-
-        val timeSubtraction =
-            Date().time - SharedPreferenceHelper.getLong(Constant.TIME_LOAD_NEW_INTER_ADS)
-        if (timeSubtraction <= timeLoad) {
-            onAdDismissedAction.invoke()
-            return
-        }
-
-        if (mInterstitialAd == null) {
-            if (adsConsentManager?.canRequestAds == false) {
-                onAdDismissedAction.invoke()
-                return
-            }
-            onAdDismissedAction.invoke()
-            loadInterAd()
-            return
-        }
-        mInterstitialAd?.show(this)
-
-        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdDismissedFullScreenContent() {
-                mInterstitialAd = null
-                if (isReload) loadInterAd()
-                SharedPreferenceHelper.storeLong(
-                    Constant.TIME_LOAD_NEW_INTER_ADS,
-                    Date().time
-                )
-            }
-
-            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                mInterstitialAd = null
-                kotlin.runCatching {
-                    onAdDismissedAction.invoke()
-                }.onFailure {
-                    it.printStackTrace()
-                }
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                kotlin.runCatching {
-                    onAdDismissedAction.invoke()
-                }.onFailure {
-                    it.printStackTrace()
-                }
-            }
-        }
-    }
-
-    fun forceShowInterstitial(onAdDismissedAction: () -> Unit) {
-        if (!Utils.checkInternetConnection(this)) {
-            onAdDismissedAction.invoke()
-            return
-        }
-
-        if (mInterstitialAd == null) {
-            if (adsConsentManager?.canRequestAds == false) {
-                onAdDismissedAction.invoke()
-                return
-            }
-            onAdDismissedAction.invoke()
-            return
-        }
-        mInterstitialAd?.show(this)
-
-        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdDismissedFullScreenContent() {
-                mInterstitialAd = null
-                SharedPreferenceHelper.storeLong(
-                    Constant.TIME_LOAD_NEW_INTER_ADS,
-                    Date().time
-                )
-            }
-
-            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
-                mInterstitialAd = null
-                kotlin.runCatching {
-                    onAdDismissedAction.invoke()
-                }.onFailure {
-                    it.printStackTrace()
-                }
-            }
-
-            override fun onAdShowedFullScreenContent() {
-                kotlin.runCatching {
-                    onAdDismissedAction.invoke()
-                }.onFailure {
-                    it.printStackTrace()
-                }
-            }
-        }
     }
 }

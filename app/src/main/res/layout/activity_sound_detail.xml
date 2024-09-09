@@ -196,21 +196,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <FrameLayout
-                android:id="@+id/rlBannerTop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_gravity="bottom"
-                app:layout_constraintTop_toBottomOf="@id/rlFunction">
-
-                <include
-                    android:id="@+id/ads_banner_top"
-                    layout="@layout/ads_banner2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </FrameLayout>
-
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation"
                 android:layout_width="@dimen/_250sdp"
@@ -233,7 +218,7 @@
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rlBannerTop"
+                app:layout_constraintTop_toBottomOf="@id/rlFunction"
                 app:layout_constraintBottom_toTopOf="@id/tvCountTime"
                 android:contentDescription="@string/item_image"/>
 
@@ -306,7 +291,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/llVolume"
-                app:layout_constraintBottom_toTopOf="@id/rl_native">
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -324,22 +309,6 @@
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/rl_native"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_2sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="1.0"
-                app:layout_goneMarginTop="@dimen/_4sdp">
-                <FrameLayout
-                    android:id="@+id/fr_native_ads"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <include layout="@layout/ads_native_shimmer" />
-                </FrameLayout>
-            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

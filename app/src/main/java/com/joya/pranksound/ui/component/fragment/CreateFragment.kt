@@ -44,7 +44,6 @@ class CreateFragment : Fragment() {
         binding.btnCreateEffect.setOnClickListener {
             val intent = Intent(requireActivity(), RecordActivity::class.java)
             startActivity(intent)
-            mMainActivity.showInterstitial { }
         }
 
         val list = Utils.getAudioList(requireActivity())
@@ -55,7 +54,6 @@ class CreateFragment : Fragment() {
             binding.txtNoFoundTitle.visibility = View.VISIBLE
         } else {
             recordAdapter = RecordAdapter(list) {
-                mMainActivity.showInterstitial { }
             }
             binding.rcvRecord.layoutManager =
                 LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
